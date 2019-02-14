@@ -1,12 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './Weather.css';
+import { months} from '../../constnants/months';
 import { weatherUrl } from '../../urls';
 import PropTypes from 'prop-types';
 import { getWeatherFromUrl } from '../../services/serviceWorker';
 import { addWeather } from '../../actions/action';
 
 class Weather extends Component {
+  constructor() {
+    super();
+
+    var today = new Date(),
+    date = months[(today.getMonth())] + ' ' + today.getDate() + ', ' + today.getFullYear();
+
+    this.state = {
+      date: date
+    }
+  }
+
   static propTypes = {
     weather: PropTypes.object,
     addWeather: PropTypes.func,
@@ -31,7 +43,8 @@ class Weather extends Component {
         <div align="center">
           <h2>{main.temp - 273.15} Cº</h2>
           <p>{weather[0].main}</p>
-          <p>Barcelona</p>
+          <p>Barcelona</p>       
+          <p>{this.state.date}</p>
         </div>
       );
     }
