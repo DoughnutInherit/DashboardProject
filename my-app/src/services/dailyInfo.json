@@ -1,0 +1,21 @@
+{
+  "events": [
+  { "title":"Benvingut Xavier Andreu",
+    "description":"Avui ens visitara Xavi, CEO de Google i  productor financer de Amazon",
+    "alert":false,
+    "dateIni":"2014-02-01T23:28:56.782Z",
+    "dateEnd":"2014-02-01T23:28:56.782Z"
+  }
+  ],
+  "birthday":[
+    {
+      "name": "Nacho Cebey",
+      "imageUrl": "https://www.abqsa.com/wp-content/uploads/2013/05/anonimo.png"
+    },
+    {
+      "name": "Pepe Valls",
+      "imageUrl": "https://www.abqsa.com/wp-content/uploads/2013/05/anonimo.png"
+    }
+    ]
+
+}
