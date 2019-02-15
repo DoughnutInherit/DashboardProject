@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './Weather.css';
 import PropTypes from 'prop-types';
-import { months } from '../../constnants/months';
+import { months } from '../../constants/months';
 import { weatherUrl } from '../../urls';
 import { getWeatherFromUrl } from '../../services/serviceWorker';
 import { addWeather, setActualDate } from '../../actions/actionWeather';
