@@ -8,6 +8,7 @@ import { getWeatherFromUrl } from '../../services/serviceWorker';
 import { addWeather, setActualDate } from '../../actions/actionWeather';
 
 class Weather extends Component {
+
   static propTypes = {
     weather: PropTypes.object,
     addWeather: PropTypes.func,
@@ -18,7 +19,7 @@ class Weather extends Component {
 
   componentDidMount = () => {
     var today = new Date();
-    let date = months[(today.getMonth())] + ' ' + today.getDate() + ', ' + today.getFullYear();
+    let date = months[today.getMonth()] + ' ' + (today.getDate()) + ', ' + today.getFullYear();
     this.props.setActualDate(date);
     const url = weatherUrl();
     getWeatherFromUrl(url)
@@ -36,7 +37,7 @@ class Weather extends Component {
       return (
         <div align="center">
           <h2>
-            {main.temp - 273.15}
+            {main.temp}
             Cº
           </h2>
           <p>{weather[0].main}</p>
