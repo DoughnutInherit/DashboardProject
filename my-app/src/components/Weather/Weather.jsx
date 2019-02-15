@@ -8,7 +8,6 @@ import { getWeatherFromUrl } from '../../services/serviceWorker';
 import { addWeather, setActualDate } from '../../actions/actionWeather';
 
 class Weather extends Component {
-
   static propTypes = {
     weather: PropTypes.object,
     addWeather: PropTypes.func,

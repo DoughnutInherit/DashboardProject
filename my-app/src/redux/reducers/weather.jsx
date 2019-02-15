@@ -6,7 +6,6 @@ const initialState = {
 };
 
 const weatherReducer = (state = initialState, action) => {
-  debugger;
   switch (action.type) {
     case actionWeather.ADD_LIST:
       return { ...state, weather: action.weather };
