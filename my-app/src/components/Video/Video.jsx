@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-//import colors from '../../constants/colors.mp4';
+import { video } from '../../constants/constants';
 
 class Video extends Component {
   render() {
@@ -7,7 +7,7 @@ class Video extends Component {
     return (
       <div align="center">
         <video width="750" height="240" autoPlay={true} loop muted={true}>
-          <source src="https://www.w3schools.com/tags/movie.mp4" type="video/mp4" />
+          <source src={video} type="video/mp4" />
         </video>
       </div>
     );
