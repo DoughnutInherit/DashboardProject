@@ -1,1 +1,0 @@
-export const weatherUrl = () => 'https://api.openweathermap.org/data/2.5/weather?q=barcelona&units=metric&appid=c51a88807c66237f50daf2bda22a8a10';
