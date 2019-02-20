@@ -1,6 +1,7 @@
 ﻿using DasboardProjectBE.ServiceLibrary.Common.Contracts;
 using DasboardProjectBE.ServiceLibrary.Common.Dto;
 using DasboardProjectBE.ServiceLibrary.Common.Dto.Extensions;
+using DasboardProjectBE.ServiceLibrary.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,22 +34,22 @@ namespace DasboardProjectBE.ServiceLibrary.Services
 
         public async Task<EventDto> UpdateAsync(EventDto eventDto)
         {
-            EventDto originalEvent = await UpdateOriginalSpeakerAsync(eventDto);
-            var updatedSpeaker = await eventRepository.UpdateAsync(originalEvent.ToEntity());
+            var originalEvent = await UpdateOriginalSpeakerAsync(eventDto);
+            var updatedSpeaker = await eventRepository.UpdateAsync(originalEvent);
             var count = await eventRepository.SaveChangesAsync();
 
             return updatedSpeaker.ToDto();
         }
 
-        private async Task<EventDto> UpdateOriginalSpeakerAsync(EventDto eventDto)
+        private async Task<EventEntity> UpdateOriginalSpeakerAsync(EventDto eventDto)
         {
-            var originalEvent = await eventRepository.GetByIdAsync(eventDto.Id);
+            EventEntity originalEvent = await eventRepository.GetByIdAsync(eventDto.Id);
             originalEvent.Description = eventDto.Description;
             originalEvent.EntryDate = eventDto.EntryDate;
             originalEvent.DepartureDate = eventDto.DepartureDate;
             originalEvent.TypeId = eventDto.TypeId;
 
-            return originalEvent.ToDto();
+            return originalEvent;
         }
 
         public async Task<bool> DeleteAsync(int id)

@@ -36,27 +36,15 @@ namespace DasboardProjectBE.Data.Repositories
             return await Task.FromResult(result);
         }
 
-        public virtual async Task<bool> DeleteAsync(TEntity entity)
-        {
-            await Task.FromResult(context.Entry(entity).State = EntityState.Deleted);
-            return true;
-        }
+        public virtual async Task DeleteAsync(TEntity entity)
+            => await Task.FromResult(context.Entry(entity).State = EntityState.Deleted);
 
         public virtual async Task<TEntity> UpdateAsync(TEntity entity)
             => await Task.FromResult(context.Update(entity).Entity);
 
-        public virtual Task<bool> DeleteAsync(TKey id)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<TEntity> GetByIdAsync(TKey id)
             => await context.Set<TEntity>().FindAsync(id);
 
-        Task IAsyncRepository<TKey, TEntity>.DeleteAsync(TEntity entity)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
 
