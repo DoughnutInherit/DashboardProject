@@ -9,7 +9,6 @@ import icons from '../../constants/icons/icons';
 
 
 class Weather extends Component {
-
   static propTypes = {
     weather: PropTypes.object,
     addWeather: PropTypes.func,
