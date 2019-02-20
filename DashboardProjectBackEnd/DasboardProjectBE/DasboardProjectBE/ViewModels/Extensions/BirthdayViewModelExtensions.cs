@@ -14,7 +14,8 @@ namespace DasboardProjectBE.ViewModels.Extensions
             {
                 Id = self.Id,
                 CompleteName = self.CompleteName,
-                Day = self.Day
+                Day = self.Day,
+                ImageUrl = self.ImageUrl
             };
         }
 
@@ -24,7 +25,8 @@ namespace DasboardProjectBE.ViewModels.Extensions
             {
                 Id = self.Id,
                 CompleteName = self.CompleteName,
-                Day = self.Day
+                Day = self.Day,
+                ImageUrl = self.ImageUrl
             };
         }
     }

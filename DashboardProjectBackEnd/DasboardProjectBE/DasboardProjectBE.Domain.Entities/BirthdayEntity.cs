@@ -6,7 +6,8 @@ namespace DasboardProjectBE.ServiceLibrary.Entities
 {
     public class BirthdayEntity : EntityBase<int>
     {
-        public string CompleteName;
+        public string CompleteName { get; set; }
         public DateTime Day { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

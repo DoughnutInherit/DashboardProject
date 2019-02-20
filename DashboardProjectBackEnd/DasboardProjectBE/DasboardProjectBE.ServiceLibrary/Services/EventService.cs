@@ -34,14 +34,14 @@ namespace DasboardProjectBE.ServiceLibrary.Services
 
         public async Task<EventDto> UpdateAsync(EventDto eventDto)
         {
-            var originalEvent = await UpdateOriginalSpeakerAsync(eventDto);
+            var originalEvent = await UpdateOriginalEventAsync(eventDto);
             var updatedSpeaker = await eventRepository.UpdateAsync(originalEvent);
             var count = await eventRepository.SaveChangesAsync();
 
             return updatedSpeaker.ToDto();
         }
 
-        private async Task<EventEntity> UpdateOriginalSpeakerAsync(EventDto eventDto)
+        private async Task<EventEntity> UpdateOriginalEventAsync(EventDto eventDto)
         {
             EventEntity originalEvent = await eventRepository.GetByIdAsync(eventDto.Id);
             originalEvent.Description = eventDto.Description;

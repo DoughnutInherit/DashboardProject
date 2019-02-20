@@ -14,6 +14,7 @@ namespace DasboardProjectBE.ServiceLibrary.Common.Dto.Extensions
                 Id = self.Id,
                 CompleteName = self.CompleteName,
                 Day = self.Day,
+                ImageUrl = self.ImageUrl
             };
         }
 
@@ -24,6 +25,7 @@ namespace DasboardProjectBE.ServiceLibrary.Common.Dto.Extensions
                 Id = self.Id,
                 CompleteName = self.CompleteName,
                 Day = self.Day,
+                ImageUrl = self.ImageUrl
             };
         }
     }
