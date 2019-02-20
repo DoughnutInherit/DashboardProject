@@ -7,8 +7,7 @@ const initialState = {
 const appointmentReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionAppointment.SET_EVENT:
-    debugger;
-      return { ...state, weather: action.event };
+      return { ...state, event: action.event };
     default:
       return state;
   }

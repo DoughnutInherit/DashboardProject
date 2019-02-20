@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { setEvent } from '../../actions/actionAppointment';
 import './Appointment.css';
+import dailyInfo from '../../services/dailyInfo.json';
 
 class Appointment extends Component {
   static propTypes = {
@@ -11,26 +12,17 @@ class Appointment extends Component {
   }
 
   componentDidMount = () => {
-    this.props.setEvent('hola');
-    const url= './services/dailyInfo.json';
-    fetch(url)
-      .then(response => response.json())
-      .then(json => console.log(json));
-  // Aui d problemas, consigue pillar la ino del json i guardarlo en el evento haciendo:
-  // this.props.setEvent(la info de el json)
-  // Luego despliegas los datos que encesites en elr ender (this.props.event.title)
+    this.props.setEvent(dailyInfo.events[0]);
   };
 
   render() {
-    debugger;
-    //
     return (
       <div>
         <div>
-          <h4> Próximas visitas </h4>
+          <h4>{this.props.event.title}</h4>
         </div>
         <div>
-          <p>El jueves 29 nos visitara Alguien</p>
+          <p>{this.props.event.description}</p>
         </div>
       </div>
     );
