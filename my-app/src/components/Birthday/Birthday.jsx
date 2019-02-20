@@ -26,8 +26,8 @@ class Birthday extends Component {
       birthdayList === undefined ? <p> Undefined </p>
         : (
           <div align="center" className="try">
-            <img src={birthdayList[0].imageUrl} alt="Logo" />
-            <h5>{birthdayList.name}</h5>
+            {/* <img src={birthdayList[0].imageUrl} alt="Logo" />
+            <h5>{birthdayList.name}</h5> */}
 
           </div>
         )
