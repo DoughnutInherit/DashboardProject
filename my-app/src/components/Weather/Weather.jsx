@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './Weather.css';
 import PropTypes from 'prop-types';
-import { months } from '../../constants/months';
-import { weatherUrl } from '../../urls';
+import { months, weatherUrl } from '../../constants/constants';
 import { getWeatherFromUrl } from '../../services/serviceWorker';
 import { addWeather, setActualDate } from '../../actions/actionWeather';
+import icons from '../../constants/icons/icons';
 
 class Weather extends Component {
   static propTypes = {
@@ -16,17 +16,28 @@ class Weather extends Component {
     date: PropTypes.string,
   }
 
-  componentDidMount = () => {
-    var today = new Date();
+  weatherComponent = (url, today) => {
+    today = new Date();
     let date = months[today.getMonth()] + ' ' + (today.getDate()) + ', ' + today.getFullYear();
     this.props.setActualDate(date);
-    const url = weatherUrl();
+    
     getWeatherFromUrl(url)
       .then(response => this.props.addWeather(response))
       .catch(e => {
         const { message, stack } = e;
         return this.props.getError({ message, stack });
       });
+}
+
+  componentDidMount = () => {
+    const url = weatherUrl();
+    var today = new Date();
+    this.weatherComponent(url, today);
+    setInterval(() => {
+        this.weatherComponent(url, today);
+      }
+    , 30000)
+    
   };
 
   render() {
@@ -39,6 +50,7 @@ class Weather extends Component {
             {main.temp}
             Cº
           </h2>
+          <img src={icons[weather[0].icon]} alt={weather[0].description}/>
           <p>{weather[0].main}</p>
           <p>Barcelona</p>
           <p>{this.props.date}</p>
