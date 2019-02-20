@@ -17,17 +17,28 @@ class Weather extends Component {
     date: PropTypes.string,
   }
 
-  componentDidMount = () => {
-    var today = new Date();
+  weatherComponent = (url, today) => {
+    today = new Date();
     let date = months[today.getMonth()] + ' ' + (today.getDate()) + ', ' + today.getFullYear();
     this.props.setActualDate(date);
-    const url = weatherUrl();
+    
     getWeatherFromUrl(url)
       .then(response => this.props.addWeather(response))
       .catch(e => {
         const { message, stack } = e;
         return this.props.getError({ message, stack });
       });
+}
+
+  componentDidMount = () => {
+    const url = weatherUrl();
+    var today = new Date();
+    this.weatherComponent(url, today);
+    setInterval(() => {
+        this.weatherComponent(url, today);
+      }
+    , 30000)
+    
   };
 
   render() {
