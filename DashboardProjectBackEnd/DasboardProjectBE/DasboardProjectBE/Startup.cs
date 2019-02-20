@@ -32,7 +32,10 @@ namespace DasboardProjectBE
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            
             services.AddSingleton<IUnitOfWork>(new UnitOfWork(Configuration.GetConnectionString("DataBaseConnection")));
+            services.AddDbContext<DasboardDBContext>(
+                option => option.UseSqlServer(Configuration.GetConnectionString("DataBaseConnection")));
             IocRegister.AddRegistration(services);
         }
 

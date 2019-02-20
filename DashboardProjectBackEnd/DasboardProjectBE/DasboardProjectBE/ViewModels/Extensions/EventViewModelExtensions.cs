@@ -16,7 +16,7 @@ namespace DasboardProjectBE.ViewModels.Extensions
                 Description = self.Description,
                 EntryDate = self.EntryDate,
                 DepartureDate = self.DepartureDate,
-                Type = self.Type.ToViewModel()
+                TypeId = self.TypeId,
             };
         }
 
@@ -28,7 +28,7 @@ namespace DasboardProjectBE.ViewModels.Extensions
                 Description = self.Description,
                 EntryDate = self.EntryDate,
                 DepartureDate = self.DepartureDate,
-                Type = self.Type.ToDto(),
+                TypeId = self.TypeId,
             };
         }
     }

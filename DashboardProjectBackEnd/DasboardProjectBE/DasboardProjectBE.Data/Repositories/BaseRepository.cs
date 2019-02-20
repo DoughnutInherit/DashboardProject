@@ -19,13 +19,10 @@ namespace DasboardProjectBE.Data.Repositories
         protected BaseRepository(IUnitOfWork unitOfWork)
             => context = unitOfWork.Context ?? throw new ArgumentNullException(nameof(context));
 
-        public virtual async Task<TEntity> FindByIdAsync(TKey id)
-            => await context.Set<TEntity>().FindAsync(id);
-
         public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
             => await context.Set<TEntity>().ToListAsync();
 
-        public virtual async Task<TEntity> GetByIdWithIncludesAsync(TKey id, IEnumerable<Expression<Func<TEntity, object>>> includes)
+        public async Task<TEntity> GetByIdWithIncludesAsync(TKey id, IEnumerable<Expression<Func<TEntity, object>>> includes)
             => await includes.Aggregate(context.Set<TEntity>().AsQueryable(), (current, include) => current.Include(include))
                              .SingleOrDefaultAsync(s => s.Id.Equals(id));
 
@@ -49,6 +46,14 @@ namespace DasboardProjectBE.Data.Repositories
             => await Task.FromResult(context.Update(entity).Entity);
 
         public virtual Task<bool> DeleteAsync(TKey id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<TEntity> GetByIdAsync(TKey id)
+            => await context.Set<TEntity>().FindAsync(id);
+
+        Task IAsyncRepository<TKey, TEntity>.DeleteAsync(TEntity entity)
         {
             throw new NotImplementedException();
         }
