@@ -7,3 +7,5 @@ export const getWeatherFromUrl = (url) => new Promise(((resolve, reject) => {
       resolve(res.body);
     });
 }));
+
+export default getWeatherFromUrl;
