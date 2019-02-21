@@ -38,12 +38,13 @@ namespace DasboardProjectBE.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]BirthdayViewModel value)
+        public async Task<IActionResult> Post([FromBody]IEnumerable<BirthdayViewModel> values)
         {
-            BirthdayViewModel result = null;
+            IEnumerable<BirthdayViewModel> result = null;
             if (ModelState.IsValid)
             {
-                result = (await birthdayService.AddAsync(value.ToDto())).ToViewModel();
+                //result = (await birthdayService.AddAsync(value.ToDto())).ToViewModel();
+                result = (await birthdayService.AddAllAsync(values.Select(y => y.ToDto()))).Select(y => y.ToViewModel());
             }
 
             return Created("{id}", result);

@@ -20,9 +20,9 @@ namespace DasboardProjectBE.Controllers
             this.eventService = eventService ?? throw new ArgumentNullException(nameof(eventService));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get()
-            => Ok((await eventService.GetAllAsync()).Select(x => x.ToViewModel()));
+        [HttpGet("{date}")]
+        public async Task<IActionResult> Get(DateTime date)
+            => Ok((await eventService.GetAllAsync(date)).Select(x => x.ToViewModel()));
         
 
         [HttpGet("{id}")]

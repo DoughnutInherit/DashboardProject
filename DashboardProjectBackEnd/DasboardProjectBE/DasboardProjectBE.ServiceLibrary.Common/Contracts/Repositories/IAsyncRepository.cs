@@ -9,6 +9,7 @@ namespace DasboardProjectBE.ServiceLibrary.Common.Contracts.Repositories
 {
     public interface IAsyncRepository<TKey, TEntity> where TEntity : EntityBase<TKey>
     {
+        Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate);
         Task<IEnumerable<TEntity>> GetAllAsync();
         Task<TEntity> GetByIdAsync(TKey id);
         Task<TEntity> GetByIdWithIncludesAsync(TKey id, IEnumerable<Expression<Func<TEntity, object>>> includes);

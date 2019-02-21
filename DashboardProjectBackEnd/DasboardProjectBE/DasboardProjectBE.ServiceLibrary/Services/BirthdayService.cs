@@ -27,6 +27,13 @@ namespace DasboardProjectBE.ServiceLibrary.Services
             return result;
         }
 
+        public async Task<IEnumerable<BirthdayDto>> AddAllAsync(IEnumerable<BirthdayDto> dtos)
+        {
+            var result = (await birthdayRepository.AddAllAsync(dtos.Select( x => x.ToEntity() ))).Select(x=> x.ToDto());
+            await birthdayRepository.SaveChangesAsync();
+            return result;
+        }
+
         public async Task<IEnumerable<BirthdayDto>> GetAllAsync()
             => (await birthdayRepository.GetAllAsync()).Select(x => x.ToDto()).ToList();
 
