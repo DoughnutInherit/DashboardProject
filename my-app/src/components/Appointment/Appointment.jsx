@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { setEvent, setTime } from '../../actions/actionAppointment';
+import { setEvent, setTime, setEvents } from '../../actions/actionAppointment';
 import './Appointment.css';
 import dailyInfo from '../../services/dailyInfo.json';
 
@@ -11,28 +11,24 @@ class Appointment extends Component {
     setEvent: PropTypes.func,
     currentTime: PropTypes.string,
     setTime: PropTypes.func,
+    events: PropTypes.array,
+    setEvents: PropTypes.func,
   }
 
-  // changePageAlert = (currentTime) => {
-  //   if (currentTime) {
-  //   }
-  // };
+  changePageAlert = (currentTime, eventIni) => {
+
+  };
+
+  componentWillReceiveProps = () => {
+
+  }
 
   componentDidMount = () => {
-    debugger;
-    const numberEvents = dailyInfo.events.length;
-    fetch('https://localhost:44377/api/event')
-      .then(data => console.log(data));
+    this.props.setEvents(dailyInfo.events);
 
-    let index = 0;
-    if (index < numberEvents) {
-      this.props.setEvent(dailyInfo.events[index]);
-      setInterval(() => {
-        this.props.setTime(new Date().toLocaleString());
-        //this.changePageAlert(this.props.currentTime);
-      }, 1000);
-      index += 1;
-    }
+    setInterval(() => {
+      this.props.setTime(new Date().toString());
+    }, 1000);
   };
 
   render() {
@@ -40,18 +36,15 @@ class Appointment extends Component {
     if (this.props.event.dateIni !== undefined) {
       date = this.props.event.dateIni.substring(0, 10) + this.props.event.dateIni.substring(11, 20);
     }
-    //20/2/2019 12:31:13
-
 
     return (
       <div>
         <div>
-          <h4>{this.props.event.title}</h4>
+          <h4>{this.props.events[0].title}</h4>
         </div>
         <div>
-          <p>{this.props.event.description}</p>
-          <p>{date}</p>
-          <p>{this.props.currentTime}</p>
+          <p>{this.props.events[0].description}</p>
+          <p>{this.props.events[0].datIni}</p>
         </div>
       </div>
     );
@@ -61,8 +54,9 @@ class Appointment extends Component {
 const mapStateToProps = (state) => ({
   event: state.appointment.event,
   currentTime: state.appointment.time,
+  events: state.appointment.events,
 });
 
 export default connect(mapStateToProps, {
-  setEvent, setTime,
+  setEvent, setTime, setEvents,
 })(Appointment);

@@ -8,4 +8,15 @@ export const getWeatherFromUrl = (url) => new Promise(((resolve, reject) => {
     });
 }));
 
+export function compare(a, b) {
+  debugger;
+  if (a.dateIni < b.dateIni) {
+    return -1;
+  }
+  if (a.dateIni > b.dateIni) {
+    return 1;
+  }
+  return 0;
+}
+
 export default getWeatherFromUrl;

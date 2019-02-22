@@ -3,9 +3,8 @@
     {
       "title": "Benvingut Xavier Andreu",
       "description": "Avui ens visitara Xavi, CEO de Google i  productor financer de Amazon",
-      "alert": false,
-      "dateIni": "2014-02-01T23:28:56",
-      "dateEnd": "2014-02-01T23:28:56",
+      "dateIni": "2019-02-21T12:00:00",
+      "dateEnd": "2019-02-21T12:01:00",
       "type":{
         "id":0,
         "events":[],
@@ -15,7 +14,6 @@
     {
       "title": "Benvingut Jan Vidal",
       "description": "Avui ens visitara Jan, CEO de Google i  productor financer de Polleria Juan",
-      "alert": true,
       "dateIni": "2019-02-20T11:00:00",
       "dateEnd": "2019-02-20T11:30:00",
       "type":{
