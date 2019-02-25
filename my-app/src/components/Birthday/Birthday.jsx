@@ -13,21 +13,18 @@ class Birthday extends Component {
   }
 
   componentDidMount() {
-    debugger;
     this.props.setBirthdayList(dailyInfo.birthday);
-    debugger;
   }
 
   render() {
-    console.log(this.props.birthdayList);
     const { birthdayList } = this.props;
     return (
 
       birthdayList === undefined ? <p> Undefined </p>
         : (
           <div align="center" className="try">
-            <img src={birthdayList[0].imageUrl} alt="Logo" />
-            <h5>{birthdayList.name}</h5>
+            {/* <img src={birthdayList[0].imageUrl} alt="Logo" />
+            <h5>{birthdayList.name}</h5> */}
 
           </div>
         )
