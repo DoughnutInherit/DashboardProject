@@ -17,7 +17,6 @@ class Birthday extends Component {
   }
 
   render() {
-    console.log(this.props.birthdayList);
     const { birthdayList } = this.props;
     return (
 

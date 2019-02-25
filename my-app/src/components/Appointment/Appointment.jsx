@@ -32,11 +32,7 @@ class Appointment extends Component {
   };
 
   render() {
-    let date;
-    if (this.props.event.dateIni !== undefined) {
-      date = this.props.event.dateIni.substring(0, 10) + this.props.event.dateIni.substring(11, 20);
-    }
-
+    debugger;
     return (
       <div>
         <div>
@@ -44,7 +40,10 @@ class Appointment extends Component {
         </div>
         <div>
           <p>{this.props.events[0].description}</p>
-          <p>{this.props.events[0].datIni}</p>
+          {this.props.events[0].datIni !== undefined
+            ? <p>{this.props.events[0].datIni.toLocaleTimeString('en-US')}</p>
+            : <p />
+          }
         </div>
       </div>
     );

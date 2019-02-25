@@ -5,7 +5,17 @@ import { compare } from '../../services/serviceWorker';
 const initialState = {
   event: {},
   time: '',
-  events: [],
+  events: [
+    {
+      title: '',
+      description: '',
+      type: {
+        id: 0,
+        events: [],
+        name: '',
+      },
+    },
+  ],
 };
 
 const setDates = (events) => {
@@ -29,7 +39,6 @@ const appointmentReducer = (state = initialState, action) => {
       return { ...state, time: action.time };
     case actionAppointment.SET_EVENTS:
       const myEvents = setDates(action.events);
-      debugger;
       return { ...state, events: myEvents };
     default:
       return state;
