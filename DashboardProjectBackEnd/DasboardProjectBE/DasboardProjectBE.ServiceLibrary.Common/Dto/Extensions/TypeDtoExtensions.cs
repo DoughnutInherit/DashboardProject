@@ -14,7 +14,7 @@ namespace DasboardProjectBE.ServiceLibrary.Common.Dto.Extensions
             {
                 Id = self.Id,
                 Name = self.Name,
-                Events = self.Events?.Select(x => x.ToDto()).ToList()
+                //Events = self.Events?.Select(x => x.ToDto()).ToList()
             };
         }
 
@@ -24,7 +24,7 @@ namespace DasboardProjectBE.ServiceLibrary.Common.Dto.Extensions
             {
                 Id = self.Id,
                 Name = self.Name,
-                Events = self.Events?.Select(x => x.ToEntity()).ToList()
+                //Events = self.Events?.Select(x => x.ToEntity()).ToList()
             };
         }
     }

@@ -1,19 +1,29 @@
 {
   "events": [
-  { "title":"Benvingut Xavier Andreu",
-    "description":"Avui ens visitara Xavi, CEO de Google i  productor financer de Amazon",
-    "alert":true,
-    "dateIni":"2014-02-01T23:28:56.782Z",
-    "dateEnd":"2014-02-01T23:28:56.782Z"
-  },
-  { "title":"Benvingut Xavier Andreu",
-    "description":"Avui ens visitara Xavi, CEO de Google i  productor financer de Amazon",
-    "alert":true,
-    "dateIni":"2014-02-01T23:28:56.782Z",
-    "dateEnd":"2014-02-01T23:28:56.782Z"
-  }
+    {
+      "title": "Benvingut Xavier Andreu",
+      "description": "Avui ens visitara Xavi, CEO de Google i  productor financer de Amazon",
+      "dateIni": "2019-02-21T12:00:00",
+      "dateEnd": "2019-02-21T12:01:00",
+      "type":{
+        "id":0,
+        "events":[],
+        "name":"Appointment"
+      }
+    },
+    {
+      "title": "Benvingut Jan Vidal",
+      "description": "Avui ens visitara Jan, CEO de Google i  productor financer de Polleria Juan",
+      "dateIni": "2019-02-20T11:00:00",
+      "dateEnd": "2019-02-20T11:30:00",
+      "type":{
+        "id":0,
+        "events":[],
+        "name":"Appointment"
+      }
+    }
   ],
-  "birthday":[
+  "birthday": [
     {
       "name": "Nacho Cebey",
       "imageUrl": "https://www.abqsa.com/wp-content/uploads/2013/05/anonimo.png"
@@ -22,6 +32,5 @@
       "name": "Pepe Valls",
       "imageUrl": "https://www.abqsa.com/wp-content/uploads/2013/05/anonimo.png"
     }
-    ]
-
+  ]
 }

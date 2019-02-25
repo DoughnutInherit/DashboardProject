@@ -15,7 +15,7 @@ namespace DasboardProjectBE.ServiceLibrary.Common.Dto.Extensions
                 Description = self.Description,
                 EntryDate = self.EntryDate,
                 DepartureDate = self.DepartureDate,
-                Type = self.Type.ToDto()
+                TypeId = self.TypeId 
             };
         }
 
@@ -27,7 +27,7 @@ namespace DasboardProjectBE.ServiceLibrary.Common.Dto.Extensions
                 Description = self.Description,
                 EntryDate = self.EntryDate,
                 DepartureDate = self.DepartureDate,
-                Type = self.Type.ToEntity()
+                TypeId = self.TypeId
             };
         }
     }

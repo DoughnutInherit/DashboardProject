@@ -19,13 +19,10 @@ namespace DasboardProjectBE.Data.Repositories
         protected BaseRepository(IUnitOfWork unitOfWork)
             => context = unitOfWork.Context ?? throw new ArgumentNullException(nameof(context));
 
-        public virtual async Task<TEntity> FindByIdAsync(TKey id)
-            => await context.Set<TEntity>().FindAsync(id);
-
         public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
             => await context.Set<TEntity>().ToListAsync();
 
-        public virtual async Task<TEntity> GetByIdWithIncludesAsync(TKey id, IEnumerable<Expression<Func<TEntity, object>>> includes)
+        public async Task<TEntity> GetByIdWithIncludesAsync(TKey id, IEnumerable<Expression<Func<TEntity, object>>> includes)
             => await includes.Aggregate(context.Set<TEntity>().AsQueryable(), (current, include) => current.Include(include))
                              .SingleOrDefaultAsync(s => s.Id.Equals(id));
 
@@ -39,19 +36,15 @@ namespace DasboardProjectBE.Data.Repositories
             return await Task.FromResult(result);
         }
 
-        public virtual async Task<bool> DeleteAsync(TEntity entity)
-        {
-            await Task.FromResult(context.Entry(entity).State = EntityState.Deleted);
-            return true;
-        }
+        public virtual async Task DeleteAsync(TEntity entity)
+            => await Task.FromResult(context.Entry(entity).State = EntityState.Deleted);
 
         public virtual async Task<TEntity> UpdateAsync(TEntity entity)
             => await Task.FromResult(context.Update(entity).Entity);
 
-        public virtual Task<bool> DeleteAsync(TKey id)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<TEntity> GetByIdAsync(TKey id)
+            => await context.Set<TEntity>().FindAsync(id);
+
     }
 }
 
