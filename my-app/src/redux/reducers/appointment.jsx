@@ -7,7 +7,7 @@ const initialState = {
   time: '',
   events: [
     {
-      title: '',
+      title: 'a',
       description: '',
       type: {
         id: 0,
