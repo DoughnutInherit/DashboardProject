@@ -40,8 +40,8 @@ class Appointment extends Component {
         </div>
         <div>
           <p>{this.props.events[0].description}</p>
-          {this.props.events[0].datIni !== undefined
-            ? <p>{this.props.events[0].datIni.toLocaleTimeString('en-US')}</p>
+          {this.props.events[0].dateIni !== undefined
+            ? <p>{this.props.events[0].dateIni.toLocaleString()}</p>
             : <p />
           }
         </div>

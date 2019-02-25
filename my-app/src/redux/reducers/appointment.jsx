@@ -11,6 +11,7 @@ const initialState = {
       description: '',
       type: {
         id: 0,
+        dateIni: '2019-02-20T11:00:00',
         events: [],
         name: '',
       },
