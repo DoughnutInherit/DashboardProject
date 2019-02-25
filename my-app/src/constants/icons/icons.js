@@ -1,21 +1,12 @@
-import $01d from './01d.png';
-import $02d from './02d.png';
-import $03d from './03d.png';
-import $04d from './04d.png';
-import $09d from './09d.png';
-import $10d from './10d.png';
-import $11d from './11d.png';
-import $13d from './13d.png';
-import $50d from './50d.png';
-import $01n from './01n.png';
-import $02n from './02n.png';
-import $03n from './03n.png';
-import $04n from './04n.png';
-import $09n from './09n.png';
-import $10n from './10n.png';
-import $11n from './11n.png';
-import $13n from './13n.png';
-import $50n from './50n.png';
+import $01d from './clear-sky.svg';
+import $02d from './few-clouds.svg';
+import $03d from './scattered-cloud.svg';
+import $04d from './broken-clouds.svg';
+import $09d from './shower-rain.svg';
+import $10d from './rain.svg';
+import $11d from './thunderstorm.svg';
+import $13d from './snow.svg';
+import $50d from './mist.svg';
 
 export default {
     '01d': $01d,
@@ -27,13 +18,13 @@ export default {
     '11d': $11d,
     '13d': $13d,
     '50d': $50d,
-    '01n': $01n,
-    '02n': $02n,
-    '03n': $03n,
-    '04n': $04n,
-    '09n': $09n,
-    '10n': $10n,
-    '11n': $11n,
-    '13n': $13n,
-    '50n': $50n,
+    '01n': $01d,
+    '02n': $02d,
+    '03n': $03d,
+    '04n': $04d,
+    '09n': $09d,
+    '10n': $10d,
+    '11n': $11d,
+    '13n': $13d,
+    '50n': $50d,
 };

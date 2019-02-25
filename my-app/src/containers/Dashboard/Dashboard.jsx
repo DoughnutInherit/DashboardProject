@@ -12,7 +12,7 @@ class Dashboard extends Component {
 
   render() {
     return (
-      <div class="container">
+      <div class="containerDashBoard" >
         <Fragment>
           <div class="row">
             <div class="col">
@@ -31,8 +31,6 @@ class Dashboard extends Component {
           </div>
         </Fragment>
       </div>
-
-
     );
   }
 }
