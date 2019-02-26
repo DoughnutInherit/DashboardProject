@@ -7,6 +7,7 @@ import { getWeatherFromUrl } from '../../services/serviceWorker';
 import { addWeather, setActualDate } from '../../actions/actionWeather';
 import icons from '../../constants/icons/icons';
 
+
 class Weather extends Component {
   static propTypes = {
     weather: PropTypes.object,
@@ -26,8 +27,9 @@ class Weather extends Component {
       .catch(e => {
         const { message, stack } = e;
         return this.props.getError({ message, stack });
-      });
-}
+      }
+    );
+  }
 
   componentDidMount = () => {
     const url = weatherUrl();
@@ -37,7 +39,6 @@ class Weather extends Component {
         this.weatherComponent(url, today);
       }
     , 30000)
-    
   };
 
   render() {
@@ -45,19 +46,23 @@ class Weather extends Component {
     const { weather } = this.props.weather;
     if (main !== undefined) {
       return (
-        <div align="center">
+        <div align="center" className="container">
           <h2>
             {main.temp}
             Cº
           </h2>
-          <img src={icons[weather[0].icon]} alt={weather[0].description}/>
+          <img src={icons[weather[0].icon]} alt={weather[0].description} width='20px' heigth='20px'/>
           <p>{weather[0].main}</p>
           <p>Barcelona</p>
           <p>{this.props.date}</p>
         </div>
       );
     }
-    return (<div />);
+    return (
+      <div align="center" className="container">
+        <h2>No hay datos</h2>
+      </div>
+    );
   }
 }
 
