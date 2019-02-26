@@ -17,12 +17,12 @@ class Appointment extends Component {
     setEvents: PropTypes.func,
   }
 
-  changePageAlert = (eventIni) => {
+  changePageAlert = (eventIni, url) => {
     const now = moment();
     const diffInSeconds = now.diff(eventIni, 'seconds');
 
     if (diffInSeconds === 0) {
-      this.props.history.push('Event');
+      this.props.history.push(url);
     }
   };
 
@@ -35,7 +35,7 @@ class Appointment extends Component {
 
     setInterval(() => {
       this.props.setTime(new Date().toString());
-      this.changePageAlert(this.props.events[0].dateIni);
+      this.changePageAlert(this.props.events[0].dateIni, 'Event');
     }, 1000);
   };
 

@@ -1,16 +1,20 @@
 /* eslint-disable react/no-unknown-property */
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
+import EventAlertContent from '../../components/EventAlertContent/EventAlertContent';
 
 import './EventAlert.css';
 
 class Dashboard extends Component {
+  static propTypes = {
+    history: PropTypes.object,
+  };
+
   render() {
     return (
       <div class="container">
         <Fragment>
-          <div>
-            <h1>EVENT PAGE</h1>
-          </div>
+          <EventAlertContent history={this.props.history} />
         </Fragment>
       </div>
     );
