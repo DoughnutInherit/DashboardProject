@@ -8,5 +8,6 @@ namespace DasboardProjectBE.ServiceLibrary.Common.Dto
     {
         public string CompleteName { get; set; }
         public DateTime Day { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

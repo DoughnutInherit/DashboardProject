@@ -20,11 +20,6 @@ namespace DasboardProjectBE.Data
         public DbSet<EventEntity> Events { get; set; }
         public DbSet<TypeEntity> Types { get; set; }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    base.OnConfiguring(optionsBuilder);
-        //}
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

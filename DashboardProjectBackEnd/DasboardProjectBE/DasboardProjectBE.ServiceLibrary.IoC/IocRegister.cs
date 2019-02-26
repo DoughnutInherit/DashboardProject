@@ -1,6 +1,7 @@
 ﻿using DasboardProjectBE.Data;
 using DasboardProjectBE.Data.Repositories;
 using DasboardProjectBE.ServiceLibrary.Common.Contracts;
+using DasboardProjectBE.ServiceLibrary.Common.Contracts.Repositories;
 using DasboardProjectBE.ServiceLibrary.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,14 +21,16 @@ namespace DasboardProjectBE.ServiceLibrary.IoC
 
         public static IServiceCollection AddRegisterServices(this IServiceCollection services)
         {
-            services.AddScoped<IEventService, EventService>();
+            services.AddScoped<IEventService, EventService>()
+                    .AddScoped<IBirthdayService, BirthdayService>();
 
             return services;
 
         }
         public static IServiceCollection AddRegisterRepositories(this IServiceCollection services)
         {
-            services.AddScoped<IEventRepository, EventRepository>();
+            services.AddScoped<IEventRepository, EventRepository>()
+                    .AddScoped<IBirthdayRepository, BirthdayRepository>();
 
             return services;
         }

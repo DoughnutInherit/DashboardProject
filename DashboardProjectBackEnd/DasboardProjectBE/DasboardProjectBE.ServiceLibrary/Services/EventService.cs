@@ -25,23 +25,25 @@ namespace DasboardProjectBE.ServiceLibrary.Services
             await eventRepository.SaveChangesAsync();
             return result;
         }
-
         public async Task<IEnumerable<EventDto>> GetAllAsync()
             => (await eventRepository.GetAllAsync()).Select(x => x.ToDto()).ToList();
 
+        public async Task<IEnumerable<EventDto>> GetAllAsync(DateTime dateTime)
+            => (await eventRepository.GetAllAsync(x => x.EntryDate.Day == dateTime.Day
+                            && x.EntryDate.Month == dateTime.Month)).Select(x => x.ToDto()); 
         public async Task<EventDto> GetByIdAsync(int id)
             => (await eventRepository.GetByIdAsync(id)).ToDto();
 
         public async Task<EventDto> UpdateAsync(EventDto eventDto)
         {
-            var originalEvent = await UpdateOriginalSpeakerAsync(eventDto);
+            var originalEvent = await UpdateOriginalEventAsync(eventDto);
             var updatedSpeaker = await eventRepository.UpdateAsync(originalEvent);
             var count = await eventRepository.SaveChangesAsync();
 
             return updatedSpeaker.ToDto();
         }
 
-        private async Task<EventEntity> UpdateOriginalSpeakerAsync(EventDto eventDto)
+        private async Task<EventEntity> UpdateOriginalEventAsync(EventDto eventDto)
         {
             EventEntity originalEvent = await eventRepository.GetByIdAsync(eventDto.Id);
             originalEvent.Description = eventDto.Description;
@@ -66,5 +68,7 @@ namespace DasboardProjectBE.ServiceLibrary.Services
             }
             return entity == null;
         }
+
+
     }
 }

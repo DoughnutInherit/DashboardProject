@@ -16,6 +16,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.Net.Http.Headers;
 
 namespace DasboardProjectBE
 {
@@ -32,7 +33,16 @@ namespace DasboardProjectBE
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigins",
+                    builder =>
+                    {
+                        builder.WithOrigins("*")
+                                .WithMethods("GET", "POST", "PUT", "DELETE")
+                                .WithHeaders(HeaderNames.ContentType, "application/json");
+                    });
+            });
             services.AddScoped<IUnitOfWork, UnitOfWork>(x => new UnitOfWork(Configuration.GetConnectionString("DataBaseConnection")));
             services.AddDbContext<DasboardDBContext>(
                 option => option.UseSqlServer(Configuration.GetConnectionString("DataBaseConnection")));
@@ -52,7 +62,9 @@ namespace DasboardProjectBE
             }
 
             app.UseHttpsRedirection();
+            app.UseCors("AllowSpecificOrigins");
             app.UseMvc();
+           
         }
     }
 }
