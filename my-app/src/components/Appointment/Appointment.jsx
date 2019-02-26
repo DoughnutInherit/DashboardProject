@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import { setEvent, setTime, setEvents } from '../../actions/actionAppointment';
 import './Appointment.css';
 import dailyInfo from '../../services/dailyInfo.json';
 
 class Appointment extends Component {
   static propTypes = {
+    history: PropTypes.object,
     event: PropTypes.object,
     setEvent: PropTypes.func,
     currentTime: PropTypes.string,
@@ -15,8 +17,13 @@ class Appointment extends Component {
     setEvents: PropTypes.func,
   }
 
-  changePageAlert = (currentTime, eventIni) => {
+  changePageAlert = (eventIni) => {
+    const now = moment();
+    const diffInSeconds = now.diff(eventIni, 'seconds');
 
+    if (diffInSeconds === 0) {
+      this.props.history.push('Event');
+    }
   };
 
   componentWillReceiveProps = () => {
@@ -28,11 +35,11 @@ class Appointment extends Component {
 
     setInterval(() => {
       this.props.setTime(new Date().toString());
+      this.changePageAlert(this.props.events[0].dateIni);
     }, 1000);
   };
 
   render() {
-    debugger;
     return (
       <div>
         <div>
