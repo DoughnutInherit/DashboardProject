@@ -13,7 +13,7 @@ class Event extends Component {
     }
 
     componentDidMount = () => {
-        this.props.setEvent(dailyInfo.events[0])
+        this.props.setEvent(dailyInfo.events[1])
     }
 
   render() {

@@ -58,7 +58,11 @@ class Weather extends Component {
         </div>
       );
     }
-    return (<div />);
+    return (
+      <div align="center" className="container">
+        <h2>No hay datos</h2>
+      </div>
+    );
   }
 }
 
