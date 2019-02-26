@@ -13,13 +13,10 @@ class Birthday extends Component {
   }
 
   componentDidMount() {
-    debugger;
     this.props.setBirthdayList(dailyInfo.birthday);
-    debugger;
   }
 
   render() {
-    console.log(this.props.birthdayList);
     const { birthdayList } = this.props;
     return (
 
