@@ -42,10 +42,23 @@ namespace DasboardProjectBE.Controllers
             EventViewModel result = null;
             if (ModelState.IsValid)
             {
-                result = (await eventService.AddAsync(value.ToDto())).ToViewModel();
+                var exist = false;
+                var events = await eventService.GetAllAsync();
+                events.ToList().ForEach(element =>
+                {
+                    if (element.EntryDate == value.EntryDate)
+                    {
+                        exist = true;
+                    }
+                });
+                if (!exist)
+                {
+                    result = (await eventService.AddAsync(value.ToDto())).ToViewModel();
+                    return Created("{id}", result);
+                }
             }
-
-            return Created("{id}", result);
+            return BadRequest();
+            
         }
 
         [HttpPut("{id}")]
@@ -63,7 +76,5 @@ namespace DasboardProjectBE.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
             => Ok(await eventService.DeleteAsync(id));
-
-
     }
 }
