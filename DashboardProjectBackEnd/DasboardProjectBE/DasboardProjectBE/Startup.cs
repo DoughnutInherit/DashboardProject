@@ -1,22 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DasboardProjectBE.Data;
-using DasboardProjectBE.Data.Repositories;
-using DasboardProjectBE.ServiceLibrary.Common.Contracts;
+﻿using DasboardProjectBE.Configurations;
 using DasboardProjectBE.ServiceLibrary.IoC;
-using DasboardProjectBE.ServiceLibrary.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Microsoft.Net.Http.Headers;
 
 namespace DasboardProjectBE
 {
@@ -32,21 +20,10 @@ namespace DasboardProjectBE
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            IocRegister.AddRegistration(services, this.Configuration);
+            SwaggerConfig.AddRegistration(services);
+            CorsConfig.AddCorsOptions(services);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddCors(options =>
-            {
-                options.AddPolicy("AllowSpecificOrigins",
-                    builder =>
-                    {
-                        builder.WithOrigins("*")
-                                .WithMethods("GET", "POST", "PUT", "DELETE")
-                                .WithHeaders(HeaderNames.ContentType, "application/json");
-                    });
-            });
-            services.AddScoped<IUnitOfWork, UnitOfWork>(x => new UnitOfWork(Configuration.GetConnectionString("DataBaseConnection")));
-            services.AddDbContext<DasboardDBContext>(
-                option => option.UseSqlServer(Configuration.GetConnectionString("DataBaseConnection")));
-            IocRegister.AddRegistration(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,11 +37,10 @@ namespace DasboardProjectBE
             {
                 app.UseHsts();
             }
-
             app.UseHttpsRedirection();
             app.UseCors("AllowSpecificOrigins");
+            SwaggerConfig.AddRegistration(app);
             app.UseMvc();
-           
         }
     }
 }
