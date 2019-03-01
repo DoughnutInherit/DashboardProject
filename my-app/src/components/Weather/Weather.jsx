@@ -38,7 +38,7 @@ class Weather extends Component {
     setInterval(() => {
         this.weatherComponent(url, today);
       }
-    , 30000)
+    , 600000)
   };
 
   render() {
@@ -48,7 +48,7 @@ class Weather extends Component {
       return (
         <div align="center" className="container">
           <h2>
-            {main.temp}
+            {Math.trunc(main.temp)}
             Cº
           </h2>
           <img src={icons[weather[0].icon]} alt={weather[0].description} width='20px' heigth='20px'/>

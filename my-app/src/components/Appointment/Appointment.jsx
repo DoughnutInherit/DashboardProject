@@ -21,7 +21,7 @@ class Appointment extends Component {
     const now = moment();
     const diffInSeconds = now.diff(eventIni, 'seconds');
 
-    if (diffInSeconds === 0) {
+    if (diffInSeconds > 0 && diffInSeconds < 60) {
       this.props.history.push('Event');
     }
   };
@@ -36,7 +36,7 @@ class Appointment extends Component {
     setInterval(() => {
       this.props.setTime(new Date().toString());
       this.changePageAlert(this.props.events[0].dateIni);
-    }, 1000);
+    }, 60000);
   };
 
   render() {
