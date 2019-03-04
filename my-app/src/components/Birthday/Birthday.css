@@ -19,6 +19,10 @@
   background: orange;
 }
 
+.carousel .control-dots .dot{
+  background-color: #dd9309;
+}
+
 .imagensita{
   height:300px;
 }

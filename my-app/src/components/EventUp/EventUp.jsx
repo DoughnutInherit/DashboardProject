@@ -33,7 +33,7 @@ class EventUp extends Component {
 
         setInterval(() => {
             this.props.setTime(new Date().toString());
-            this.changePage(this.props.events[0].dateEnd);
+            //this.changePage(this.props.events[0].dateEnd);
           }, 60000);
     }
 

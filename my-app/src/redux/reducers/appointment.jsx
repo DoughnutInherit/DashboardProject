@@ -5,18 +5,7 @@ import { compare } from '../../services/serviceWorker';
 const initialState = {
   event: {},
   time: '',
-  events: [
-    {
-      title: 'a',
-      description: '',
-      type: {
-        id: 0,
-        dateIni: '2019-02-20T11:00:00',
-        events: [],
-        name: '',
-      },
-    },
-  ],
+  events: [],
 };
 
 const setDates = (events) => {

@@ -21,7 +21,7 @@ class Appointment extends Component {
     const now = moment();
     const diffInSeconds = now.diff(eventIni, 'seconds');
 
-    if (diffInSeconds > 0 && diffInSeconds < 60) {
+    if (diffInSeconds === 0) {
       this.props.history.push('Event');
     }
   };
@@ -36,24 +36,31 @@ class Appointment extends Component {
     setInterval(() => {
       this.props.setTime(new Date().toString());
       this.changePageAlert(this.props.events[0].dateIni);
-    }, 60000);
+    }, 1000);
   };
 
   render() {
-    return (
-      <div>
+    if ((this.props.events[0]) !== undefined) {
+      return (
         <div>
-          <h4>{this.props.events[0].title}</h4>
+          <div>
+            <h4>{this.props.events[0].title}</h4>
+          </div>
+          <div>
+            <p>{this.props.events[0].description}</p>
+            {this.props.events[0].dateIni !== undefined
+              ? <p>{this.props.events[0].dateIni.toLocaleString()}</p>
+              : <p />
+            }
+          </div>
         </div>
-        <div>
-          <p>{this.props.events[0].description}</p>
-          {this.props.events[0].dateIni !== undefined
-            ? <p>{this.props.events[0].dateIni.toLocaleString()}</p>
-            : <p />
-          }
-        </div>
-      </div>
-    );
+      );
+   }
+   return (
+    <div align="center" className="container">
+      <h2>No hay datos</h2>
+    </div>
+  );
   }
 }
 
