@@ -16,7 +16,6 @@ class Appointment extends Component {
   }
 
   navigate = () => {
-    debugger;
     this.props.history.push('Event');
   }
 
@@ -24,12 +23,9 @@ class Appointment extends Component {
     const now = moment();
     const eventTimeIni = moment(this.props.events[this.props.index].dateIni);
     const timeRemeaning = eventTimeIni.diff(now);
-    debugger;
-    setTimeout(() => {
+    this.timer = setTimeout(() => {
       this.navigate();
     }, timeRemeaning);
-    //ERROR AQUI!
-
   }
 
   componentDidMount = () => {
@@ -37,11 +33,12 @@ class Appointment extends Component {
   };
 
   componentWillUnmount = () => {
-    clearInterval(this.id);
+    clearTimeout(this.timer);
   }
 
   render() {
     const { index } = this.props;
+    debugger;
     return (
       <div>
         <div>

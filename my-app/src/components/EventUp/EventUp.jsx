@@ -14,18 +14,25 @@ class EventUp extends Component {
     setIndex: PropTypes.func,
   }
 
+  navigate = () => {
+    this.props.history.push('Dashboard');
+  }
+
   componentDidMount = () => {
     const now = moment();
     const eventTimeEnd = moment(this.props.events[this.props.index].dateEnd);
     const timeRemeaning = eventTimeEnd.diff(now);
-    debugger;
-    setTimeout(() => {
-      this.props.history.push('Event');
-    }, timeRemeaning, 'milliseconds');
+    this.timer = setTimeout(() => {
+      this.navigate();
+    }, timeRemeaning);
   }
 
   componentWillUnmount = () => {
-    this.props.setIndex(this.props.index + 1);
+    debugger;
+    if (this.props.index < this.props.events.length - 1) {
+      this.props.setIndex(this.props.index + 1);
+    }
+    clearTimeout(this.timer);
   }
 
   render() {
@@ -44,7 +51,7 @@ class EventUp extends Component {
 
 const mapStateToProps = (state) => ({
   events: state.appointment.events,
-  index: state.appointment.index,
+  index: state.appointment.eventIndex,
 });
 
 export default connect(mapStateToProps, {
