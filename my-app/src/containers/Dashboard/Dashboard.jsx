@@ -16,7 +16,7 @@ class Dashboard extends Component {
 
   render() {
     return (
-      <div class="containerDashBoard" >
+      <div class="containerDashBoard">
         <Fragment>
           <div class="row">
             <div class="col">
