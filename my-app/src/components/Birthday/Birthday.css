@@ -3,5 +3,22 @@
 }
 
 .text{
-  color: white;
+  color: orange;
+  background-color: white;
+}
+
+.puntitos{
+  height: 30px;
+}
+
+.carousel{
+  height: 410px;
+  width: 500px;
+}
+.selected{
+  background: orange;
+}
+
+.imagensita{
+  height:300px;
 }
