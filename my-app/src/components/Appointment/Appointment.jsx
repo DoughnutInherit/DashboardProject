@@ -9,6 +9,7 @@ import dailyInfo from '../../services/dailyInfo.json';
 class Appointment extends Component {
   static propTypes = {
     history: PropTypes.object,
+    event: PropTypes.object,
     events: PropTypes.array,
     setEvents: PropTypes.func,
     setIndex: PropTypes.func,
@@ -21,11 +22,13 @@ class Appointment extends Component {
 
   componentDidUpdate = () => {
     const now = moment();
-    const eventTimeIni = moment(this.props.events[this.props.index].dateIni);
-    const timeRemeaning = eventTimeIni.diff(now);
-    this.timer = setTimeout(() => {
-      this.navigate();
-    }, timeRemeaning);
+    if (this.props.event.dateIni !== undefined) {
+      const eventTimeIni = moment(this.props.event.dateIni);
+      const timeRemeaning = eventTimeIni.diff(now);
+      this.timer = setTimeout(() => {
+        this.navigate();
+      }, timeRemeaning);
+    }
   }
 
   componentDidMount = () => {
@@ -37,17 +40,15 @@ class Appointment extends Component {
   }
 
   render() {
-    const { index } = this.props;
-    debugger;
     return (
       <div>
         <div>
-          <h4>{this.props.events[index].title}</h4>
+          <h4>{this.props.event.title}</h4>
         </div>
         <div>
-          <p>{this.props.events[index].description}</p>
-          {this.props.events[index].dateIni !== undefined
-            ? <p>{this.props.events[index].dateIni.toLocaleString()}</p>
+          <p>{this.props.event.description}</p>
+          {this.props.event.dateIni !== undefined
+            ? <p>{this.props.event.dateIni.toLocaleString()}</p>
             : <p />
           }
         </div>
@@ -59,6 +60,7 @@ class Appointment extends Component {
 const mapStateToProps = (state) => ({
   events: state.appointment.events,
   index: state.appointment.eventIndex,
+  event: state.appointment.event,
 });
 
 export default connect(mapStateToProps, {

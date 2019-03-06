@@ -35,6 +35,19 @@ const setDates = (events) => {
   return events;
 };
 
+const setDefaultEvent = (array, index) => {
+  debugger;
+  let object = {
+    title: 'Hola',
+    description: 'Hola',
+  };
+
+  if (index < array.length) {
+    object = array[index];
+  }
+  return object;
+};
+
 const appointmentReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionAppointment.SET_EVENT:
@@ -43,7 +56,8 @@ const appointmentReducer = (state = initialState, action) => {
       return { ...state, time: action.time };
     case actionAppointment.SET_EVENTS:
       const myEvents = setDates(action.events);
-      return { ...state, events: myEvents };
+
+      return { ...state, events: myEvents, event: setDefaultEvent(myEvents, state.eventIndex) };
     case actionAppointment.SET_INDEX:
       return { ...state, eventIndex: action.index };
     default:
