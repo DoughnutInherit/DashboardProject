@@ -3,59 +3,56 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { setEvent, setTime, setEvents } from '../../actions/actionAppointment';
-import dailyInfo from '../../services/dailyInfo.json';
-
+import { setEvents, setIndex } from '../../actions/actionAppointment';
 
 class EventUp extends Component {
+  static propTypes = {
+    history: PropTypes.object,
+    events: PropTypes.array,
+    setEvents: PropTypes.func,
+    index: PropTypes.number,
+    setIndex: PropTypes.func,
+  }
 
-    static propTypes = {
-        event: PropTypes.object,
-        setEvent: PropTypes.func,
-        history: PropTypes.object,
-        currentTime: PropTypes.string,
-        setTime: PropTypes.func,
-        events: PropTypes.array,
-        setEvents: PropTypes.func,
+  navigate = () => {
+    this.props.history.push('Dashboard');
+  }
+
+  componentDidMount = () => {
+    const now = moment();
+    const eventTimeEnd = moment(this.props.events[this.props.index].dateEnd);
+    const timeRemeaning = eventTimeEnd.diff(now);
+    this.timer = setTimeout(() => {
+      this.navigate();
+    }, timeRemeaning);
+  }
+
+  componentWillUnmount = () => {
+    if (this.props.index < this.props.events.length - 1) {
+      this.props.setIndex(this.props.index + 1);
     }
-
-    changePage = (eventEnd) => {
-        const now = moment();
-        const diffInSeconds = now.diff(eventEnd, 'seconds');
-    
-        if (diffInSeconds > 0 && diffInSeconds < 60) {
-          this.props.history.push('Dashboard');
-        }
-      };
-
-    componentDidMount = () => {
-        this.props.setEvent(dailyInfo.events[0])
-
-        setInterval(() => {
-            this.props.setTime(new Date().toString());
-            //this.changePage(this.props.events[0].dateEnd);
-          }, 60000);
-    }
+    clearTimeout(this.timer);
+  }
 
   render() {
     return (
       <div>
         <div>
-           <h4>{this.props.event.title}</h4>
+          <h4>{this.props.events[this.props.index].title}</h4>
         </div>
         <div>
-           <p>{this.props.event.description}</p>
+          <p>{this.props.events[this.props.index].description}</p>
         </div>
       </div>
-    );}
+    );
   }
+}
 
 const mapStateToProps = (state) => ({
-    event: state.appointment.event,
-    currentTime: state.appointment.time,
-    events: state.appointment.events,
-  });
+  events: state.appointment.events,
+  index: state.appointment.eventIndex,
+});
 
 export default connect(mapStateToProps, {
-    setEvent, setTime, setEvents,
+  setEvents, setIndex,
 })(EventUp);
