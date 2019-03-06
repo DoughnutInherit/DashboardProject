@@ -28,7 +28,6 @@ class EventUp extends Component {
   }
 
   componentWillUnmount = () => {
-    debugger;
     if (this.props.index < this.props.events.length - 1) {
       this.props.setIndex(this.props.index + 1);
     }
