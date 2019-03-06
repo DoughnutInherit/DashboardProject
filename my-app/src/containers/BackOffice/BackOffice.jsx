@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 import React, { Component, Fragment } from 'react';
+import FormBackOffice from '../../components/BackOffice/BackOffice';
 
 class BackOffice extends Component {
 
@@ -7,7 +8,7 @@ class BackOffice extends Component {
     return (
       <div class="container" >
         <Fragment>
-          <p>Soy el BackOffice</p>
+          <FormBackOffice/>
         </Fragment>
       </div>
     );
