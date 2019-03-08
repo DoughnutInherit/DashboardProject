@@ -33,11 +33,11 @@ namespace DasboardProjectBE.Controllers
         [HttpPost]
         public async Task<object> Login([FromBody] LoginDto model)
         {
-            var result = await this.signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
+            var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
 
             if (result.Succeeded)
             {
-                var appUser = this.userManager.Users.SingleOrDefault(r => r.Email == model.Email);
+                var appUser = userManager.Users.SingleOrDefault(r => r.Email == model.Email);
                 return await GenerateJwtToken(model.Email, appUser);
             }
 
@@ -52,11 +52,11 @@ namespace DasboardProjectBE.Controllers
                 UserName = model.Email,
                 Email = model.Email
             };
-            var result = await this.userManager.CreateAsync(user, model.Password);
+            var result = await userManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
             {
-                await this.signInManager.SignInAsync(user, false);
+                await signInManager.SignInAsync(user, false);
                 return await GenerateJwtToken(model.Email, user);
             }
 
@@ -72,12 +72,12 @@ namespace DasboardProjectBE.Controllers
                 new Claim(ClaimTypes.NameIdentifier, user.Id)
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.configuration["JwtKey"]));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtKey"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var expires = DateTime.Now.AddDays(Convert.ToDouble(this.configuration["JwtExpireDays"]));
+            var expires = DateTime.Now.AddDays(Convert.ToDouble(configuration["JwtExpireDays"]));
 
             var token = new JwtSecurityToken(
-                this.configuration["JwtIssuer"],
+                configuration["JwtIssuer"],
                 this.configuration["JwtIssuer"],
                 claims,
                 expires: expires,

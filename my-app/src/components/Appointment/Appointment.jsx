@@ -32,7 +32,14 @@ class Appointment extends Component {
   }
 
   componentDidMount = () => {
+<<<<<<< Updated upstream
     this.props.setEvents(dailyInfo.events);
+=======
+    debugger;
+    fetch('https://localhost:5001/api/event')
+      .then(data => console.log(data));
+    this.props.setEvent(dailyInfo.events[0]);
+>>>>>>> Stashed changes
   };
 
   componentWillUnmount = () => {
