@@ -22,8 +22,8 @@ class Appointment extends Component {
 
   componentDidUpdate = () => {
     const now = moment();
-    if (this.props.event.dateIni !== undefined) {
-      const eventTimeIni = moment(this.props.event.dateIni);
+    if (this.props.event.entryDate !== undefined) {
+      const eventTimeIni = moment(this.props.event.entryDate);
       const timeRemeaning = eventTimeIni.diff(now);
       this.timer = setTimeout(() => {
         this.navigate();
@@ -47,8 +47,8 @@ class Appointment extends Component {
         </div>
         <div>
           <p>{this.props.event.description}</p>
-          {this.props.event.dateIni !== undefined
-            ? <p>{this.props.event.dateIni.toLocaleString()}</p>
+          {this.props.event.entryDate !== undefined
+            ? <p>{this.props.event.entryDate.toLocaleString()}</p>
             : <p />
           }
         </div>

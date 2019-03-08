@@ -9,10 +9,10 @@ export const getWeatherFromUrl = (url) => new Promise(((resolve, reject) => {
 }));
 
 export function compare(a, b) {
-  if (a.dateIni < b.dateIni) {
+  if (a.entryDate < b.entryDate) {
     return -1;
   }
-  if (a.dateIni > b.dateIni) {
+  if (a.entryDate > b.entryDate) {
     return 1;
   }
   return 0;

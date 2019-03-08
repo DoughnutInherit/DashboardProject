@@ -22,7 +22,7 @@ class EventUp extends Component {
 
   componentDidMount = () => {
     const now = moment();
-    const eventTimeEnd = moment(this.props.events[this.props.index].dateEnd);
+    const eventTimeEnd = moment(this.props.events[this.props.index].departureDate);
     const timeRemeaning = eventTimeEnd.diff(now);
     this.timer = setTimeout(() => {
       this.navigate();

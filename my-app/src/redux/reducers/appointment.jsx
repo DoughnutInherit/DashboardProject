@@ -13,8 +13,8 @@ const initialState = {
       description: '',
       type: {
         id: 0,
-        dateIni: '2019-02-20T11:00:00',
-        dateEnd: '2019-03-04T11:30:00',
+        entryDate: '2019-02-20T11:00:00',
+        departureDate: '2019-03-04T11:30:00',
         events: [],
         name: '',
       },
@@ -24,11 +24,11 @@ const initialState = {
 
 const setDates = (events) => {
   events.forEach(element => {
-    const dateIniD = new Date(element.dateIni);
-    const dateEndD = new Date(element.dateEnd);
+    const dateIniD = new Date(element.entryDate);
+    const dateEndD = new Date(element.departureDate);
 
-    element.dateIni = dateIniD;
-    element.dateEnd = dateEndD;
+    element.entryDate = dateIniD;
+    element.departureDate = dateEndD;
   });
   events.sort(compare);
 
@@ -38,8 +38,8 @@ const setDates = (events) => {
 const setDefaultEvent = (array, index) => {
   debugger;
   let object = {
-    title: 'Hola',
-    description: 'Hola',
+    title: "Sense events per el dia d'avui",
+    description: 'Que tingueu un bon dia!',
   };
 
   if (index < array.length) {
