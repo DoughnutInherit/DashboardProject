@@ -39,7 +39,7 @@ namespace DasboardProjectBE
             }
             app.UseHttpsRedirection();
             app.UseCors("AllowSpecificOrigins");
-            app.UseAuthentication();
+            //app.UseAuthentication();
             SwaggerConfig.AddRegistration(app);
             app.UseMvc();
         }

@@ -21,46 +21,46 @@ namespace DasboardProjectBE.ServiceLibrary.IoC
         public static IServiceCollection AddRegistration(this IServiceCollection services, IConfiguration configuration)
         {
             AddRegisterContexts(services, configuration);
-            AddRegisterIdentity(services);
-            AddRegisterAuthentication(services, configuration);
+            //AddRegisterIdentity(services);
+            //AddRegisterAuthentication(services, configuration);
             AddRegisterRepositories(services);
             AddRegisterServices(services);
 
             return services;
         }
 
-        public static IServiceCollection AddRegisterIdentity(this IServiceCollection services)
-        {
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                    .AddEntityFrameworkStores<DasboardDBContext>();
+        //public static IServiceCollection AddRegisterIdentity(this IServiceCollection services)
+        //{
+        //    services.AddIdentity<ApplicationUser, IdentityRole>()
+        //            .AddEntityFrameworkStores<DasboardDBContext>();
 
-            return services;
-        }
-        public static IServiceCollection AddRegisterAuthentication (this IServiceCollection services, IConfiguration configuration)
-        {
-            var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Tokens:Key"]));
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(config =>
-            {
-                config.RequireHttpsMetadata = false;
-                config.SaveToken = true;
-                config.TokenValidationParameters = new TokenValidationParameters()
-                {
-                    IssuerSigningKey = signingKey,
-                    ValidateAudience = true,
-                    ValidAudience = configuration["Tokens:Audience"],
-                    ValidateIssuer = true,
-                    ValidIssuer = configuration["Tokens:Issuer"],
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true
-                };
-            });
+        //    return services;
+        //}
+        //public static IServiceCollection AddRegisterAuthentication (this IServiceCollection services, IConfiguration configuration)
+        //{
+        //    var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Tokens:Key"]));
+        //    services.AddAuthentication(options =>
+        //    {
+        //        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        //        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        //    }).AddJwtBearer(config =>
+        //    {
+        //        config.RequireHttpsMetadata = false;
+        //        config.SaveToken = true;
+        //        config.TokenValidationParameters = new TokenValidationParameters()
+        //        {
+        //            IssuerSigningKey = signingKey,
+        //            ValidateAudience = true,
+        //            ValidAudience = configuration["Tokens:Audience"],
+        //            ValidateIssuer = true,
+        //            ValidIssuer = configuration["Tokens:Issuer"],
+        //            ValidateLifetime = true,
+        //            ValidateIssuerSigningKey = true
+        //        };
+        //    });
 
-            return services;
-        }
+        //    return services;
+        //}
         public static IServiceCollection AddRegisterContexts(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>(x => new UnitOfWork(configuration.GetConnectionString("DataBaseConnection")));

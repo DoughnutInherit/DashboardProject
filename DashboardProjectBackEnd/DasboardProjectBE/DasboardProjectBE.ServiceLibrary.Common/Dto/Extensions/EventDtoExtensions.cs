@@ -10,6 +10,7 @@ namespace DasboardProjectBE.ServiceLibrary.Common.Dto.Extensions
         public static EventDto ToDto(this EventEntity self) => new EventDto
         {
             Id = self.Id,
+            Title = self.Title,
             Description = self.Description,
             EntryDate = self.EntryDate,
             DepartureDate = self.DepartureDate,
@@ -19,6 +20,7 @@ namespace DasboardProjectBE.ServiceLibrary.Common.Dto.Extensions
         public static EventEntity ToEntity(this EventDto self) => new EventEntity
         {
             Id = self.Id,
+            Title = self.Title,
             Description = self.Description,
             EntryDate = self.EntryDate,
             DepartureDate = self.DepartureDate,
