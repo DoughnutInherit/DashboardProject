@@ -19,11 +19,11 @@ namespace DasboardProjectBE.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly SignInManager<IdentityUser> signInManager;
-        private readonly UserManager<IdentityUser> userManager;
+        private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly UserManager<ApplicationUser> userManager;
         private readonly IConfiguration configuration;
 
-        public AccountController(UserManager<IdentityUser> userManager,SignInManager<IdentityUser> signInManager,IConfiguration configuration)
+        public AccountController(UserManager<ApplicationUser> userManager,SignInManager<ApplicationUser> signInManager,IConfiguration configuration)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
@@ -31,23 +31,23 @@ namespace DasboardProjectBE.Controllers
         }
 
         [HttpPost]
-        public async Task<object> Login([FromBody] LoginDto model)
+        public async Task<object> Login([FromBody] ApplicationUser user)
         {
-            var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
+            var result = await signInManager.PasswordSignInAsync(user.Email, user.Password, false, false);
 
             if (result.Succeeded)
             {
-                var appUser = userManager.Users.SingleOrDefault(r => r.Email == model.Email);
-                return await GenerateJwtToken(model.Email, appUser);
+                var appUser = userManager.Users.SingleOrDefault(r => r.Email == user.Email);
+                return await GenerateJwtToken(user.Email, appUser);
             }
 
             throw new ApplicationException("INVALID_LOGIN_ATTEMPT");
         }
 
         [HttpPost]
-        public async Task<object> Register([FromBody] RegisterDto model)
+        public async Task<object> Register([FromBody] ApplicationUser model)
         {
-            var user = new IdentityUser
+            var user = new ApplicationUser
             {
                 UserName = model.Email,
                 Email = model.Email
@@ -63,7 +63,7 @@ namespace DasboardProjectBE.Controllers
             throw new ApplicationException("UNKNOWN_ERROR");
         }
 
-        private async Task<object> GenerateJwtToken(string email, IdentityUser user)
+        private async Task<object> GenerateJwtToken(string email, ApplicationUser user)
         {
             var claims = new List<Claim>
             {
@@ -87,25 +87,25 @@ namespace DasboardProjectBE.Controllers
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public class LoginDto
-        {
-            [Required]
-            public string Email { get; set; }
+        //public class LoginDto
+        //{
+        //    [Required]
+        //    public string Email { get; set; }
 
-            [Required]
-            public string Password { get; set; }
+        //    [Required]
+        //    public string Password { get; set; }
 
-        }
+        //}
 
-        public class RegisterDto
-        {
-            [Required]
-            public string Email { get; set; }
+        //public class RegisterDto
+        //{
+        //    [Required]
+        //    public string Email { get; set; }
 
-            [Required]
-            [StringLength(100, ErrorMessage = "PASSWORD_MIN_LENGTH", MinimumLength = 6)]
-            public string Password { get; set; }
-        }
+        //    [Required]
+        //    [StringLength(100, ErrorMessage = "PASSWORD_MIN_LENGTH", MinimumLength = 6)]
+        //    public string Password { get; set; }
+        //}
 
     }
 }
