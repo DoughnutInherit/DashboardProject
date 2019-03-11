@@ -30,17 +30,10 @@ namespace DasboardProjectBE.Data.Migrations
                         .IsConcurrencyToken();
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(200);
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(250);
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -51,6 +44,10 @@ namespace DasboardProjectBE.Data.Migrations
 
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256);
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(250);
 
                     b.Property<string>("PasswordHash");
 

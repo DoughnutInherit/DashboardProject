@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DasboardProjectBE.Data.Migrations
 {
     [DbContext(typeof(DasboardDBContext))]
-    [Migration("20190308090551_Final")]
-    partial class Final
+    [Migration("20190311105203_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,17 +32,10 @@ namespace DasboardProjectBE.Data.Migrations
                         .IsConcurrencyToken();
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(200);
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(250);
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -53,6 +46,10 @@ namespace DasboardProjectBE.Data.Migrations
 
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256);
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(250);
 
                     b.Property<string>("PasswordHash");
 
