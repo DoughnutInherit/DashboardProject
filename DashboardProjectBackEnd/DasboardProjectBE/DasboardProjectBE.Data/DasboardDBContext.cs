@@ -5,7 +5,7 @@ using System;
 
 namespace DasboardProjectBE.Data
 {
-    public class DasboardDBContext : IdentityDbContext<ApplicationUser>
+    public class DasboardDBContext : DbContext
     {
         protected DasboardDBContext()
         {
