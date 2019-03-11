@@ -5,6 +5,7 @@ import moment from 'moment';
 import { setEvents, setIndex } from '../../actions/actionAppointment';
 import './Appointment.css';
 import dailyInfo from '../../services/dailyInfo.json';
+import getDailyEvents from '../../services/serviceWorker';
 
 class Appointment extends Component {
   static propTypes = {
@@ -32,14 +33,12 @@ class Appointment extends Component {
   }
 
   componentDidMount = () => {
-<<<<<<< Updated upstream
-    this.props.setEvents(dailyInfo.events);
-=======
+    const now = moment().format();
     debugger;
-    fetch('https://localhost:5001/api/event')
-      .then(data => console.log(data));
-    this.props.setEvent(dailyInfo.events[0]);
->>>>>>> Stashed changes
+    getDailyEvents('https://localhost:44377/api/event/2018-03-06')
+      .then(response => this.props.setEvents(response));
+
+    this.props.setEvents(dailyInfo.events);
   };
 
   componentWillUnmount = () => {

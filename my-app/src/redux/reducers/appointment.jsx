@@ -55,6 +55,7 @@ const appointmentReducer = (state = initialState, action) => {
     case actionAppointment.SET_TIMER:
       return { ...state, time: action.time };
     case actionAppointment.SET_EVENTS:
+    debugger;
       const myEvents = setDates(action.events);
 
       return { ...state, events: myEvents, event: setDefaultEvent(myEvents, state.eventIndex) };
