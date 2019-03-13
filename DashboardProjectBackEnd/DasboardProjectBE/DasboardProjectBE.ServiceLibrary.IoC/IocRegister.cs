@@ -10,7 +10,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using System;
 using System.Text;
 
 namespace DasboardProjectBE.ServiceLibrary.IoC
@@ -21,8 +20,47 @@ namespace DasboardProjectBE.ServiceLibrary.IoC
         public static IServiceCollection AddRegistration(this IServiceCollection services, IConfiguration configuration)
         {
             AddRegisterContexts(services, configuration);
+            AddRegisterIdentity(services);
+            AddRegisterAuthentication(services, configuration);
             AddRegisterRepositories(services);
             AddRegisterServices(services);
+
+            return services;
+        }
+
+        public static IServiceCollection AddRegisterIdentity(this IServiceCollection services)
+        {
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+
+            })
+                    .AddEntityFrameworkStores<DasboardDBContext>();
+            return services;
+        }
+
+        public static IServiceCollection AddRegisterAuthentication(this IServiceCollection services, IConfiguration configuration)
+        {
+            var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Tokens:JwtKey"]));
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(config =>
+            {
+                config.RequireHttpsMetadata = false;
+                config.SaveToken = true;
+                config.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    IssuerSigningKey = signingKey,
+                    ValidateAudience = true,
+                    ValidAudience = configuration["Tokens:JwtIssuer"],
+                    ValidateIssuer = true,
+                    ValidIssuer = configuration["Tokens:JwtIssuer"],
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true
+                };
+            });
 
             return services;
         }
