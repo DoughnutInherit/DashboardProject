@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DasboardProjectBE.Data.Migrations
 {
     [DbContext(typeof(DasboardDBContext))]
-    [Migration("20190220125530_SecondMigration")]
-    partial class SecondMigration
+    [Migration("20190311101419_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -49,6 +49,8 @@ namespace DasboardProjectBE.Data.Migrations
                     b.Property<string>("Description");
 
                     b.Property<DateTime>("EntryDate");
+
+                    b.Property<string>("Title");
 
                     b.Property<int>("TypeId");
 

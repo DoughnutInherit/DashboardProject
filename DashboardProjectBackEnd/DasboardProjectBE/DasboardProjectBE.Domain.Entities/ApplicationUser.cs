@@ -10,10 +10,10 @@ namespace DasboardProjectBE.ServiceLibrary.Entities
     {
         [Required]
         [MaxLength(200)]
-        public string FirstName { get; set; }
+        public string Email { get; set; }
 
         [Required]
         [MaxLength(250)]
-        public string LastName { get; set; }
+        public string Password { get; set; }
     }
 }
