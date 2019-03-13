@@ -33,8 +33,6 @@ class Appointment extends Component {
   }
 
   componentDidMount = () => {
-    const now = moment().format();
-    debugger;
     getDailyEvents('https://localhost:44377/api/event/2018-03-06')
       .then(response => this.props.setEvents(response));
 
@@ -47,12 +45,13 @@ class Appointment extends Component {
 
   render() {
     return (
-      <div>
-        <div>
-          <h4>{this.props.event.title}</h4>
+      <div className="row eventContainer">
+        <div className="col">
+          <h2 className="eventTitle">{this.props.event.title}</h2>
         </div>
-        <div>
-          <p>{this.props.event.description}</p>
+        <div className="w-100" />
+        <div className="col">
+          <p className="eventDescription">{this.props.event.description}</p>
           {this.props.event.entryDate !== undefined
             ? <p>{this.props.event.entryDate.toLocaleString()}</p>
             : <p />

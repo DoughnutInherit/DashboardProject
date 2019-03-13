@@ -36,10 +36,9 @@ const setDates = (events) => {
 };
 
 const setDefaultEvent = (array, index) => {
-  debugger;
   let object = {
-    title: "Sense events per el dia d'avui",
-    description: 'Que tingueu un bon dia!',
+    title: 'Sin eventos para el dia de hoy',
+    description: 'Que tengas un buen dia!',
   };
 
   if (index < array.length) {
@@ -55,7 +54,6 @@ const appointmentReducer = (state = initialState, action) => {
     case actionAppointment.SET_TIMER:
       return { ...state, time: action.time };
     case actionAppointment.SET_EVENTS:
-    debugger;
       const myEvents = setDates(action.events);
 
       return { ...state, events: myEvents, event: setDefaultEvent(myEvents, state.eventIndex) };

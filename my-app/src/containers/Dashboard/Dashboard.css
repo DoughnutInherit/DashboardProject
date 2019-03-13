@@ -1,0 +1,27 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+.dashboard{
+  padding: 5%;
+  background-color: #F7F7F7;
+  font-family: 'Open Sans';
+  height: 100vh;
+}
+
+.appointmentContainer{
+  background-color: white;
+  margin-right: 5%
+}
+
+.weatherContainer{
+  background-color:#EA7600;
+  color: white;
+  padding: 2%;
+
+}
+
+.shadow{
+  box-shadow: 10px 10px 5px #aaaaaa;
+}
+
+.topRow{
+  margin-bottom: 5%
+}

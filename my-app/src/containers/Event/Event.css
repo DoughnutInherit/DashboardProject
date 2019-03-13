@@ -1,0 +1,17 @@
+html{
+  background-image: url("../../services/bgdiv.jpg");
+  background-size: 100%;
+}
+
+.containerAlert{
+  height: 300px;
+  width: 800px;
+}
+
+body{
+  background-color: transparent;
+}
+
+.opac{
+  opacity: 0,5;
+}

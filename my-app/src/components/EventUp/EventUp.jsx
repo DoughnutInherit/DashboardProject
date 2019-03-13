@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { setEvents, setIndex, setEvent } from '../../actions/actionAppointment';
+import './EventUp.css';
 
 class EventUp extends Component {
   static propTypes = {
@@ -39,11 +40,16 @@ class EventUp extends Component {
 
   render() {
     return (
-      <div>
-        <div>
-          <h4>{this.props.event.title}</h4>
+      <div class="row alertContainer">
+        <div class="col titleStyle">
+          <h1>
+            ¡
+            {this.props.event.title}
+            !
+          </h1>
         </div>
-        <div>
+        <div class="w-100" />
+        <div class="col descriptionStyle">
           <p>{this.props.event.description}</p>
         </div>
       </div>

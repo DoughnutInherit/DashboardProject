@@ -16,20 +16,21 @@ class Dashboard extends Component {
 
   render() {
     return (
-      <div class="containerDashBoard">
+      <div className="container-fluid dashboard">
         <Fragment>
-          <div class="row">
-            <div class="col">
+          <div className="row topRow">
+            <div className="col-lg-7 appointmentContainer shadow">
               <Appointment history={this.props.history} />
             </div>
-            <div class="col">
+            <div className="col-lg-3 weatherContainer shadow">
               <Weather />
             </div>
-            <div class="w-100" />
-            <div class="col">
+          </div>
+          <div className="row">
+            <div className="col-lg-4">
               <Birthday />
             </div>
-            <div class="col">
+            <div className="col-lg-8">
               <DynamicContent />
             </div>
           </div>

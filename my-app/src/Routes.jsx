@@ -6,9 +6,9 @@ import Event from '../src/containers/Event/Event';
 
 const getRoutes = () => (
   <Fragment>
-    <Route exact path="/Dashboard" component ={Dashboard} />
-    <Route exact path="/BackOffice" component ={BackOffice} />
-    <Route exact path="/Event" component ={Event} />
+    <Route exact path="/Dashboard" component={Dashboard} />
+    <Route exact path="/BackOffice" component={BackOffice} />
+    <Route exact path="/Event" component={Event} />
   </Fragment>
 );
 
