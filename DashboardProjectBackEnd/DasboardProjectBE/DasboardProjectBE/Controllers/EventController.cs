@@ -1,14 +1,15 @@
 ﻿using DasboardProjectBE.ServiceLibrary.Common.Contracts;
 using DasboardProjectBE.ViewModels;
 using DasboardProjectBE.ViewModels.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace DasboardProjectBE.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class EventController : ControllerBase
