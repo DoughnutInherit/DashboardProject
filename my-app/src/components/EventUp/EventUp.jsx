@@ -63,6 +63,7 @@ const mapStateToProps = (state) => ({
   event: state.appointment.event,
 });
 
+
 export default connect(mapStateToProps, {
   setEvents, setIndex, setEvent,
 })(EventUp);
