@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DasboardProjectBE.Data.Migrations
 {
-    public partial class InitMigration : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,7 +14,9 @@ namespace DasboardProjectBE.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Day = table.Column<DateTime>(nullable: false)
+                    CompleteName = table.Column<string>(nullable: true),
+                    Day = table.Column<DateTime>(nullable: false),
+                    ImageUrl = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -22,7 +24,7 @@ namespace DasboardProjectBE.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TypeEntity",
+                name: "Types",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -31,7 +33,7 @@ namespace DasboardProjectBE.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TypeEntity", x => x.Id);
+                    table.PrimaryKey("PK_Types", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -40,6 +42,7 @@ namespace DasboardProjectBE.Data.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Title = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     EntryDate = table.Column<DateTime>(nullable: false),
                     DepartureDate = table.Column<DateTime>(nullable: false),
@@ -49,9 +52,9 @@ namespace DasboardProjectBE.Data.Migrations
                 {
                     table.PrimaryKey("PK_Events", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Events_TypeEntity_TypeId",
+                        name: "FK_Events_Types_TypeId",
                         column: x => x.TypeId,
-                        principalTable: "TypeEntity",
+                        principalTable: "Types",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -71,7 +74,7 @@ namespace DasboardProjectBE.Data.Migrations
                 name: "Events");
 
             migrationBuilder.DropTable(
-                name: "TypeEntity");
+                name: "Types");
         }
     }
 }

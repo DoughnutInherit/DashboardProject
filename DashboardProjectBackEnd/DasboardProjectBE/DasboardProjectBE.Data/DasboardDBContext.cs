@@ -1,10 +1,10 @@
 ﻿using DasboardProjectBE.ServiceLibrary.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace DasboardProjectBE.Data
 {
-    public class DasboardDBContext : DbContext
+    public class DasboardDBContext : IdentityDbContext<ApplicationUser>
     {
         protected DasboardDBContext()
         {

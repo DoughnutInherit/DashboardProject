@@ -30,7 +30,7 @@ namespace DasboardProjectBE.ServiceLibrary.Services
 
         public async Task<IEnumerable<EventDto>> GetAllAsync(DateTime dateTime)
             => (await eventRepository.GetAllAsync(x => x.EntryDate.Day == dateTime.Day
-                            && x.EntryDate.Month == dateTime.Month)).Select(x => x.ToDto()); 
+                            && x.EntryDate.Month == dateTime.Month && x.EntryDate.Year == dateTime.Year)).Select(x => x.ToDto()); 
 
         public async Task<EventDto> GetByIdAsync(int id)
             => (await eventRepository.GetByIdAsync(id)).ToDto();

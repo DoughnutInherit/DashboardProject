@@ -8,26 +8,20 @@ namespace DasboardProjectBE.ViewModels.Extensions
 {
     public static class BirthdayViewModelExtensions
     {
-        public static BirthdayViewModel ToViewModel(this BirthdayDto self)
+        public static BirthdayViewModel ToViewModel(this BirthdayDto self) => new BirthdayViewModel
         {
-            return new BirthdayViewModel
-            {
-                Id = self.Id,
-                CompleteName = self.CompleteName,
-                Day = self.Day,
-                ImageUrl = self.ImageUrl
-            };
-        }
+            Id = self.Id,
+            CompleteName = self.CompleteName,
+            Day = self.Day,
+            ImageUrl = self.ImageUrl
+        };
 
-        public static BirthdayDto ToDto(this BirthdayViewModel self)
+        public static BirthdayDto ToDto(this BirthdayViewModel self) => new BirthdayDto
         {
-            return new BirthdayDto
-            {
-                Id = self.Id,
-                CompleteName = self.CompleteName,
-                Day = self.Day,
-                ImageUrl = self.ImageUrl
-            };
-        }
+            Id = self.Id,
+            CompleteName = self.CompleteName,
+            Day = self.Day,
+            ImageUrl = self.ImageUrl
+        };
     }
 }

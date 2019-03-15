@@ -8,24 +8,18 @@ namespace DasboardProjectBE.ViewModels.Extensions
 {
     public static class TypeViewModelExtensions
     {
-        public static TypeViewModel ToViewModel(this TypeDto self)
+        public static TypeViewModel ToViewModel(this TypeDto self) => new TypeViewModel
         {
-            return new TypeViewModel
-            {
-                Id = self.Id,
-                Name = self.Name,
-                Events = self.Events?.Select(x => x.ToViewModel()).ToList()
-            };
-        }
+            Id = self.Id,
+            Name = self.Name,
+            Events = self.Events?.Select(x => x.ToViewModel()).ToList()
+        };
 
-        public static TypeDto ToDto(this TypeViewModel self)
+        public static TypeDto ToDto(this TypeViewModel self) => new TypeDto
         {
-            return new TypeDto
-            {
-                Id = self.Id,
-                Name = self.Name,
-                Events = self.Events?.Select(x => x.ToDto()).ToList()
-            };
-        }
+            Id = self.Id,
+            Name = self.Name,
+            Events = self.Events?.Select(x => x.ToDto()).ToList()
+        };
     }
 }
