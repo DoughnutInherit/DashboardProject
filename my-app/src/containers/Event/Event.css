@@ -1,6 +1,9 @@
-html{
-  background-image: url("../../services/bgdiv.jpg");
-  background-size: 100%;
+.background{
+  background: url("../../services/bgdiv.jpg") no-repeat;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  position: absolute;
 }
 
 .containerAlert{

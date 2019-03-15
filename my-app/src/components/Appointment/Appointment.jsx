@@ -33,7 +33,9 @@ class Appointment extends Component {
   }
 
   componentDidMount = () => {
-    getDailyEvents('https://localhost:44377/api/event/2018-03-06')
+    //const now = '2019-02-11';
+    const now = moment().format('YYYY-MM-DD');
+    getDailyEvents(`https://localhost:44377/api/event/${now}`)
       .then(response => this.props.setEvents(response));
 
     this.props.setEvents(dailyInfo.events);
@@ -47,7 +49,7 @@ class Appointment extends Component {
     return (
       <div className="row eventContainer">
         <div className="col">
-          <h2 className="eventTitle">{this.props.event.title}</h2>
+          <h2 className="eventTitle">Próximas visitas:</h2>
         </div>
         <div className="w-100" />
         <div className="col">
