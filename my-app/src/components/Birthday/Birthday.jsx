@@ -8,6 +8,7 @@ import { Carousel } from 'react-responsive-carousel';
 import { setBirthdayList } from '../../actions/actionBirthday';
 import dailyInfo from '../../services/dailyInfo.json';
 import './Birthday.css';
+import '../../containers/Dashboard/Dashboard.css';
 
 class Birthday extends Component {
   static propTypes = {
@@ -25,13 +26,21 @@ class Birthday extends Component {
 
       birthdayList === undefined ? <p> Undefined </p>
         : (
-          <Carousel className="carousel" width="400px" autoPlay={false} showArrows={false} infiniteLoop emulateTouch showStatus={false} showThumbs={false}>
-            {this.props.birthdayList.map(Person =>
+          <Carousel className="carousel shadow" autoPlay={false} showArrows={false} infiniteLoop emulateTouch showStatus={false} showThumbs={false}>
+            {this.props.birthdayList.map(Person => (
               <div>
                 <img className="imagensita" src={Person.imageUrl} alt="" />
-                <h2 className="text">!Feliz cumpleaños {Person.name}!</h2>
+                <h3 className="text">
+                  !
+                  {' '}
+                  Feliz cumpleaños
+                  {' '}
+                  {Person.name}
+                  {' '}
+                  !
+                </h3>
               </div>
-            )}
+            ))}
           </Carousel>
         )
     );

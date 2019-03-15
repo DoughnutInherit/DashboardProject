@@ -13,8 +13,8 @@ const initialState = {
       description: '',
       type: {
         id: 0,
-        dateIni: '2019-02-20T11:00:00',
-        dateEnd: '2019-03-04T11:30:00',
+        entryDate: '2019-02-20T11:00:00',
+        departureDate: '2019-03-04T11:30:00',
         events: [],
         name: '',
       },
@@ -24,15 +24,27 @@ const initialState = {
 
 const setDates = (events) => {
   events.forEach(element => {
-    const dateIniD = new Date(element.dateIni);
-    const dateEndD = new Date(element.dateEnd);
+    const dateIniD = new Date(element.entryDate);
+    const dateEndD = new Date(element.departureDate);
 
-    element.dateIni = dateIniD;
-    element.dateEnd = dateEndD;
+    element.entryDate = dateIniD;
+    element.departureDate = dateEndD;
   });
   events.sort(compare);
 
   return events;
+};
+
+const setDefaultEvent = (array, index) => {
+  let object = {
+    title: 'Sin eventos para el dia de hoy',
+    description: 'Sin eventos para el dia de hoy. ¡Que tengas un buen dia!',
+  };
+
+  if (index < array.length) {
+    object = array[index];
+  }
+  return object;
 };
 
 const appointmentReducer = (state = initialState, action) => {
@@ -43,7 +55,7 @@ const appointmentReducer = (state = initialState, action) => {
       return { ...state, time: action.time };
     case actionAppointment.SET_EVENTS:
       const myEvents = setDates(action.events);
-      return { ...state, events: myEvents };
+      return { ...state, events: myEvents, event: setDefaultEvent(myEvents, state.eventIndex) };
     case actionAppointment.SET_INDEX:
       return { ...state, eventIndex: action.index };
     default:

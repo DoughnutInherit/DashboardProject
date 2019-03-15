@@ -1,15 +1,16 @@
-﻿using System;
+﻿using DasboardProjectBE.ServiceLibrary.Common.Contracts;
+using DasboardProjectBE.ViewModels;
+using DasboardProjectBE.ViewModels.Extensions;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DasboardProjectBE.ServiceLibrary.Common.Contracts;
-using DasboardProjectBE.ViewModels;
-using DasboardProjectBE.ViewModels.Extensions;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 
 namespace DasboardProjectBE.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class BirthdayController : ControllerBase
@@ -43,7 +44,6 @@ namespace DasboardProjectBE.Controllers
             IEnumerable<BirthdayViewModel> result = null;
             if (ModelState.IsValid)
             {
-                //result = (await birthdayService.AddAsync(value.ToDto())).ToViewModel();
                 result = (await birthdayService.AddAllAsync(values.Select(y => y.ToDto()))).Select(y => y.ToViewModel());
             }
 

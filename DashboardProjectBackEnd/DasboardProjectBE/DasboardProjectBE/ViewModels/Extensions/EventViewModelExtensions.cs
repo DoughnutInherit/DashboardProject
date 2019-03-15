@@ -11,6 +11,7 @@ namespace DasboardProjectBE.ViewModels.Extensions
         public static EventViewModel ToViewModel(this EventDto self) => new EventViewModel
         {
             Id = self.Id,
+            Title = self.Title,
             Description = self.Description,
             EntryDate = self.EntryDate,
             DepartureDate = self.DepartureDate,
@@ -20,6 +21,7 @@ namespace DasboardProjectBE.ViewModels.Extensions
         public static EventDto ToDto(this EventViewModel self) => new EventDto
         {
             Id = self.Id,
+            Title = self.Title,
             Description = self.Description,
             EntryDate = self.EntryDate,
             DepartureDate = self.DepartureDate,

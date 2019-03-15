@@ -1,0 +1,22 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+.alertContainer{
+  background-color:rgba(255,255,255,.8);
+  margin-top: 25%;
+  padding: 5%;
+  text-align: center;
+  font-family: 'Open Sans';
+}
+
+.titleStyle{
+  color: #EA7600;
+}
+
+h1{
+  font-size: 55px;
+  font-weight:600;
+}
+
+p{
+  font-size: 35px;
+  color: #515151;
+}

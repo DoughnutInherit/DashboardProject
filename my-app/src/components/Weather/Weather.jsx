@@ -19,16 +19,15 @@ class Weather extends Component {
 
   weatherComponent = (url, today) => {
     today = new Date();
-    let date = months[today.getMonth()] + ' ' + (today.getDate()) + ', ' + today.getFullYear();
+    const date = months[today.getMonth()] + ' ' + (today.getDate()) + ', ' + today.getFullYear();
     this.props.setActualDate(date);
-    
+
     getWeatherFromUrl(url)
       .then(response => this.props.addWeather(response))
       .catch(e => {
         const { message, stack } = e;
         return this.props.getError({ message, stack });
-      }
-    );
+      });
   }
 
   componentDidMount = () => {
@@ -37,9 +36,9 @@ class Weather extends Component {
     this.weatherComponent(url, today);
     
     setInterval(() => {
-        this.weatherComponent(url, today);
-      }
-    , 600000)
+      this.weatherComponent(url, today);
+    },
+    600000);
   };
 
   render() {
@@ -47,20 +46,23 @@ class Weather extends Component {
     const { weather } = this.props.weather;
     if (main !== undefined) {
       return (
-        <div align="center" className="container">
-          <h2>
-            {Math.trunc(main.temp)}
-            Cº
-          </h2>
-          <img src={icons[weather[0].icon]} alt={weather[0].description} width='20px' heigth='20px'/>
-          <p>{weather[0].main}</p>
-          <p>Barcelona</p>
-          <p>{this.props.date}</p>
+        <div className="row weatherStyles">
+          <div className="col-lg-6">
+            <img src={icons[weather[0].icon]} alt={weather[0].description} />
+          </div>
+          <div className="col-lg-6">
+            <h1 className="weatherTemp">
+              {Math.trunc(main.temp)}
+              Cº
+            </h1>
+            <h4 className="cityName">Barcelona</h4>
+            <p className="weatherDate">{this.props.date}</p>
+          </div>
         </div>
       );
     }
     return (
-      <div align="center" className="container">
+      <div align="center" className="weatherContainer">
         <h2>No hay datos</h2>
       </div>
     );

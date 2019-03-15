@@ -1,28 +1,27 @@
-.try {
-  border-style: solid;
+.selected{
+  height: 0px;
+}
+
+.imagensita{
+  height: 300px;
+  width: 400px;
 }
 
 .text{
   color: orange;
   background-color: white;
+  height: 100px;
+  font-size: 24px;
+  font-weight:600;
+  padding: 9%;
+  padding-top: 2%;
 }
 
-.puntitos{
-  height: 30px;
+.carousel .control-dots .dot.selected,
+.carousel .control-dots .dot:hover {
+  background-color: orange;
 }
 
-.carousel{
-  height: 410px;
-  width: 500px;
-}
-.selected{
-  background: orange;
-}
-
-.carousel .control-dots .dot{
-  background-color: #dd9309;
-}
-
-.imagensita{
-  height:300px;
+ul{
+  padding-inline-start: 0px;
 }
