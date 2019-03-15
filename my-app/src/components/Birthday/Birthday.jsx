@@ -40,8 +40,7 @@ class Birthday extends Component {
                   !
                 </h3>
               </div>
-            ),
-            )}
+            ))}
           </Carousel>
         )
     );

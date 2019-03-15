@@ -1,7 +1,3 @@
-.carousel{
-  height: 400px;
-  width: 400px;
-}
 .selected{
   height: 0px;
 }
@@ -26,6 +22,6 @@
   background-color: orange;
 }
 
-.control-dots .ul{
+ul{
   padding-inline-start: 0px;
 }

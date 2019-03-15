@@ -39,6 +39,7 @@ class EventUp extends Component {
   }
 
   render() {
+    debugger;
     return (
       <div class="row alertContainer">
         <div class="col titleStyle">

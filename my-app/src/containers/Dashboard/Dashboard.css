@@ -8,13 +8,11 @@
 
 .appointmentContainer{
   background-color: white;
-  margin-right: 5%
 }
 
 .weatherContainer{
   background-color:#EA7600;
   color: white;
-  padding: 2%;
 
 }
 
@@ -23,5 +21,6 @@
 }
 
 .topRow{
-  margin-bottom: 5%
+  margin-bottom: 5%;
+  padding: 1.5%;
 }
