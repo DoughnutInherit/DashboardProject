@@ -43,6 +43,7 @@ namespace DasboardProjectBE.Data.Migrations
                     Description = table.Column<string>(nullable: true),
                     EntryDate = table.Column<DateTime>(nullable: false),
                     DepartureDate = table.Column<DateTime>(nullable: false),
+
                     TypeId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>

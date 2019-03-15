@@ -7,28 +7,22 @@ namespace DasboardProjectBE.ServiceLibrary.Common.Dto.Extensions
 {
     public static class EventDtoExtensions
     {
-        public static EventDto ToDto (this EventEntity self)
+        public static EventDto ToDto(this EventEntity self) => new EventDto
         {
-            return new EventDto
-            {
-                Id = self.Id,
-                Description = self.Description,
-                EntryDate = self.EntryDate,
-                DepartureDate = self.DepartureDate,
-                TypeId = self.TypeId 
-            };
-        }
+            Id = self.Id,
+            Description = self.Description,
+            EntryDate = self.EntryDate,
+            DepartureDate = self.DepartureDate,
+            TypeId = self.TypeId
+        };
 
-        public static EventEntity ToEntity (this EventDto self)
+        public static EventEntity ToEntity(this EventDto self) => new EventEntity
         {
-            return new EventEntity
-            {
-                Id = self.Id,
-                Description = self.Description,
-                EntryDate = self.EntryDate,
-                DepartureDate = self.DepartureDate,
-                TypeId = self.TypeId
-            };
-        }
+            Id = self.Id,
+            Description = self.Description,
+            EntryDate = self.EntryDate,
+            DepartureDate = self.DepartureDate,
+            TypeId = self.TypeId
+        };
     }
 }

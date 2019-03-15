@@ -7,26 +7,20 @@ namespace DasboardProjectBE.ServiceLibrary.Common.Dto.Extensions
 {
     public static class BirthdayDtoExtensions
     {
-        public static BirthdayDto ToDto(this BirthdayEntity self)
+        public static BirthdayDto ToDto(this BirthdayEntity self) => new BirthdayDto
         {
-            return new BirthdayDto
-            {
-                Id = self.Id,
-                CompleteName = self.CompleteName,
-                Day = self.Day,
-                ImageUrl = self.ImageUrl
-            };
-        }
+            Id = self.Id,
+            CompleteName = self.CompleteName,
+            Day = self.Day,
+            ImageUrl = self.ImageUrl
+        };
 
-        public static BirthdayEntity ToEntity(this BirthdayDto self)
+        public static BirthdayEntity ToEntity(this BirthdayDto self) => new BirthdayEntity
         {
-            return new BirthdayEntity
-            {
-                Id = self.Id,
-                CompleteName = self.CompleteName,
-                Day = self.Day,
-                ImageUrl = self.ImageUrl
-            };
-        }
+            Id = self.Id,
+            CompleteName = self.CompleteName,
+            Day = self.Day,
+            ImageUrl = self.ImageUrl
+        };
     }
 }

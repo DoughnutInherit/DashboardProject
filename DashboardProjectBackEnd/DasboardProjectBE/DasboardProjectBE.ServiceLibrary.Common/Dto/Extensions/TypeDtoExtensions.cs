@@ -8,24 +8,18 @@ namespace DasboardProjectBE.ServiceLibrary.Common.Dto.Extensions
 {
     public static class TypeDtoExtensions
     {
-        public static TypeDto ToDto(this TypeEntity self)
+        public static TypeDto ToDto(this TypeEntity self) => new TypeDto
         {
-            return new TypeDto
-            {
-                Id = self.Id,
-                Name = self.Name,
-                //Events = self.Events?.Select(x => x.ToDto()).ToList()
-            };
-        }
+            Id = self.Id,
+            Name = self.Name,
+            //Events = self.Events?.Select(x => x.ToDto()).ToList()
+        };
 
-        public static TypeEntity ToEntity (this TypeDto self)
+        public static TypeEntity ToEntity(this TypeDto self) => new TypeEntity
         {
-            return new TypeEntity
-            {
-                Id = self.Id,
-                Name = self.Name,
-                //Events = self.Events?.Select(x => x.ToEntity()).ToList()
-            };
-        }
+            Id = self.Id,
+            Name = self.Name,
+            //Events = self.Events?.Select(x => x.ToEntity()).ToList()
+        };
     }
 }

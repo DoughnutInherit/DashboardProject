@@ -35,6 +35,7 @@ class Weather extends Component {
     const url = weatherUrl();
     var today = new Date();
     this.weatherComponent(url, today);
+    
     setInterval(() => {
         this.weatherComponent(url, today);
       }

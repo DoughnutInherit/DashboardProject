@@ -8,28 +8,22 @@ namespace DasboardProjectBE.ViewModels.Extensions
 {
     public static class EventViewModelExtensions
     {
-        public static EventViewModel ToViewModel(this EventDto self)
+        public static EventViewModel ToViewModel(this EventDto self) => new EventViewModel
         {
-            return new EventViewModel
-            {
-                Id = self.Id,
-                Description = self.Description,
-                EntryDate = self.EntryDate,
-                DepartureDate = self.DepartureDate,
-                TypeId = self.TypeId,
-            };
-        }
+            Id = self.Id,
+            Description = self.Description,
+            EntryDate = self.EntryDate,
+            DepartureDate = self.DepartureDate,
+            TypeId = self.TypeId,
+        };
 
-        public static EventDto ToDto(this EventViewModel self)
+        public static EventDto ToDto(this EventViewModel self) => new EventDto
         {
-            return new EventDto
-            {
-                Id = self.Id,
-                Description = self.Description,
-                EntryDate = self.EntryDate,
-                DepartureDate = self.DepartureDate,
-                TypeId = self.TypeId,
-            };
-        }
+            Id = self.Id,
+            Description = self.Description,
+            EntryDate = self.EntryDate,
+            DepartureDate = self.DepartureDate,
+            TypeId = self.TypeId,
+        };
     }
 }
