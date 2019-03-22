@@ -13,10 +13,9 @@ class FormBackOffice extends Component{
 
     checkboxChecked = (event) => {
         if(event.target.checked){
-            document.getElementsByName('iniHour')[0].value = "08:00"
-            document.getElementsByName('endHour')[0].value = "20:00"
             document.getElementsByName('iniHour')[0].disabled = true
             document.getElementsByName('endHour')[0].disabled = true
+            this.props.change("iniHour", "08:00")
         }
         else{
             document.getElementsByName('iniHour')[0].disabled = false
