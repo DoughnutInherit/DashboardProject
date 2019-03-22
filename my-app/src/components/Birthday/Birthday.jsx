@@ -29,7 +29,7 @@ class Birthday extends Component {
           <Carousel className="carousel shadow" autoPlay={false} showArrows={false} infiniteLoop emulateTouch showStatus={false} showThumbs={false}>
             {this.props.birthdayList.map(Person => (
               <div>
-                <img className="imagensita" src={Person.imageUrl} alt="" />
+                <img className="image" src={Person.imageUrl} alt="" />
                 <h3 className="text">
                   !
                   {' '}
