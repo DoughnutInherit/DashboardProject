@@ -64,7 +64,31 @@ namespace DasboardProjectBE.ServiceLibrary.IoC
 
             return services;
         }
+        public static IServiceCollection AddRegisterAuthentication (this IServiceCollection services, IConfiguration configuration)
+        {
+            var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Tokens:Key"]));
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(config =>
+            {
+                config.RequireHttpsMetadata = false;
+                config.SaveToken = true;
+                config.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    IssuerSigningKey = signingKey,
+                    ValidateAudience = true,
+                    ValidAudience = configuration["Tokens:Audience"],
+                    ValidateIssuer = true,
+                    ValidIssuer = configuration["Tokens:Issuer"],
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true
+                };
+            });
 
+            return services;
+        }
         public static IServiceCollection AddRegisterContexts(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>(x => new UnitOfWork(configuration.GetConnectionString("DataBaseConnection")));
