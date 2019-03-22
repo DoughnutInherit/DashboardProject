@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
+
 import { setBirthdayList } from '../../actions/actionBirthday';
 import dailyInfo from '../../services/dailyInfo.json';
 import './Birthday.css';
+import '../../containers/Dashboard/Dashboard.css';
 
 class Birthday extends Component {
   static propTypes = {
@@ -22,11 +26,22 @@ class Birthday extends Component {
 
       birthdayList === undefined ? <p> Undefined </p>
         : (
-          <div align="center" className="try">
-            {/* <img src={birthdayList[0].imageUrl} alt="Logo" />
-            <h5>{birthdayList.name}</h5> */}
-
-          </div>
+          <Carousel className="carousel shadow" autoPlay={true} showArrows={false} infiniteLoop emulateTouch showStatus={false} showThumbs={false}>
+            {this.props.birthdayList.map(Person => (
+              <div>
+                <img className="imagensita" src={Person.imageUrl} alt="" />
+                <h3 className="text">
+                  !
+                  {' '}
+                  Feliz cumpleaños
+                  {' '}
+                  {Person.name}
+                  {' '}
+                  !
+                </h3>
+              </div>
+            ))}
+          </Carousel>
         )
     );
   }

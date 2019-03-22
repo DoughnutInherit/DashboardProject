@@ -9,5 +9,6 @@ namespace DasboardProjectBE.ViewModels
     {
         public string CompleteName { get; set; }
         public DateTime Day { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

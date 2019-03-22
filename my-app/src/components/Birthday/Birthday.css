@@ -1,3 +1,27 @@
-.try {
-  border-style: solid;
+.selected{
+  height: 0px;
+}
+
+.imagensita{
+  height: 300px;
+  width: 400px;
+}
+
+.text{
+  color: orange;
+  background-color: white;
+  height: 100px;
+  font-size: 24px;
+  font-weight:600;
+  padding: 9%;
+  padding-top: 2%;
+}
+
+.carousel .control-dots .dot.selected,
+.carousel .control-dots .dot:hover {
+  background-color: orange;
+}
+
+ul{
+  padding-inline-start: 0px;
 }

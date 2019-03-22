@@ -22,6 +22,9 @@ namespace DasboardProjectBE.Data.Repositories
         public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
             => await context.Set<TEntity>().ToListAsync();
 
+        public virtual async Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate)
+            => await context.Set<TEntity>().Where(predicate).ToListAsync(); 
+
         public async Task<TEntity> GetByIdWithIncludesAsync(TKey id, IEnumerable<Expression<Func<TEntity, object>>> includes)
             => await includes.Aggregate(context.Set<TEntity>().AsQueryable(), (current, include) => current.Include(include))
                              .SingleOrDefaultAsync(s => s.Id.Equals(id));
@@ -33,6 +36,13 @@ namespace DasboardProjectBE.Data.Repositories
         {
             EntityEntry<TEntity> entityEntry = context.Set<TEntity>().Add(entity);
             TEntity result = entityEntry.Entity;
+            return await Task.FromResult(result);
+        }
+        
+        public virtual async Task<IEnumerable<TEntity>> AddAllAsync(IEnumerable<TEntity> entities)
+        {
+            IEnumerable<EntityEntry<TEntity>> entitiesEntries = entities.Select(x => context.Set<TEntity>().Add(x));
+            IEnumerable<TEntity> result = entitiesEntries.Select(x => x.Entity);
             return await Task.FromResult(result);
         }
 

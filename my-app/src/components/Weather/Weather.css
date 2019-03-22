@@ -1,0 +1,18 @@
+.weatherStyles{
+  padding-top: 20px;
+}
+
+.cityName{
+  font-size: 24px;
+  font-weight:600;
+}
+
+.weatherDate{
+  font-size: 14px;
+  color: white;
+}
+
+.weatherTemp{
+  font-size: 50px;
+  font-weight:800;
+}

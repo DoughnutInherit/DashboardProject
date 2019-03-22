@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DasboardProjectBE.Data.Migrations
 {
     [DbContext(typeof(DasboardDBContext))]
-    [Migration("20190220090440_InitMigration")]
-    partial class InitMigration
+    [Migration("20190311101419_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,7 +27,11 @@ namespace DasboardProjectBE.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CompleteName");
+
                     b.Property<DateTime>("Day");
+
+                    b.Property<string>("ImageUrl");
 
                     b.HasKey("Id");
 
@@ -45,6 +49,8 @@ namespace DasboardProjectBE.Data.Migrations
                     b.Property<string>("Description");
 
                     b.Property<DateTime>("EntryDate");
+
+                    b.Property<string>("Title");
 
                     b.Property<int>("TypeId");
 
@@ -65,7 +71,7 @@ namespace DasboardProjectBE.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TypeEntity");
+                    b.ToTable("Types");
                 });
 
             modelBuilder.Entity("DasboardProjectBE.ServiceLibrary.Entities.EventEntity", b =>

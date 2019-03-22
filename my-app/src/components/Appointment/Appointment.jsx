@@ -1,47 +1,61 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { setEvent, setTime, setEvents } from '../../actions/actionAppointment';
+import moment from 'moment';
+import { setEvents, setIndex } from '../../actions/actionAppointment';
 import './Appointment.css';
 import dailyInfo from '../../services/dailyInfo.json';
+import getDailyEvents from '../../services/serviceWorker';
 
 class Appointment extends Component {
   static propTypes = {
+    history: PropTypes.object,
     event: PropTypes.object,
-    setEvent: PropTypes.func,
-    currentTime: PropTypes.string,
-    setTime: PropTypes.func,
     events: PropTypes.array,
     setEvents: PropTypes.func,
+    setIndex: PropTypes.func,
+    index: PropTypes.number,
   }
 
-  changePageAlert = (currentTime, eventIni) => {
+  navigate = () => {
+    this.props.history.push('Event');
+  }
 
-  };
-
-  componentWillReceiveProps = () => {
-
+  componentDidUpdate = () => {
+    const now = moment();
+    if (this.props.event.entryDate !== undefined) {
+      const eventTimeIni = moment(this.props.event.entryDate);
+      const timeRemeaning = eventTimeIni.diff(now);
+      this.timer = setTimeout(() => {
+        this.navigate();
+      }, timeRemeaning);
+    }
   }
 
   componentDidMount = () => {
-    this.props.setEvents(dailyInfo.events);
+    //const now = '2019-02-11';
+    const now = moment().format('YYYY-MM-DD');
+    getDailyEvents(`https://localhost:44377/api/event/${now}`)
+      .then(response => this.props.setEvents(response));
 
-    setInterval(() => {
-      this.props.setTime(new Date().toString());
-    }, 1000);
+    this.props.setEvents(dailyInfo.events);
   };
 
+  componentWillUnmount = () => {
+    clearTimeout(this.timer);
+  }
+
   render() {
-    debugger;
     return (
-      <div>
-        <div>
-          <h4>{this.props.events[0].title}</h4>
+      <div className="row eventContainer">
+        <div className="col">
+          <h2 className="eventTitle">Próximas visitas:</h2>
         </div>
-        <div>
-          <p>{this.props.events[0].description}</p>
-          {this.props.events[0].datIni !== undefined
-            ? <p>{this.props.events[0].datIni.toLocaleTimeString('en-US')}</p>
+        <div className="w-100" />
+        <div className="col">
+          <p className="eventDescription">{this.props.event.description}</p>
+          {this.props.event.entryDate !== undefined
+            ? <p>{this.props.event.entryDate.toLocaleString()}</p>
             : <p />
           }
         </div>
@@ -51,11 +65,11 @@ class Appointment extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  event: state.appointment.event,
-  currentTime: state.appointment.time,
   events: state.appointment.events,
+  index: state.appointment.eventIndex,
+  event: state.appointment.event,
 });
 
 export default connect(mapStateToProps, {
-  setEvent, setTime, setEvents,
+  setEvents, setIndex,
 })(Appointment);

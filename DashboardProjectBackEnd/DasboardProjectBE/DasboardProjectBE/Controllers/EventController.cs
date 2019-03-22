@@ -1,14 +1,15 @@
 ﻿using DasboardProjectBE.ServiceLibrary.Common.Contracts;
 using DasboardProjectBE.ViewModels;
 using DasboardProjectBE.ViewModels.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace DasboardProjectBE.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class EventController : ControllerBase
@@ -20,10 +21,10 @@ namespace DasboardProjectBE.Controllers
             this.eventService = eventService ?? throw new ArgumentNullException(nameof(eventService));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get()
-            => Ok((await eventService.GetAllAsync()).Select(x => x.ToViewModel()));
-        
+        [HttpGet("{date}")]
+        public async Task<IActionResult> Get(DateTime date)
+            => Ok((await eventService.GetAllAsync(date)).Select(x => x.ToViewModel()));
+
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
@@ -42,10 +43,23 @@ namespace DasboardProjectBE.Controllers
             EventViewModel result = null;
             if (ModelState.IsValid)
             {
-                result = (await eventService.AddAsync(value.ToDto())).ToViewModel();
+                var exist = false;
+                var events = await eventService.GetAllAsync();
+                events.ToList().ForEach(element =>
+                {
+                    if (element.EntryDate == value.EntryDate)
+                    {
+                        exist = true;
+                    }
+                });
+                if (!exist)
+                {
+                    result = (await eventService.AddAsync(value.ToDto())).ToViewModel();
+                    return Created("{id}", result);
+                }
             }
+            return BadRequest();
 
-            return Created("{id}", result);
         }
 
         [HttpPut("{id}")]
@@ -63,7 +77,5 @@ namespace DasboardProjectBE.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
             => Ok(await eventService.DeleteAsync(id));
-
-
     }
 }

@@ -11,6 +11,7 @@ namespace DasboardProjectBE.ServiceLibrary.Common.Contracts
     {
         Task<BirthdayDto> GetByIdAsync(int id);
         Task<BirthdayDto> AddAsync(BirthdayDto dto);
+        Task<IEnumerable<BirthdayDto>> AddAllAsync(IEnumerable<BirthdayDto> dtos);
         Task<BirthdayDto> UpdateAsync(BirthdayDto dto);
         Task<bool> DeleteAsync(int id);
     }

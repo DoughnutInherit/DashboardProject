@@ -19,13 +19,73 @@ namespace DasboardProjectBE.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("DasboardProjectBE.ServiceLibrary.Entities.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AccessFailedCount");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken();
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(256);
+
+                    b.Property<bool>("EmailConfirmed");
+
+                    b.Property<bool>("LockoutEnabled");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(250);
+
+                    b.Property<string>("PasswordHash");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<bool>("PhoneNumberConfirmed");
+
+                    b.Property<string>("SecurityStamp");
+
+                    b.Property<bool>("TwoFactorEnabled");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers");
+                });
+
             modelBuilder.Entity("DasboardProjectBE.ServiceLibrary.Entities.BirthdayEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("CompleteName");
+
                     b.Property<DateTime>("Day");
+
+                    b.Property<string>("ImageUrl");
 
                     b.HasKey("Id");
 
@@ -43,6 +103,8 @@ namespace DasboardProjectBE.Data.Migrations
                     b.Property<string>("Description");
 
                     b.Property<DateTime>("EntryDate");
+
+                    b.Property<string>("Title");
 
                     b.Property<int>("TypeId");
 
@@ -63,7 +125,7 @@ namespace DasboardProjectBE.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TypeEntity");
+                    b.ToTable("Types");
                 });
 
             modelBuilder.Entity("DasboardProjectBE.ServiceLibrary.Entities.EventEntity", b =>
