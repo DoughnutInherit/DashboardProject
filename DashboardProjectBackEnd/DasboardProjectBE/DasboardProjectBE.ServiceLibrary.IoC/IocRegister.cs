@@ -33,7 +33,11 @@ namespace DasboardProjectBE.ServiceLibrary.IoC
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
                 options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-
+                options.Password.RequiredLength = 8;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireDigit = true;
+                options.Password.RequireUppercase = true;
             })
                     .AddEntityFrameworkStores<DasboardDBContext>();
             return services;

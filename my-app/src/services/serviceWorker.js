@@ -35,6 +35,7 @@ export const getJwtBearer = (user, method, url) => new Promise(((resolve, reject
     .set('email', user.email)
     .set('password', user.password)
     .end((err, result) => {
+      debugger;
       if (err) reject(err);
       resolve(result);
     });
