@@ -11,9 +11,12 @@ class Event extends Component {
 
   render() {
     return (
-      <div class="container-fluid containerAlert opac">
-        <EventUp history={this.props.history} />
+      <div className="background">
+        <div className="container-fluid containerAlert opac">
+          <EventUp history={this.props.history} />
+        </div>
       </div>
+
     );
   }
 }

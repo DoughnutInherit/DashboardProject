@@ -38,7 +38,7 @@ const setDates = (events) => {
 const setDefaultEvent = (array, index) => {
   let object = {
     title: 'Sin eventos para el dia de hoy',
-    description: 'Que tengas un buen dia!',
+    description: 'Sin eventos para el dia de hoy. ¡Que tengas un buen dia!',
   };
 
   if (index < array.length) {
@@ -55,7 +55,6 @@ const appointmentReducer = (state = initialState, action) => {
       return { ...state, time: action.time };
     case actionAppointment.SET_EVENTS:
       const myEvents = setDates(action.events);
-
       return { ...state, events: myEvents, event: setDefaultEvent(myEvents, state.eventIndex) };
     case actionAppointment.SET_INDEX:
       return { ...state, eventIndex: action.index };

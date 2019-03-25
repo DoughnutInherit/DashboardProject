@@ -26,7 +26,7 @@ class Birthday extends Component {
 
       birthdayList === undefined ? <p> Undefined </p>
         : (
-          <Carousel className="carousel shadow" autoPlay={false} showArrows={false} infiniteLoop emulateTouch showStatus={false} showThumbs={false}>
+          <Carousel className="carousel shadow" autoPlay={true} showArrows={false} infiniteLoop emulateTouch showStatus={false} showThumbs={false}>
             {this.props.birthdayList.map(Person => (
               <div>
                 <img className="imagensita" src={Person.imageUrl} alt="" />
@@ -40,8 +40,7 @@ class Birthday extends Component {
                   !
                 </h3>
               </div>
-            ),
-            )}
+            ))}
           </Carousel>
         )
     );

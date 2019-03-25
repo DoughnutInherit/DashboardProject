@@ -22,7 +22,7 @@ class Dashboard extends Component {
             <div className="col-lg-7 appointmentContainer shadow">
               <Appointment history={this.props.history} />
             </div>
-            <div className="col-lg-3 weatherContainer shadow">
+            <div className="col-lg-4 offset-md-1 weatherContainer shadow">
               <Weather />
             </div>
           </div>
@@ -30,7 +30,7 @@ class Dashboard extends Component {
             <div className="col-lg-4">
               <Birthday />
             </div>
-            <div className="col-lg-8">
+            <div className="col-lg-7 offset-md-1">
               <DynamicContent />
             </div>
           </div>

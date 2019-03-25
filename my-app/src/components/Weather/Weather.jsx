@@ -27,18 +27,18 @@ class Weather extends Component {
       .catch(e => {
         const { message, stack } = e;
         return this.props.getError({ message, stack });
-      }
-      );
+      });
   }
 
   componentDidMount = () => {
     const url = weatherUrl();
     var today = new Date();
     this.weatherComponent(url, today);
+    
     setInterval(() => {
       this.weatherComponent(url, today);
-    }
-      , 600000)
+    },
+    600000);
   };
 
   render() {
@@ -48,7 +48,7 @@ class Weather extends Component {
       return (
         <div className="row weatherStyles">
           <div className="col-lg-6">
-            <img src={icons[weather[0].icon]} alt={weather[0].description} width="140px" heigth="140px" />
+            <img src={icons[weather[0].icon]} alt={weather[0].description} />
           </div>
           <div className="col-lg-6">
             <h1 className="weatherTemp">
