@@ -18,6 +18,16 @@ export const getDailyEvents = (url) => new Promise(((resolve, reject) => {
     });
 }));
 
+export const postBackOffice = (url, info, token) => new Promise(((resolve, reject) => {
+  Request('POST', url)
+    .send(info)
+    .set('Authorization', 'Bearer ' + token)
+    .end((err, res) => {
+      if (err) reject(err);
+      resolve(res.body);
+    });
+}));
+
 export function compare(a, b) {
   if (a.entryDate < b.entryDate) {
     return -1;

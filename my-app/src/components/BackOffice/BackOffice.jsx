@@ -16,6 +16,7 @@ class FormBackOffice extends Component{
             document.getElementsByName('iniHour')[0].disabled = true
             document.getElementsByName('endHour')[0].disabled = true
             this.props.change("iniHour", "08:00")
+            this.props.change("endHour", "20:00")
         }
         else{
             document.getElementsByName('iniHour')[0].disabled = false
@@ -25,8 +26,7 @@ class FormBackOffice extends Component{
 
     checkToday = (event) => {
         const now = moment().format('YYYY-MM-DD');
-        document.getElementsByName('date')[0].value = now
-
+        this.props.change("date", now)
     }
 
     render() {
@@ -59,7 +59,7 @@ class FormBackOffice extends Component{
                         component="input"
                         type="date"
                     />
-                    <button onClick={this.checkToday} >Today</button>
+                    <Field name="button" component="input" type="button" onClick={this.checkToday} value="Today" />
                     </div>
 
                     <label>Initial hour</label>
