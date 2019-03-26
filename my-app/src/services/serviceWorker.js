@@ -21,7 +21,8 @@ export const getDailyEvents = (url) => new Promise(((resolve, reject) => {
 export const postBackOffice = (url, info, token) => new Promise(((resolve, reject) => {
   Request('POST', url)
     .send(info)
-    .set('Authorization', 'Bearer ' + token)
+    .set('authorization', 'Bearer ' + token)
+    .set('Content-Type','application/json')
     .end((err, res) => {
       if (err) reject(err);
       resolve(res.body);
