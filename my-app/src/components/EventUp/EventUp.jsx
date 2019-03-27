@@ -2,17 +2,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import moment from 'moment';
-import { setEvents, setIndex, setEvent } from '../../actions/actionAppointment';
+import { setIndex } from '../../actions/actionAppointment';
 import './EventUp.css';
 
 class EventUp extends Component {
   static propTypes = {
     history: PropTypes.object,
     event: PropTypes.object,
-    setEvent: PropTypes.func,
     events: PropTypes.array,
-    setEvents: PropTypes.func,
+    actionTime: PropTypes.number,
     index: PropTypes.number,
     setIndex: PropTypes.func,
   }
@@ -22,18 +20,14 @@ class EventUp extends Component {
   }
 
   componentDidMount = () => {
-    const now = moment();
-    const eventTimeEnd = moment(this.props.events[this.props.index].departureDate);
-    const timeRemeaning = eventTimeEnd.diff(now);
     this.timer = setTimeout(() => {
       this.navigate();
-    }, timeRemeaning);
+    }, this.props.actionTime);
   }
 
   componentWillUnmount = () => {
     if (this.props.index < this.props.events.length) {
       this.props.setIndex(this.props.index + 1);
-      this.props.setEvent(this.props.events[this.props.index]);
     }
     clearTimeout(this.timer);
   }
@@ -59,11 +53,12 @@ class EventUp extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  events: state.appointment.events,
   index: state.appointment.eventIndex,
   event: state.appointment.event,
+  events: state.appointment.events,
+  actionTime: state.appointment.actionTime,
 });
 
 export default connect(mapStateToProps, {
-  setEvents, setIndex, setEvent,
+  setIndex,
 })(EventUp);

@@ -1,12 +1,16 @@
 /* eslint-disable no-case-declarations */
 /* eslint-disable no-param-reassign */
+import moment from 'moment';
 import actionAppointment from '../../actions/actionAppointment';
 import { compare } from '../../services/serviceWorker';
 
+
 const initialState = {
   event: {},
+  allDayEvent: {},
   time: 0,
   eventIndex: 0,
+  actionTime: 0,
   events: [
     {
       title: 'a',
@@ -35,6 +39,21 @@ const setDates = (events) => {
   return events;
 };
 
+const checkAllDayEvent = (events) => {
+  let eventSelected = {};
+  events.forEach(element => {
+    const dateIniD = new Date(element.entryDate);
+    const dateEndD = new Date(element.departureDate);
+
+    const dateIniMom = moment(dateIniD).format('HH:mm:ss');
+    const dateEndMom = moment(dateEndD).format('HH:mm:ss');
+    if (dateIniMom === '08:00:00' && dateEndMom === '20:00:00') {
+      eventSelected = element;
+    }
+  });
+  return eventSelected;
+};
+
 const setDefaultEvent = (array, index) => {
   let object = {
     title: 'Sin eventos para el dia de hoy',
@@ -55,9 +74,17 @@ const appointmentReducer = (state = initialState, action) => {
       return { ...state, time: action.time };
     case actionAppointment.SET_EVENTS:
       const myEvents = setDates(action.events);
-      return { ...state, events: myEvents, event: setDefaultEvent(myEvents, state.eventIndex) };
+      checkAllDayEvent(myEvents);
+      return {
+        ...state,
+        events: myEvents,
+        event: setDefaultEvent(myEvents, state.eventIndex),
+        allDayEvent: checkAllDayEvent(myEvents),
+      };
     case actionAppointment.SET_INDEX:
       return { ...state, eventIndex: action.index };
+    case actionAppointment.SET_ACTION_TIME:
+      return { ...state, actionTime: action.time };
     default:
       return state;
   }
