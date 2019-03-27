@@ -39,4 +39,27 @@ export function compare(a, b) {
   return 0;
 }
 
+export const getJwtBearer = (user, method, url) => new Promise(((resolve, reject) => {
+  debugger;
+  Request(method, url)
+    .set('Content-Type', 'application/json')
+    .set('email', user.email)
+    .set('password', user.password)
+    .end((err, result) => {
+      if (err) reject(err);
+      resolve(result);
+    });
+}));
+
+export const authorizedRequest = (bearerToken, method, url) => new Promise(((resolve, reject) => {
+  Request(method, url)
+    .set('bearer', bearerToken)
+    .end((err, result) => {
+      if (err) {
+        reject(err);
+      }
+      resolve(result.body);
+    });
+}));
+
 export default getWeatherFromUrl;
