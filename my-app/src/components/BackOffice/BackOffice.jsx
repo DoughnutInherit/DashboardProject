@@ -34,8 +34,8 @@ class FormBackOffice extends Component{
         return(
             <form onSubmit={ handleSubmit }>
                 <div>
-                    <label>Title</label>
                     <div>
+                    <label className="eventTitle">Title</label>
                     <Field
                         name="title"
                         component="input"
@@ -43,17 +43,17 @@ class FormBackOffice extends Component{
                     />
                     </div>
 
-                    <label>Description</label>
                     <div>
+                    <label className="eventTitle">Description</label>
                     <Field
                         name="description"
                         component="input"
                         type="text"
                     />
                     </div>
-
-                    <label>Date</label>
+                  
                     <div>
+                    <label className="eventTitle">Date</label>
                     <Field
                         name="date"
                         component="input"
@@ -61,17 +61,18 @@ class FormBackOffice extends Component{
                     />
                     <Field name="button" component="input" type="button" onClick={this.checkToday} value="Today" />
                     </div>
-
-                    <label>Initial hour</label>
+            
                     <div>
+                    <label className="eventTitle">Initial hour</label>
                     <Field
                         name="iniHour"
                         component="input"
                         type="time"
                     />
                     </div>
-                    <label>End hour</label>
+                    
                     <div>
+                    <label className="eventTitle">End hour</label>
                     <Field
                         name="endHour"
                         component="input"
@@ -79,7 +80,7 @@ class FormBackOffice extends Component{
                     />
                     </div>
                     <div>
-                    <label>Event all day</label>
+                    <label className="eventTitle">Event all day</label>
                     <Field
                         name="allday"
                         component="input"
