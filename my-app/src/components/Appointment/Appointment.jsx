@@ -40,6 +40,8 @@ class Appointment extends Component {
   }
 
   checkNextActionTime = () => {
+    // Aqui miro si haz que avisar de un evento o no mirando si
+    //  el iempo qeu queda para que empieye es superior a 0
     const now = moment();
     let check = false;
     const indexAux = this.nextEvent();
@@ -60,6 +62,7 @@ class Appointment extends Component {
   }
 
   calculateUntilEventEnd = () => {
+    // En caso de que se tenga que avisar de un evento
     debugger;
     const now = moment();
     this.props.setEvent(this.props.events[this.props.index]);
@@ -69,6 +72,7 @@ class Appointment extends Component {
   }
 
   calculateUntilEventStart = () => {
+    // En caso de que no se tenga que avisaar z tengamos que esperar a que empieze uno
     const now = moment();
     const indexAux = this.nextEvent();
     this.props.setEvent(this.props.allDayEvent);
