@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
@@ -89,7 +90,7 @@ class FormBackOffice extends Component{
                     />
                     </div>
                     <div>
-                        <button type="submit">Done</button>
+                        <button type="submit" className="btn btn-primary">Done</button>
                     </div>
                 </div>
             </form>
