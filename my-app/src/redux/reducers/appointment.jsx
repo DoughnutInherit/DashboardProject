@@ -59,7 +59,6 @@ const setDefaultEvent = (array, index) => {
     title: 'Sin eventos para el dia de hoy',
     description: 'Sin eventos para el dia de hoy. ¡Que tengas un buen dia!',
   };
-
   if (index < array.length) {
     object = array[index];
   }
@@ -84,6 +83,7 @@ const appointmentReducer = (state = initialState, action) => {
     case actionAppointment.SET_INDEX:
       return { ...state, eventIndex: action.index };
     case actionAppointment.SET_ACTION_TIME:
+    debugger;
       return { ...state, actionTime: action.time };
     default:
       return state;

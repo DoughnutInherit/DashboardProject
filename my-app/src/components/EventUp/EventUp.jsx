@@ -13,6 +13,7 @@ class EventUp extends Component {
     actionTime: PropTypes.number,
     index: PropTypes.number,
     setIndex: PropTypes.func,
+    allDayEvent: PropTypes.object,
   }
 
   navigate = () => {
@@ -26,14 +27,13 @@ class EventUp extends Component {
   }
 
   componentWillUnmount = () => {
-    if (this.props.index < this.props.events.length) {
+    if (this.props.index < this.props.events.length && this.props.event.description !== this.props.allDayEvent.description) {
       this.props.setIndex(this.props.index + 1);
     }
     clearTimeout(this.timer);
   }
 
   render() {
-    debugger;
     return (
       <div class="row alertContainer">
         <div class="col titleStyle">
@@ -57,6 +57,7 @@ const mapStateToProps = (state) => ({
   event: state.appointment.event,
   events: state.appointment.events,
   actionTime: state.appointment.actionTime,
+  allDayEvent: state.appointment.allDayEvent,
 });
 
 export default connect(mapStateToProps, {
