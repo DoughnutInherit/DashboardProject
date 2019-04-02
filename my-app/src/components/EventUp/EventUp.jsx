@@ -64,6 +64,7 @@ const mapStateToProps = (state) => ({
   allDayEvent: state.appointment.allDayEvent,
 });
 
+
 export default connect(mapStateToProps, {
   setIndex,
 })(EventUp);

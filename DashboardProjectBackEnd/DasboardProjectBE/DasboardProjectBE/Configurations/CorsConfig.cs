@@ -15,9 +15,10 @@ namespace DasboardProjectBE.Configurations
                 options.AddPolicy("AllowSpecificOrigins",
                 builder =>
                 {
-                    builder.WithOrigins("*")
-                            .WithMethods("")
-                            .WithHeaders(HeaderNames.ContentType, "application/json");
+                    builder.WithOrigins("http://localhost:3000")
+                            .WithMethods("* ")
+                            .WithHeaders(HeaderNames.ContentType, "application/json")
+                            .AllowAnyHeader();
                 });
             });
 
