@@ -4,6 +4,7 @@
   background-color: #F7F7F7;
   font-family: 'Open Sans';
   height: 100vh;
+  width: 100%;
 }
 
 .appointmentContainer{
@@ -22,5 +23,5 @@
 
 .topRow{
   margin-bottom: 5%;
-  padding: 1.5%;
+  padding: 1%;
 }
