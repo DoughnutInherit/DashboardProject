@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using Swashbuckle.AspNetCore.Swagger;
 
 namespace DasboardProjectBE.Controllers
 {
@@ -41,16 +40,15 @@ namespace DasboardProjectBE.Controllers
             if (email != null && password != null || email != String.Empty && password != String.Empty)
             {
                 result  = await signInManager.PasswordSignInAsync(email, password, false, false);
-            }
-            else throw new ApplicationException("User name and Password can't be null or empty");
 
-            if (result.Succeeded)
-            {
-                var appUser = userManager.Users.SingleOrDefault(r => r.UserName == email);
-                return await GenerateJwtToken(email, appUser);
+                if (result.Succeeded)
+                {
+                    var appUser = userManager.Users.SingleOrDefault(r => r.UserName == email);
+                    return await GenerateJwtToken(email, appUser);
+                }
             }
 
-            throw new ApplicationException("Invalid login attempt");
+            return BadRequest();
         }
 
         [HttpPost("register")]
@@ -58,7 +56,7 @@ namespace DasboardProjectBE.Controllers
         {
             IdentityResult result = null;
             ApplicationUser appUser;
-            Regex rx = new Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[#$^+=!*()@%&]).{8,}$");
+            Regex rx = new Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$");
 
             if (!string.IsNullOrWhiteSpace(email) || !string.IsNullOrWhiteSpace(password) )
             {
@@ -73,22 +71,19 @@ namespace DasboardProjectBE.Controllers
                     try
                     {
                         result = await userManager.CreateAsync(appUser, appUser.Password);
+                        if (result.Succeeded)
+                        {
+                            await signInManager.SignInAsync(appUser, false);
+                            return Ok();
+                        }
                     }
                     catch (SqlException)
                     {
                         return BadRequest();
                     }
                 }
-                else return BadRequest();
             }
-            else throw new ApplicationException("User name and Password can't be null or empty");
-
-            if (result.Succeeded)
-            {
-                await signInManager.SignInAsync(appUser, false);
-                return await GenerateJwtToken(appUser.UserName, appUser);
-            }
-            else return BadRequest(result);
+            return BadRequest(result);
         }
 
         private async Task<object> GenerateJwtToken(string userName, ApplicationUser user)
@@ -99,11 +94,9 @@ namespace DasboardProjectBE.Controllers
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(ClaimTypes.NameIdentifier, user.Id)
             };
-
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Tokens:JwtKey"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var expires = DateTime.Now.AddMinutes(Convert.ToDouble(configuration["Tokens:JwtExpireTime"]));
-
             var token = new JwtSecurityToken(
                 configuration["Tokens:JwtIssuer"],
                 configuration["Tokens:JwtIssuer"],

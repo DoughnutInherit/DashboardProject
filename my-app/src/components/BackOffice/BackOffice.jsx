@@ -30,68 +30,72 @@ class FormBackOffice extends Component{
     }
 
     render() {
-        const { handleSubmit } = this.props;
+        const { handleSubmit, allDayEvent,  pristine, submitting } = this.props;
         return(
             <form onSubmit={ handleSubmit }>
-                <div>
-                    <label>Title</label>
+                <div className="form">
                     <div>
-                    <Field
-                        name="title"
-                        component="input"
-                        type="text"
-                    />
-                    </div>
-
-                    <label>Description</label>
-                    <div>
-                    <Field
-                        name="description"
-                        component="input"
-                        type="text"
-                    />
-                    </div>
-
-                    <label>Date</label>
-                    <div>
-                    <Field
-                        name="date"
-                        component="input"
-                        type="date"
-                    />
-                    <Field name="button" component="input" type="button" onClick={this.checkToday} value="Today" />
-                    </div>
-
-                    <label>Initial hour</label>
-                    <div>
-                    <Field
-                        name="iniHour"
-                        component="input"
-                        type="time"
-                    />
-                    </div>
-                    <label>End hour</label>
-                    <div>
-                    <Field
-                        name="endHour"
-                        component="input"
-                        type="time"
-                    />
+                        <label className="eventTitle">Title</label>
+                        <Field
+                            className="form-control"
+                            name="title"
+                            component="input"
+                            type="text"
+                        />
                     </div>
                     <div>
-                    <label>Event all day</label>
-                    <Field
-                        name="allday"
-                        component="input"
-                        type="checkbox"
-                        onChange={this.checkboxChecked}
-                    />
+                        <label className="eventTitle">Description</label>
+                        <Field
+                            className="form-control"
+                            name="description"
+                            component="input"
+                            type="text"
+                        />
                     </div>
                     <div>
-                        <button type="submit">Done</button>
+                        <label className="eventTitle">Date</label>
+                        <Field
+                            className="form-control"
+                            name="date"
+                            component="input"
+                            type="date"
+                        />
+                        <button type="button" className="btn btn-warning float-right" onClick={this.checkToday}>Today</button>
+                    </div>
+                    <div>
+                        <label className="eventTitle">Initial hour</label>
+                        <Field
+                            className="form-control"
+                            name="iniHour"
+                            component="input"
+                            type="time"
+                            disabled = {allDayEvent}
+                        />
+                    </div>
+                    <div>
+                        <label className="eventTitle">End hour</label>
+                        <Field
+                            className="form-control"
+                            name="endHour"
+                            component="input"
+                            type="time"
+                            disabled = {allDayEvent}
+                        />
+                    </div>
+                    <div>
+                        <Field
+                            className="form-control"
+                            name="allday"
+                            component="input"
+                            type="checkbox"
+                            onChange={this.checkboxChecked}
+                        />
+                    </div>
+                    <div>
+                        <button type="submit" className="btn btn-warning float-right" disabled={pristine && submitting}>Done</button>
                     </div>
                 </div>
-            </form>
+            </form> 
         )
     }
 }
@@ -105,4 +109,3 @@ const Form = reduxForm({
 })(FormBackOffice);
 
 export default connect(mapStateToProps, {})(Form);
-
