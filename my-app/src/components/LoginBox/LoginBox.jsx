@@ -35,7 +35,7 @@ class LoginBox extends Component {
     const { email, password } = this.props;
     const user = { email, password };
     const url = getLoginControllerUrl();
-    this.getToken(user, 'POST', url).then(this.navigate());
+    this.getToken(user, 'POST', url).then(x=>this.navigate());
   }
 
   getToken = (user, method, url) => getJwtBearer(user, method, url)

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
@@ -9,19 +8,18 @@ class FormBackOffice extends Component{
 
     static propTypes = {
         handleSubmit: PropTypes.func,
+        allDayEvent: PropTypes.bool,
     }
 
 
     checkboxChecked = (event) => {
         if(event.target.checked){
-            document.getElementsByName('iniHour')[0].disabled = true
-            document.getElementsByName('endHour')[0].disabled = true
+            this.props.allDayEvent = true
             this.props.change("iniHour", "08:00")
             this.props.change("endHour", "20:00")
         }
         else{
-            document.getElementsByName('iniHour')[0].disabled = false
-            document.getElementsByName('endHour')[0].disabled = false
+            this.props.allDayEvent = false
         }
     }
 
@@ -31,13 +29,14 @@ class FormBackOffice extends Component{
     }
 
     render() {
-        const { handleSubmit } = this.props;
+        const { handleSubmit, allDayEvent,  pristine, submitting } = this.props;
         return(
             <form onSubmit={ handleSubmit }>
-                <div>
+                <div className="form">
                     <div>
                     <label className="eventTitle">Title</label>
                     <Field
+                        className="form-control"
                         name="title"
                         component="input"
                         type="text"
@@ -47,6 +46,7 @@ class FormBackOffice extends Component{
                     <div>
                     <label className="eventTitle">Description</label>
                     <Field
+                        className="form-control"
                         name="description"
                         component="input"
                         type="text"
@@ -56,33 +56,38 @@ class FormBackOffice extends Component{
                     <div>
                     <label className="eventTitle">Date</label>
                     <Field
+                        className="form-control"
                         name="date"
                         component="input"
                         type="date"
                     />
-                    <Field name="button" component="input" type="button" onClick={this.checkToday} value="Today" />
+                    <button type="button" className="btn btn-warning float-right" onClick={this.checkToday}>Today</button>
                     </div>
             
                     <div>
                     <label className="eventTitle">Initial hour</label>
                     <Field
+                        className="form-control"
                         name="iniHour"
                         component="input"
                         type="time"
+                        disabled = {allDayEvent}
                     />
                     </div>
                     
                     <div>
                     <label className="eventTitle">End hour</label>
                     <Field
+                        className="form-control"
                         name="endHour"
                         component="input"
                         type="time"
+                        disabled = {allDayEvent}
                     />
                     </div>
                     <div>
-                    <label className="eventTitle">Event all day</label>
                     <Field
+                        className="form-control"
                         name="allday"
                         component="input"
                         type="checkbox"
@@ -90,7 +95,7 @@ class FormBackOffice extends Component{
                     />
                     </div>
                     <div>
-                        <button type="submit" className="btn btn-primary">Done</button>
+                        <button type="submit" className="btn btn-warning float-right" disabled={pristine && submitting}>Done</button>
                     </div>
                 </div>
             </form>
