@@ -27,25 +27,29 @@ class EventUp extends Component {
   }
 
   componentWillUnmount = () => {
-    if (this.props.index < this.props.events.length && this.props.event.description !== this.props.allDayEvent.description) {
+    const {
+      index, events, event, allDayEvent,
+    } = this.props;
+    if (index < events.length && event.description !== allDayEvent.description) {
       this.props.setIndex(this.props.index + 1);
     }
     clearTimeout(this.timer);
   }
 
   render() {
+    const { event } = this.props;
     return (
       <div class="row alertContainer">
         <div class="col titleStyle">
           <h1>
             ¡
-            {this.props.event.title}
+          {event.title}
             !
           </h1>
         </div>
         <div class="w-100" />
         <div class="col descriptionStyle">
-          <p>{this.props.event.description}</p>
+          <p>{event.description}</p>
         </div>
       </div>
     );

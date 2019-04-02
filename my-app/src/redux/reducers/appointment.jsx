@@ -83,7 +83,6 @@ const appointmentReducer = (state = initialState, action) => {
     case actionAppointment.SET_INDEX:
       return { ...state, eventIndex: action.index };
     case actionAppointment.SET_ACTION_TIME:
-    debugger;
       return { ...state, actionTime: action.time };
     default:
       return state;

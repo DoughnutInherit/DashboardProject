@@ -40,19 +40,12 @@ class Appointment extends Component {
     const { title } = this.props.allDayEvent;
     const { index, allDayEvent, events } = this.props;
     const alertNewEvent = checkNextActionTime(index, title, events);
-
     let timeRemeaning;
 
-    debugger;
     if (title !== undefined && index <= events.length) {
       setCheckedIndex(index, this.props.setIndex);
       if (alertNewEvent) {
-        if (index === 0) {
-          this.props.setActionTime(calculateUntilEventEnd(events, 1, title));
-        } else {
-          this.props.setActionTime(calculateUntilEventEnd(events, index, title));
-        }
-
+        this.props.setActionTime(calculateUntilEventEnd(events, index, title));
       } else {
         this.props.setActionTime(
           calculateUntilEventStart(events, index, title, allDayEvent, this.props.setEvent),
@@ -69,20 +62,22 @@ class Appointment extends Component {
       this.navigate('Event');
     } else {
       try {
-        const totalEventTime = calculateTotalEventTime(index, events);
-        const eventStartTime = moment(events[index].entryDate);
-        const timeRemeaningToStart = this.calculateDifference(eventStartTime, now);
-        this.props.setActionTime(totalEventTime);
-        this.timer = setTimeout(() => {
-          this.navigate('Event');
-        }, timeRemeaningToStart);
+        if (index < events.length) {
+          const totalEventTime = calculateTotalEventTime(index, events);
+          const eventStartTime = moment(events[index].entryDate);
+          const timeRemeaningToStart = calculateDifference(eventStartTime, now);
+          this.props.setActionTime(totalEventTime);
+          this.timer = setTimeout(() => {
+            this.navigate('Event');
+          }, timeRemeaningToStart);
+        }
       } catch (error) {
-        debugger;
       }
     }
   }
 
   componentDidMount = () => {
+    debugger;
     this.props.setEvents(dailyInfo.events);
     //const now = '2019-02-11';
     // const now = moment().format('YYYY-MM-DD');

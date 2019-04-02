@@ -13,7 +13,6 @@ export const getWeatherFromUrl = (url) => new Promise(((resolve, reject) => {
 
 export function calculateDifference(firstTime, secondTime) {
   const result = firstTime.diff(secondTime);
-  debugger;
   return result;
 }
 
@@ -36,7 +35,6 @@ export function compare(a, b) {
 }
 
 function nextEvent(title, length, index) {
-  debugger;
   if (title !== undefined) {
     if (index === length) {
       return 0;
@@ -65,7 +63,6 @@ export function calculateUntilEventEnd(events, index, title) {
 
 
 export function checkNextActionTime(index, title, events) {
-  debugger;
   const now = moment();
   let check;
   const indexAux = nextEvent(title, events.length, index);
@@ -99,17 +96,10 @@ export function setCheckedIndex(index, setIndex) {
 }
 
 export function calculateUntilEventStart(events, index, title, allDayEvent, setEvent) {
-  debugger;
   const now = moment();
   const indexAux = nextEvent(title, events.length, index);
   setEvent(allDayEvent);
-  let actionTime;
-  if (indexAux === 0) {
-    actionTime = moment(events[indexAux].departureDate);
-  } else {
-    actionTime = moment(events[indexAux].entryDate);
-  }
-
+  const actionTime = moment(events[indexAux].entryDate);
   const timeRemeaning = calculateDifference(actionTime, now);
   return timeRemeaning;
 }

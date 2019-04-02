@@ -1,24 +1,17 @@
 {
   "events": [
     {
-      "title": "Event de tot el dia",
-      "description": "Avui ens visitara tot el dia un senyor molt simpatic",
-      "entryDate": "2019-03-29T08:00:00",
-      "departureDate": "2019-03-29T20:00:00",
-      "typeId": 1
-    },
-    {
       "title": "Event parcial 1",
       "description": "Avui ens visitara Parcial 1, CEO de Google i  productor financer de Amazon",
-      "entryDate": "2019-03-29T13:52:00",
-      "departureDate": "2019-03-29T13:52:05",
+      "entryDate": "2019-04-02T12:30:00",
+      "departureDate": "2019-04-02T12:30:05",
       "typeId": 1
     },
     {
       "title": "Event parcial 2",
       "description": "Avui ens visitara Parcial 2, CEO de Google i  productor financer de Amazon",
-      "entryDate": "2019-03-29T13:52:10",
-      "departureDate": "2019-03-29T13:52:15",
+      "entryDate": "2019-04-02T12:30:10",
+      "departureDate": "2019-04-02T12:30:15",
       "typeId": 1
     }
   ],
