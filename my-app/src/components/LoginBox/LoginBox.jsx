@@ -23,7 +23,6 @@ class LoginBox extends Component {
   }
 
   navigate = () => {
-    debugger;
     if (this.validateForm()) {
       this.props.history.push('BackOffice');
     }

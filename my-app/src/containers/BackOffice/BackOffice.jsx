@@ -24,7 +24,6 @@ class BackOffice extends Component {
 
     object = { ...object, entryDate, departureDate, typeid: type }
     const eo = "Bearer " + this.props.bearerToken;
-    debugger;
 
     postBackOffice('https://localhost:5001/api/event/', object, eo)
     .then(x=>this.navigate())

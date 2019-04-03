@@ -13,7 +13,6 @@ const loginReducer = (state = initialState, action) => {
     case actionLogin.SET_PASSWORD:
       return { ...state, password: action.password };
     case actionLogin.SET_BEARER_TOKEN:
-      debugger;
       return { ...state, bearerToken: action.token };
     default:
       return state;

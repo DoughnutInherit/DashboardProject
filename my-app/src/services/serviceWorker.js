@@ -16,8 +16,9 @@ export function calculateDifference(firstTime, secondTime) {
   return result;
 }
 
-export const getDailyEvents = (url) => new Promise(((resolve, reject) => {
+export const getDailyEvents = (url, token) => new Promise(((resolve, reject) => {
   Request('GET', url)
+    .set('authorization', token)
     .end((err, res) => {
       if (err) reject(err);
       resolve(res.body);
@@ -32,7 +33,7 @@ export const postBackOffice = (url, info, token) => new Promise(((resolve, rejec
     .end((err, res) => {
       if (err) reject(err);
       else
-      resolve(res.body);
+        resolve(res.body);
     });
 }));
 
@@ -116,13 +117,11 @@ export function calculateUntilEventStart(events, index, title, allDayEvent, setE
   return timeRemeaning;
 }
 export const getJwtBearer = (user, method, url) => new Promise(((resolve, reject) => {
-  debugger;
   Request(method, url)
     .set('Content-Type', 'application/json')
     .set('email', user.email)
     .set('password', user.password)
     .end((err, result) => {
-      debugger;
       if (err) reject(err);
       resolve(result);
     });
