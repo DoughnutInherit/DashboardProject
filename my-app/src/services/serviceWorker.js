@@ -32,7 +32,7 @@ export const postBackOffice = (url, info, token) => new Promise(((resolve, rejec
     .end((err, res) => {
       if (err) reject(err);
       else
-        resolve(res.body);
+      resolve(res.body);
     });
 }));
 

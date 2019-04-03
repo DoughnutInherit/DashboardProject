@@ -3,7 +3,7 @@ import actionLogin from '../../actions/actionLogin';
 const initialState = {
   email: '',
   password: '',
-  bearerToken: '',
+  bearerToken: 'aaa',
 };
 
 const loginReducer = (state = initialState, action) => {

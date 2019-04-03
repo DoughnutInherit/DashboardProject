@@ -109,4 +109,3 @@ const Form = reduxForm({
 })(FormBackOffice);
 
 export default connect(mapStateToProps, {})(Form);
-

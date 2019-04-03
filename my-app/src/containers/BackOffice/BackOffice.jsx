@@ -32,7 +32,7 @@ class BackOffice extends Component {
 
   render() {
     return (
-      <div class="container" >
+      <div class="container">
         <Fragment>
           <FormBackOffice onSubmit={this.submitEvent} />
         </Fragment>
@@ -42,9 +42,6 @@ class BackOffice extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  events: state.appointment.events,
-  index: state.appointment.eventIndex,
-  event: state.appointment.event,
   bearerToken: state.loginReducer.bearerToken,
 });
 
