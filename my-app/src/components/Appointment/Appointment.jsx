@@ -83,8 +83,11 @@ class Appointment extends Component {
 
     const now = moment().format('YYYY-MM-DD');
     getDailyEvents(`https://localhost:5001/api/event/${now}`, bearerToken)
-
-      .then(response => {this.props.setEvents(response)});
+      .then(response => { this.props.setEvents(response); })
+      .catch((err) => {
+        alert('Your validation is expired!');
+        this.navigate('Login');
+      });
   };
 
   componentWillUnmount = () => {

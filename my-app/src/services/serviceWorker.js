@@ -21,7 +21,7 @@ export const getDailyEvents = (url, token) => new Promise(((resolve, reject) => 
     .set('authorization', token)
     .end((err, res) => {
       if (err) reject(err);
-      resolve(res.body);
+      else resolve(res.body);
     });
 }));
 
@@ -32,8 +32,7 @@ export const postBackOffice = (url, info, token) => new Promise(((resolve, rejec
     .set('Content-Type', 'application/json')
     .end((err, res) => {
       if (err) reject(err);
-      else
-        resolve(res.body);
+      else resolve(res.body);
     });
 }));
 
