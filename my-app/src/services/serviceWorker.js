@@ -30,6 +30,7 @@ export const postBackOffice = (url, info, token) => new Promise(((resolve, rejec
     .set('Authorization', 'Bearer ' + token)
     .end((err, res) => {
       if (err) reject(err);
+      else
       resolve(res.body);
     });
 }));

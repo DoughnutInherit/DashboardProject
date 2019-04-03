@@ -29,6 +29,7 @@ class Appointment extends Component {
     setAllDayEvent: PropTypes.object,
     setActionTime: PropTypes.func,
     setIndex: PropTypes.func,
+    bearerToken: PropTypes.object,
   }
 
   navigate = (url) => {
@@ -77,12 +78,14 @@ class Appointment extends Component {
   }
 
   componentDidMount = () => {
+    // this.props.setEvents(dailyInfo.events);
+    const bearerToken = this.props.bearerToken;
     debugger;
-    this.props.setEvents(dailyInfo.events);
-    //const now = '2019-02-11';
-    // const now = moment().format('YYYY-MM-DD');
-    // getDailyEvents(`https://localhost:44377/api/event/${now}`)
-    //   .then(response => this.props.setEvents(response));
+
+    const now = moment().format('YYYY-MM-DD');
+    getDailyEvents(`https://localhost:5001/api/event/${now}`)
+
+      .then(response => {this.props.setEvents(response)});
   };
 
   componentWillUnmount = () => {
@@ -117,6 +120,7 @@ const mapStateToProps = (state) => ({
   event: state.appointment.event,
   allDayEvent: state.appointment.allDayEvent,
   events: state.appointment.events,
+  bearerToken: state.loginReducer.bearerToken,
 });
 
 export default connect(mapStateToProps, {
