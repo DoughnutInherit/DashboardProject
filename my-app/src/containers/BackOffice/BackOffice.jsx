@@ -26,15 +26,22 @@ class BackOffice extends Component {
     const eo = "Bearer " + this.props.bearerToken;
 
     postBackOffice('https://localhost:5001/api/event/', object, eo)
-    .then(x=>this.navigate())
+      .then(x => this.navigate())
   };
 
   render() {
     return (
-      <div class="container">
-        <Fragment>
-          <FormBackOffice onSubmit={this.submitEvent} />
-        </Fragment>
+      <div className="container-fluid backOffcie">
+        <div className="row">
+          <div className="col">
+            <Fragment>
+              <FormBackOffice onSubmit={this.submitEvent} />
+            </Fragment>
+          </div>
+          <div className="col">
+            <h3>Show selected day events here</h3>
+          </div>
+        </div>
       </div>
     );
   }
