@@ -3,6 +3,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import FormBackOffice from '../../components/BackOffice/BackOffice';
+import SelectedDayEventsList from '../../components/SelectedDayEventsList/SelectedDayEventsList';
 import { postBackOffice } from '../../services/serviceWorker';
 
 
@@ -32,16 +33,17 @@ class BackOffice extends Component {
   render() {
     return (
       <div className="container-fluid backOffcie">
-        <div className="row">
-          <div className="col">
-            <Fragment>
+        <Fragment>
+          <div className="row">
+            <div className="col">
               <FormBackOffice onSubmit={this.submitEvent} />
-            </Fragment>
+            </div>
+            <div className="col">
+              <h3>Selected Day:</h3>
+              <SelectedDayEventsList />
+            </div>
           </div>
-          <div className="col">
-            <h3>Show selected day events here</h3>
-          </div>
-        </div>
+        </Fragment>
       </div>
     );
   }
