@@ -1,33 +1,36 @@
-.wrapper {
-  display: grid;
-  grid-gap: 10px;
-      grid-template-columns: 100px 100px 100px;
-      background-color: #fff;
-      color: #444;
-  }
 
-  .box {
-      background-color: #444;
-      color: #fff;
-      border-radius: 5px;
-      padding: 20px;
-      font-size: 150%;
+.selectedEventDate{
+  float: left;
+  height: 50px;
+  width: 20%;
+}
 
-  }
+.selectedEventDateText{
+  margin: 10px;
+  text-align: center;
+}
 
-.a {
-  grid-column: 1;
-  grid-row: 1 / 3;
+.eventTitleText{
+
 }
-.b {
-  grid-column: 1;
-  grid-row: 2;
+
+.eventDescriptionText{
+
 }
-.c {
-  grid-column: 2;
-  grid-row: 1;
+
+.selectedEventData{
+  float: right;
+  height: 50px;
+  width: 80%;
+
 }
-.d {
-  grid-column: 2;
-  grid-row: 2;
+
+.selectedEventTitle{
+  color: black;
+  height: 50%;
+}
+
+.selectedEventDescription{
+  color: black;
+  height: 50%;
 }

@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import FormBackOffice from '../../components/BackOffice/BackOffice';
 import SelectedDayEventsList from '../../components/SelectedDayEventsList/SelectedDayEventsList';
 import { postBackOffice } from '../../services/serviceWorker';
+import '../../components/SelectedDayEventsList/SelectedDayEventsList.css';
 
 
 class BackOffice extends Component {
@@ -18,7 +19,6 @@ class BackOffice extends Component {
   }
 
   submitEvent = (object) => {
-
     const entryDate = object.date + ' ' + object.iniHour;
     const departureDate = object.date + ' ' + object.endHour;
     const type = "1";
@@ -32,13 +32,13 @@ class BackOffice extends Component {
 
   render() {
     return (
-      <div className="container-fluid backOffcie">
+      <div className="container-fluid backOffice">
         <Fragment>
           <div className="row">
             <div className="col">
               <FormBackOffice onSubmit={this.submitEvent} />
             </div>
-            <div className="col">
+            <div className="col selectedDayEventsBox">
               <h3>Selected Day:</h3>
               <SelectedDayEventsList />
             </div>

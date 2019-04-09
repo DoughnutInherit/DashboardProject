@@ -1,15 +1,30 @@
 /* eslint-disable react/no-unknown-property */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './SelectedDayEvent.css';
+import '../SelectedDayEventsList/SelectedDayEventsList.css';
+
 
 class SelectedDayEvent extends Component {
+  static propTypes = {
+    event: PropTypes.object,
+  };
+
   render() {
     return (
-      <div class="wrapper">
-        <div class="box a">A</div>
-        <div class="box c">C</div>
-        <div class="box d">D</div>
-      </div>
+      <tr className="eventRow">
+        <div className="selectedEventDate">
+          <h4 className="selectedEventDateText">00:00 - 00:00</h4>
+        </div>
+        <div className="selectedEventData">
+          <div className="selectedEventTitle">
+            <h5 className="eventTitleText">{this.props.event.title}</h5>
+          </div>
+          <div className="selectedEventDescription">
+            <h6 className="eventDescriptionText">{this.props.event.description}</h6>
+          </div>
+        </div>
+      </tr>
     );
   }
 }
