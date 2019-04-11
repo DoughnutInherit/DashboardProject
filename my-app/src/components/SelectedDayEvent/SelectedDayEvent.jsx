@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './SelectedDayEvent.css';
 import '../SelectedDayEventsList/SelectedDayEventsList.css';
+import deleteIcon from '../../services/trash.png';
+import editIcon from '../../services/edit.png';
 
 
 class SelectedDayEvent extends Component {
@@ -13,17 +15,15 @@ class SelectedDayEvent extends Component {
   render() {
     return (
       <tr className="eventRow">
-        <div className="selectedEventDate">
-          <h4 className="selectedEventDateText">00:00 - 00:00</h4>
-        </div>
-        <div className="selectedEventData">
-          <div className="selectedEventTitle">
-            <h5 className="eventTitleText">{this.props.event.title}</h5>
-          </div>
-          <div className="selectedEventDescription">
-            <h6 className="eventDescriptionText">{this.props.event.description}</h6>
-          </div>
-        </div>
+        <td className="hourCol">00:00</td>
+        <td className="hourCol">00:00</td>
+        <td className="titleCol">{this.props.event.title}</td>
+        <td className="buttonCol">
+          <img src={editIcon} alt="EditButton" className="imageButton" />
+        </td>
+        <td className="buttonCol">
+          <img src={deleteIcon} alt="DeleteButton" className="imageButton" />
+        </td>
       </tr>
     );
   }

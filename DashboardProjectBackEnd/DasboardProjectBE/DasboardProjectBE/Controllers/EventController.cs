@@ -26,7 +26,7 @@ namespace DasboardProjectBE.Controllers
             => Ok((await eventService.GetAllAsync(date)).Select(x => x.ToViewModel()));
 
 
-        [HttpGet("{id}")]
+        [HttpGet("id={id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var result = (await eventService.GetByIdAsync(id)).ToViewModel();

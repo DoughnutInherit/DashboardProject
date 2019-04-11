@@ -1,18 +1,32 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
-.tableBox{
-  width: 100%
-}
-
 .eventRow{
   border-style: solid;
-  border-color: #EA7600;
+  border-color: rgba(234, 117, 0, 0.568);
+  height: 10px;
+}
+
+.imageButton{
+  width: 60%;
+  height: auto;
+}
+
+.hourCol{
+  width: 16%;
+}
+
+.tableHead{
+  font-size: 15px;
+}
+
+.buttonCol{
+  width: 10%;
 }
 
 .backOffice{
   font-family: 'Open Sans';
 }
 
-tr:hover{
+.eventRow:hover{
   background-color: rgba(234, 117, 0, 0.24);
 }
