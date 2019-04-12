@@ -9,6 +9,7 @@ import editIcon from '../../services/edit.png';
 
 class SelectedDayEvent extends Component {
   static propTypes = {
+    id: PropTypes.number,
     event: PropTypes.object,
   };
 

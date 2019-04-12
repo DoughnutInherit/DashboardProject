@@ -20,7 +20,7 @@ class SelectedDayEventsList extends Component {
 
   render() {
     return (
-      <table className="table table-striped">
+      <table className="table">
         <thead>
           <tr className="tableHead">
             <th>Begins at:</th>

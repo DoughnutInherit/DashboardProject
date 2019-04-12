@@ -13,15 +13,12 @@ const initialState = {
   actionTime: 0,
   events: [
     {
-      title: 'a',
+      title: '',
       description: '',
-      type: {
-        id: 0,
-        entryDate: '2019-02-20T11:00:00',
-        departureDate: '2019-03-04T11:30:00',
-        events: [],
-        name: '',
-      },
+      entryDate: '',
+      departureDate: '',
+      typeId: 1,
+      id: 21,
     },
   ],
 };

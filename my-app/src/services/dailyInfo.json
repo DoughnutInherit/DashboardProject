@@ -1,32 +1,34 @@
 {
   "events": [
     {
-      "title": "Event parcial 1",
-      "description": "Avui ens visitara Parcial 1, CEO de Google i  productor financer de Amazon",
-      "entryDate": "2019-04-02T12:30:00",
-      "departureDate": "2019-04-02T12:30:05",
-      "typeId": 1
+      "title":"Evento Parcial 1",
+      "description":"Descripcion Parcial 1",
+      "entryDate":"2019-04-11T09:00:00",
+      "departureDate":"2019-04-11T10:00:00",
+      "typeId":1,
+      "id":20
     },
     {
-      "title": "Event parcial 2",
-      "description": "Avui ens visitara Parcial 2, CEO de Google i  productor financer de Amazon",
-      "entryDate": "2019-04-02T12:30:10",
-      "departureDate": "2019-04-02T12:30:15",
-      "typeId": 1
+      "title":"Evento Parcial 2",
+      "description":"Descripcion Parcial 2",
+      "entryDate":"2019-04-11T11:00:00",
+      "departureDate":"2019-04-11T12:00:00",
+      "typeId":1,
+      "id":21
     }
   ],
   "birthday": [
     {
-      "name": "Marc Carbu",
-      "imageUrl": "https://www.abqsa.com/wp-content/uploads/2013/05/anonimo.png"
+      "name":"Marc Carbu",
+      "imageUrl":"https://www.abqsa.com/wp-content/uploads/2013/05/anonimo.png"
     },
     {
-      "name": "Pepe Valls",
-      "imageUrl": "https://www.abqsa.com/wp-content/uploads/2013/05/anonimo.png"
+      "name":"Pepe Valls",
+      "imageUrl":"https://www.abqsa.com/wp-content/uploads/2013/05/anonimo.png"
     },
     {
-      "name": "Jan Vidal",
-      "imageUrl": "https://www.abqsa.com/wp-content/uploads/2013/05/anonimo.png"
+      "name":"Jan Vidal",
+      "imageUrl":"https://www.abqsa.com/wp-content/uploads/2013/05/anonimo.png"
     }
   ]
 }
