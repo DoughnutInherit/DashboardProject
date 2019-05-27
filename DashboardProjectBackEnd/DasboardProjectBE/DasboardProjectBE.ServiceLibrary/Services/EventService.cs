@@ -5,7 +5,6 @@ using DasboardProjectBE.ServiceLibrary.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DasboardProjectBE.ServiceLibrary.Services
@@ -30,7 +29,12 @@ namespace DasboardProjectBE.ServiceLibrary.Services
 
         public async Task<IEnumerable<EventDto>> GetAllAsync(DateTime dateTime)
             => (await eventRepository.GetAllAsync(x => x.EntryDate.Day == dateTime.Day
-                            && x.EntryDate.Month == dateTime.Month && x.EntryDate.Year == dateTime.Year)).Select(x => x.ToDto()); 
+                            && x.EntryDate.Month == dateTime.Month && x.EntryDate.Year == dateTime.Year)).Select(x => x.ToDto());
+
+        public async Task<IEnumerable<EventDto>> GetAllDayEventsAsync(DateTime date)
+        => (await eventRepository.GetAllAsync(x => x.EntryDate.Day == date.Day
+                            && x.EntryDate.Month == date.Month && x.EntryDate.Year == date.Year &&
+                            x.EntryDate.Hour == 8 && x.EntryDate.Minute == 0 && x.DepartureDate.Hour == 20 && x.DepartureDate.Minute == 0)).Select(x => x.ToDto());
 
         public async Task<EventDto> GetByIdAsync(int id)
             => (await eventRepository.GetByIdAsync(id)).ToDto();

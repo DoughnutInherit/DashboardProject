@@ -3,10 +3,10 @@
     {
       "title":"Evento Parcial 1",
       "description":"Descripcion Parcial 1",
-      "entryDate":"2019-04-11T09:00:00",
-      "departureDate":"2019-04-11T10:00:00",
+      "entryDate":"2019-04-11T08:00:00",
+      "departureDate":"2019-04-11T20:00:00",
       "typeId":1,
-      "id":20
+      "id":0
     },
     {
       "title":"Evento Parcial 2",
@@ -14,7 +14,7 @@
       "entryDate":"2019-04-11T11:00:00",
       "departureDate":"2019-04-11T12:00:00",
       "typeId":1,
-      "id":21
+      "id":0
     }
   ],
   "birthday": [

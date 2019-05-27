@@ -10,6 +10,7 @@ namespace DasboardProjectBE.ServiceLibrary.Common.Contracts
     public interface IEventService : IApplicationService<EventDto>
     {
         Task<IEnumerable<EventDto>> GetAllAsync(DateTime date);
+        Task<IEnumerable<EventDto>> GetAllDayEventsAsync(DateTime date);
         Task<EventDto> GetByIdAsync(int id);
         Task<EventDto> AddAsync(EventDto dto);
         Task<EventDto> UpdateAsync(EventDto dto);

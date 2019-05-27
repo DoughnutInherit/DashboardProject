@@ -25,11 +25,20 @@ export const getDailyEvents = (url, token) => new Promise(((resolve, reject) => 
     });
 }));
 
-export const postBackOffice = (url, info, token) => new Promise(((resolve, reject) => {
-  Request('POST', url)
+export const postBackOffice = (url, info, token, httpMethod = 'POST') => new Promise(((resolve, reject) => {
+  Request(httpMethod, url)
     .send(info)
     .set('authorization', token)
     .set('Content-Type', 'application/json')
+    .end((err, res) => {
+      if (err) reject(err);
+      else resolve(res.body);
+    });
+}));
+
+export const deleteEvent = (url, token) => new Promise(((resolve, reject) => {
+  Request('DELETE', url)
+    .set('authorization', token)
     .end((err, res) => {
       if (err) reject(err);
       else resolve(res.body);

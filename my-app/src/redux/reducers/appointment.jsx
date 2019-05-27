@@ -21,6 +21,8 @@ const initialState = {
       id: 21,
     },
   ],
+  selectedEvent: {},
+  isEditionMode: false,
 };
 
 const setDates = (events) => {
@@ -62,6 +64,8 @@ const setDefaultEvent = (array, index) => {
   return object;
 };
 
+const deleteEvent = (stateList, event) => stateList.filter(x => x.id !== event.id);
+
 const appointmentReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionAppointment.SET_EVENT:
@@ -81,6 +85,10 @@ const appointmentReducer = (state = initialState, action) => {
       return { ...state, eventIndex: action.index };
     case actionAppointment.SET_ACTION_TIME:
       return { ...state, actionTime: action.time };
+    case actionAppointment.SET_EDITIONEVENT:
+      return { ...state, selectedEvent: action.event, isEditionMode: action.isEditing };
+    case actionAppointment.DELETE_EVENT:
+      return { ...state, events: deleteEvent(state.events, action.event) };
     default:
       return state;
   }

@@ -6,7 +6,6 @@ import {
   setEvents, setEvent, setIndex, setActionTime,
 } from '../../actions/actionAppointment';
 import './Appointment.css';
-import dailyInfo from '../../services/dailyInfo.json';
 import {
   getDailyEvents,
   calculateUntilEventStart,
@@ -79,7 +78,7 @@ class Appointment extends Component {
 
   componentDidMount = () => {
     // this.props.setEvents(dailyInfo.events);
-    const bearerToken = "Bearer " + this.props.bearerToken;
+    const bearerToken = `Bearer ${this.props.bearerToken}`;
 
     const now = moment().format('YYYY-MM-DD');
     getDailyEvents(`https://localhost:5001/api/event/${now}`, bearerToken)

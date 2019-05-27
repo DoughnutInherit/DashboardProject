@@ -5,13 +5,12 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 
 class FormBackOffice extends Component {
-
   static propTypes = {
     handleSubmit: PropTypes.func,
     allDayEvent: PropTypes.object,
-
+    selectedEvent: PropTypes.object,
+    change: PropTypes.func,
   }
-
 
   checkboxChecked = (event) => {
     if (event.target.checked) {
@@ -19,8 +18,7 @@ class FormBackOffice extends Component {
       document.getElementsByName('endHour')[0].disabled = true;
       this.props.change('iniHour', '08:00');
       this.props.change('endHour', '20:00');
-    }
-    else {
+    } else {
       document.getElementsByName('iniHour')[0].disabled = false;
       document.getElementsByName('endHour')[0].disabled = false;
     }
@@ -28,7 +26,7 @@ class FormBackOffice extends Component {
 
   checkToday = (event) => {
     const now = moment().format('YYYY-MM-DD');
-    this.props.change("date", now)
+    this.props.change('date', now);
   }
 
   render() {
@@ -36,7 +34,7 @@ class FormBackOffice extends Component {
       handleSubmit,
       allDayEvent,
       pristine,
-      submitting
+      submitting,
     } = this.props;
     return (
       <form onSubmit={handleSubmit}>
@@ -103,11 +101,13 @@ class FormBackOffice extends Component {
           </div>
         </div>
       </form>
-    )
+    );
   }
 }
 
 const mapStateToProps = (state) => ({
+  initialValues: state.appointment.selectedEvent,
+  enableReinitialize: true,
 });
 
 const Form = reduxForm({
@@ -115,4 +115,3 @@ const Form = reduxForm({
 })(FormBackOffice);
 
 export default connect(mapStateToProps, {})(Form);
-

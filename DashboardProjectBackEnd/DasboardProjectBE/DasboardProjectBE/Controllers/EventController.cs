@@ -41,18 +41,12 @@ namespace DasboardProjectBE.Controllers
         public async Task<IActionResult> Post([FromBody]EventViewModel value)
         {
             EventViewModel result = null;
+            bool isAllDayEvent = value.EntryDate.Hour == 8 && value.EntryDate.Minute == 0 && value.DepartureDate.Hour == 20 && value.DepartureDate.Minute == 0;
             if (ModelState.IsValid)
             {
                 var exist = false;
-                var events = await eventService.GetAllAsync();
-                events.ToList().ForEach(element =>
-                {
-                    if (element.EntryDate == value.EntryDate)
-                    {
-                        exist = true;
-                    }
-                });
-                if (!exist)
+                var events = await eventService.GetAllDayEventsAsync(value.EntryDate);
+                if (events.Count() == 0 || events.Count() > 0 && !isAllDayEvent)
                 {
                     result = (await eventService.AddAsync(value.ToDto())).ToViewModel();
                     return Created("{id}", result);
@@ -62,8 +56,8 @@ namespace DasboardProjectBE.Controllers
 
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody]EventViewModel value)
+        [HttpPut]
+        public async Task<IActionResult> Put([FromBody]EventViewModel value)
         {
             EventViewModel result = null;
             if (ModelState.IsValid)
