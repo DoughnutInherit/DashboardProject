@@ -11,11 +11,6 @@ export const getWeatherFromUrl = (url) => new Promise(((resolve, reject) => {
     });
 }));
 
-export function calculateDifference(firstTime, secondTime) {
-  const result = firstTime.diff(secondTime);
-  return result;
-}
-
 export const getDailyEvents = (url, token) => new Promise(((resolve, reject) => {
   Request('GET', url)
     .set('authorization', token)
@@ -75,13 +70,26 @@ export function calculateTotalEventTime(index, events) {
 }
 
 export function calculateUntilEventEnd(events, index, title) {
-  const indexAux = nextEvent(title, events.length, index);
+  const nextIndex = nextEvent(title, events.length, index);
   const now = moment();
-  const actionTime = moment(events[indexAux].departureDate);
+  const actionTime = moment(events[nextIndex].departureDate);
   const timeRemeaning = calculateDifference(actionTime, now);
   return timeRemeaning;
 }
 
+export function calculateUntilEventStart(events, index, title, allDayEvent, setEvent) {
+  const now = moment();
+  const nextIndex = nextEvent(title, events.length, index);
+  setEvent(allDayEvent);
+  const actionTime = moment(events[nextIndex].entryDate);
+  const timeRemeaning = calculateDifference(actionTime, now);
+  return timeRemeaning;
+}
+
+export function calculateDifference(firstTime, secondTime) {
+  const result = firstTime.diff(secondTime);
+  return result;
+}
 
 export function checkNextActionTime(index, title, events) {
   const now = moment();
@@ -116,14 +124,7 @@ export function setCheckedIndex(index, setIndex) {
   }
 }
 
-export function calculateUntilEventStart(events, index, title, allDayEvent, setEvent) {
-  const now = moment();
-  const indexAux = nextEvent(title, events.length, index);
-  setEvent(allDayEvent);
-  const actionTime = moment(events[indexAux].entryDate);
-  const timeRemeaning = calculateDifference(actionTime, now);
-  return timeRemeaning;
-}
+
 export const getJwtBearer = (user, method, url) => new Promise(((resolve, reject) => {
   Request(method, url)
     .set('Content-Type', 'application/json')

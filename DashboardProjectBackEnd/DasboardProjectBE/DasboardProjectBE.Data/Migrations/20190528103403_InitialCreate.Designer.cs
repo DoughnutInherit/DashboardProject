@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DasboardProjectBE.Data.Migrations
 {
     [DbContext(typeof(DasboardDBContext))]
-    [Migration("20190412100844_first-alex")]
-    partial class firstalex
+    [Migration("20190528103403_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

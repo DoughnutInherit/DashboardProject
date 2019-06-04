@@ -18,6 +18,7 @@ class Root extends Component {
   render() {
     return (
       <Fragment>
+          <DevTools />
         <Router history={this.props.history}>
           <Switch>
             {this.routes}

@@ -19,12 +19,10 @@ namespace DasboardProjectBE.ServiceLibrary.Common.Dto.Extensions
 
         public static EventEntity ToEntity(this EventDto self) => new EventEntity
         {
-            Id = self.Id,
             Title = self.Title,
             Description = self.Description,
             EntryDate = self.EntryDate,
             DepartureDate = self.DepartureDate,
-            TypeId = self.TypeId
         };
     }
 }

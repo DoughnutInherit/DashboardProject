@@ -66,11 +66,12 @@ class LoginBox extends Component {
     const { email, password } = this.props;
     const user = { email, password };
     const url = getLoginControllerUrl();
-    this.getToken(user, 'POST', url).then(x=>this.navigate());
+    this.getToken(user, 'POST', url);
   }
 
   getToken = (user, method, url) => getJwtBearer(user, method, url)
     .then(response => this.props.setAuthToken(response.text))
+    .then(x=>this.navigate())
     .catch(e => {
       const message = `${e.message} Invalid values. Retry it`;
       alert(message);

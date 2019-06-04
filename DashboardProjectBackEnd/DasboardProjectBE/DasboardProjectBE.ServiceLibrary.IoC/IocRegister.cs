@@ -89,6 +89,7 @@ namespace DasboardProjectBE.ServiceLibrary.IoC
         public static IServiceCollection AddRegisterRepositories(this IServiceCollection services)
         {
             services.AddScoped<IEventRepository, EventRepository>()
+					.AddScoped<ITypeRepository,TypeRepository>()
                     .AddScoped<IBirthdayRepository, BirthdayRepository>();
 
             return services;

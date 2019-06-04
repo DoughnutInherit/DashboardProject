@@ -47,7 +47,6 @@ class SelectedDayEvent extends Component {
 
   render() {
     const { event } = this.props;
-    debugger;
     return (
       <tr className={`eventRow ${this.state.selectedCSSClass}`}>
         <td className="hourCol">{moment(event.entryDate).format('HH:mm')}</td>

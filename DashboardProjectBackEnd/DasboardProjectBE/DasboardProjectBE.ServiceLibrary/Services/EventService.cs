@@ -1,4 +1,5 @@
 ﻿using DasboardProjectBE.ServiceLibrary.Common.Contracts;
+using DasboardProjectBE.ServiceLibrary.Common.Contracts.Repositories;
 using DasboardProjectBE.ServiceLibrary.Common.Dto;
 using DasboardProjectBE.ServiceLibrary.Common.Dto.Extensions;
 using DasboardProjectBE.ServiceLibrary.Entities;
@@ -12,16 +13,23 @@ namespace DasboardProjectBE.ServiceLibrary.Services
     public class EventService : IEventService
     {
         private readonly IEventRepository eventRepository;
+		private readonly ITypeRepository typeRepository;
 
-        public EventService(IEventRepository eventRepository)
+
+        public EventService(IEventRepository eventRepository, ITypeRepository typeRepository)
         {
             this.eventRepository = eventRepository ?? throw new ArgumentNullException(nameof(eventRepository));
+            this.typeRepository = typeRepository ?? throw new ArgumentNullException(nameof(typeRepository));
         }
 
         public async Task<EventDto> AddAsync(EventDto dto)
         {
-            var result = (await eventRepository.AddAsync(dto.ToEntity())).ToDto();
-            await eventRepository.SaveChangesAsync();
+			var entity = dto.ToEntity();
+			var typeEntity = await  typeRepository.GetByIdAsync(dto.TypeId);
+			entity.Type = typeEntity;
+			var addedEntity = await eventRepository.AddAsync(entity);
+            await eventRepository.SaveChangesAsync();			
+			var result = addedEntity.ToDto();
             return result;
         }
         public async Task<IEnumerable<EventDto>> GetAllAsync()

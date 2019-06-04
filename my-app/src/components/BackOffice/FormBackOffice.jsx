@@ -9,7 +9,12 @@ class FormBackOffice extends Component {
     handleSubmit: PropTypes.func,
     allDayEvent: PropTypes.object,
     selectedEvent: PropTypes.object,
+    history: PropTypes.object,
     change: PropTypes.func,
+  }
+
+  onClick = () => {
+    this.props.history.push('Dashboard');
   }
 
   checkboxChecked = (event) => {
@@ -98,6 +103,11 @@ class FormBackOffice extends Component {
           </div>
           <div>
             <button type="submit" className="btn btn-warning float-right" disabled={pristine && submitting}>Done</button>
+            <button
+              onClick={this.onClick}
+            >
+              Go to dashboard
+            </button>
           </div>
         </div>
       </form>

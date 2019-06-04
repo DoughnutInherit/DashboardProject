@@ -39,12 +39,12 @@ class Appointment extends Component {
     const now = moment();
     const { title } = this.props.allDayEvent;
     const { index, allDayEvent, events } = this.props;
-    const alertNewEvent = checkNextActionTime(index, title, events);
+    const alertPartialEvent = checkNextActionTime(index, title, events);
     let timeRemeaning;
 
     if (title !== undefined && index <= events.length) {
       setCheckedIndex(index, this.props.setIndex);
-      if (alertNewEvent) {
+      if (alertPartialEvent || index + 1 === events.length ) {
         this.props.setActionTime(calculateUntilEventEnd(events, index, title));
       } else {
         this.props.setActionTime(
@@ -55,7 +55,7 @@ class Appointment extends Component {
         this.props.setEvent(this.props.allDayEvent);
       }
       this.navigate('Event');
-    } else if (alertNewEvent) {
+    } else if (alertPartialEvent) {
       const endTime = moment(events[index].departureDate);
       timeRemeaning = calculateDifference(endTime, now);
       this.props.setActionTime(timeRemeaning);

@@ -16,6 +16,7 @@ class SelectedDayEventsList extends Component {
     token: PropTypes.string,
   }
 
+
   componentDidMount = () => {
     getDailyEvents(`https://localhost:5001/api/event/${moment().format('YYYY-MM-DD')}`, `Bearer ${this.props.token}`)
       .then(x => { this.props.setEvents(x); });

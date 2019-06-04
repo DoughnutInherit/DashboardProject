@@ -60,6 +60,11 @@ const setDefaultEvent = (array, index) => {
   };
   if (index < array.length) {
     object = array[index];
+
+    if(initialState.allDayEvent  != null){
+      object = array[0];
+    }
+    
   }
   return object;
 };
