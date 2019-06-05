@@ -58,13 +58,20 @@ const setDefaultEvent = (array, index) => {
     title: 'Sin eventos para el dia de hoy',
     description: 'Sin eventos para el dia de hoy. ¡Que tengas un buen dia!',
   };
+
+  if(initialState.allDayEvent !== undefined && array.length  !== 0){
+    object = array[0];
+  }
+
+  debugger;
   if (index < array.length) {
     object = array[index];
-
-    if(initialState.allDayEvent  != null){
-      object = array[0];
-    }
-    
+  }
+  else{
+    object = {
+      title: 'Sin eventos para el dia de hoy',
+      description: 'Sin eventos para el dia de hoy. ¡Que tengas un buen dia!',
+    };
   }
   return object;
 };

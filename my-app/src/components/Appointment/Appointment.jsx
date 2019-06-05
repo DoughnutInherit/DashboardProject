@@ -9,11 +9,8 @@ import './Appointment.css';
 import {
   getDailyEvents,
   calculateUntilEventStart,
-  checkNextActionTime,
   calculateUntilEventEnd,
-  calculateTotalEventTime,
-  calculateDifference,
-  setCheckedIndex,
+  checkIfShowNewEvent,
 } from '../../services/serviceWorker';
 
 class Appointment extends Component {
@@ -38,42 +35,54 @@ class Appointment extends Component {
   componentDidUpdate = () => {
     const now = moment();
     const { title } = this.props.allDayEvent;
-    const { index, allDayEvent, events } = this.props;
-    const alertPartialEvent = checkNextActionTime(index, title, events);
-    let timeRemeaning;
+    const { index, events } = this.props;
+    let timeRemeaningToStart;
+    let timeRemeaningToEnd;
 
-    if (title !== undefined && index <= events.length) {
-      setCheckedIndex(index, this.props.setIndex);
-      if (alertPartialEvent || index + 1 === events.length ) {
-        this.props.setActionTime(calculateUntilEventEnd(events, index, title));
-      } else {
-        this.props.setActionTime(
-          calculateUntilEventStart(events, index, title, allDayEvent, this.props.setEvent),
-        );
-      }
-      if (title !== undefined && index >= this.props.events.length) {
-        this.props.setEvent(this.props.allDayEvent);
-      }
-      this.navigate('Event');
-    } else if (alertPartialEvent) {
-      const endTime = moment(events[index].departureDate);
-      timeRemeaning = calculateDifference(endTime, now);
-      this.props.setActionTime(timeRemeaning);
-      this.navigate('Event');
-    } else {
-      try {
+    debugger;
+    if (events.length !== 0) {
+      const checkShowNewEvent = checkIfShowNewEvent(index, events, title);
+      if (title === undefined && !checkShowNewEvent) {
         if (index < events.length) {
-          const totalEventTime = calculateTotalEventTime(index, events);
-          const eventStartTime = moment(events[index].entryDate);
-          const timeRemeaningToStart = calculateDifference(eventStartTime, now);
-          this.props.setActionTime(totalEventTime);
-          this.timer = setTimeout(() => {
-            this.navigate('Event');
-          }, timeRemeaningToStart);
+          //Case: No ADE and Show isn't needed but still evens reminding
+          timeRemeaningToStart = calculateUntilEventStart(now, moment(events[index].entryDate), title);
+          timeRemeaningToEnd = calculateUntilEventEnd(now, moment(events[index].departureDate), title);
         }
-      } catch (error) {
+      }
+      else {
+        //Case: Show is needed
+        if (events.length === 1 && title !== undefined) {
+          // Case: Only 1 ADE
+          const endTime = moment(events[0].departureDate).diff(now);
+          timeRemeaningToEnd = endTime;
+          timeRemeaningToStart = 0;
+        }
+        else {
+          // Case: Multiple events with ADE
+          timeRemeaningToStart = calculateUntilEventStart(now, moment(events[index].entryDate), title);
+          timeRemeaningToEnd = calculateUntilEventEnd(now, moment(events[index].departureDate), title);
+        }
+        //  Case: NO events, go Dash with DEFAULT message
       }
     }
+
+
+
+    /*
+    setear eventos timer y navegacion
+    */
+
+
+    // this.props.setEvent(this.props.allDayEvent);
+    if (index < events.length && events.length  !== 0) {
+      this.props.setActionTime(timeRemeaningToEnd);
+      this.timer = setTimeout(() => {
+        this.navigate('Event');
+      }, timeRemeaningToStart);
+    }
+
+
+
   }
 
   componentDidMount = () => {
