@@ -40,6 +40,7 @@ class Appointment extends Component {
     let timeRemeaningToEnd;
 
     debugger;
+    //Case hay eventos
     if (events.length !== 0) {
       const checkShowNewEvent = checkIfShowNewEvent(index, events, title);
       if (title === undefined && !checkShowNewEvent) {
@@ -62,9 +63,16 @@ class Appointment extends Component {
           timeRemeaningToStart = calculateUntilEventStart(now, moment(events[index].entryDate), title);
           timeRemeaningToEnd = calculateUntilEventEnd(now, moment(events[index].departureDate), title);
         }
-        //  Case: NO events, go Dash with DEFAULT message
+      }
+
+      if (index < events.length && events.length  !== 0) {
+        this.props.setActionTime(timeRemeaningToEnd);
+        this.timer = setTimeout(() => {
+          this.navigate('Event');
+        }, timeRemeaningToStart);
       }
     }
+    //  Case: NO events, go Dash with DEFAULT message
 
 
 
@@ -74,12 +82,7 @@ class Appointment extends Component {
 
 
     // this.props.setEvent(this.props.allDayEvent);
-    if (index < events.length && events.length  !== 0) {
-      this.props.setActionTime(timeRemeaningToEnd);
-      this.timer = setTimeout(() => {
-        this.navigate('Event');
-      }, timeRemeaningToStart);
-    }
+
 
 
 
