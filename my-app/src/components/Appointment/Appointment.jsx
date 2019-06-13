@@ -85,7 +85,6 @@ class Appointment extends Component {
 
 
 
-
   }
 
   componentDidMount = () => {
