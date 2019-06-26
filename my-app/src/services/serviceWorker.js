@@ -50,32 +50,20 @@ export function compare(a, b) {
   return 0;
 }
 
-
 export function checkIfShowNewEvent(actualIndex, events, allDayEventTitle) {
-  let showEvent = true;
+  let showEvent = false;
   const now = moment();
-  try {
-    debugger;
-    if(allDayEventTitle === undefined  && actualIndex < events.length){
+    if(actualIndex < events.length){
       const eventStartTime = moment(events[actualIndex].entryDate);
       const eventStopTime = moment(events[actualIndex].departureDate);
   
-      if(calculateUntilEventStart(now, eventStartTime) < 0 ){
-        showEvent = true;
+      if(eventStartTime.diff(now) < 0 && eventStopTime.diff(now) > 0){
+        if(allDayEventTitle  !== undefined && actualIndex !== 0){
+          showEvent = true;
+        }
       }
-      else{
-        showEvent = false;
-      } 
     }
-    else{
-      if(allDayEventTitle === undefined){
-        showEvent = false;
-      }
-
-    }
-   
-  } catch (error) {
-  }
+  
 
   return showEvent;
 

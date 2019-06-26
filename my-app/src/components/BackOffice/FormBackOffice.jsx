@@ -11,10 +11,15 @@ class FormBackOffice extends Component {
     selectedEvent: PropTypes.object,
     history: PropTypes.object,
     change: PropTypes.func,
+    bearerToken: PropTypes.object,
   }
 
   onClick = () => {
     this.props.history.push('Dashboard');
+  }
+
+  navigate = (url) => {
+    this.props.history.push(url);
   }
 
   checkboxChecked = (event) => {
@@ -33,6 +38,15 @@ class FormBackOffice extends Component {
     const now = moment().format('YYYY-MM-DD');
     this.props.change('date', now);
   }
+
+  componentDidMount() {
+    if(this.props.bearerToken === "aaa"){
+      alert('Your validation is expired!');
+      this.navigate('Login');
+    }
+
+  }
+
 
   render() {
     const {
@@ -118,6 +132,7 @@ class FormBackOffice extends Component {
 const mapStateToProps = (state) => ({
   initialValues: state.appointment.selectedEvent,
   enableReinitialize: true,
+  bearerToken: state.loginReducer.bearerToken,
 });
 
 const Form = reduxForm({

@@ -36,59 +36,63 @@ class Appointment extends Component {
     const now = moment();
     const { title } = this.props.allDayEvent;
     const { index, events } = this.props;
+    const ADE = title;
     let timeRemeaningToStart;
     let timeRemeaningToEnd;
 
-    debugger;
+
     //Case hay eventos
     if (events.length !== 0) {
-      const checkShowNewEvent = checkIfShowNewEvent(index, events, title);
-      if (title === undefined && !checkShowNewEvent) {
+      const checkShowNewEvent = checkIfShowNewEvent(index, events, ADE);
+      if (!checkShowNewEvent) {
+        //Case: NO Show
         if (index < events.length) {
-          //Case: No ADE and Show isn't needed but still evens reminding
-          timeRemeaningToStart = calculateUntilEventStart(now, moment(events[index].entryDate), title);
-          timeRemeaningToEnd = calculateUntilEventEnd(now, moment(events[index].departureDate), title);
+          if(ADE === undefined){
+            timeRemeaningToStart = calculateUntilEventStart(now, moment(events[index].entryDate), ADE);
+            timeRemeaningToEnd = calculateUntilEventEnd(now, moment(events[index].departureDate), ADE);
+          }
+          else{
+            if(events.length !== 1){
+              timeRemeaningToStart = 0;
+              timeRemeaningToEnd = calculateUntilEventStart(now, moment(events[index].entryDate), ADE);
+            }
+            else{
+              timeRemeaningToStart = 0;
+              timeRemeaningToEnd = calculateUntilEventEnd(now, moment(events[0].departureDate), ADE);
+            }
+          }
+        }
+        else{
+          if(ADE !== undefined){
+            timeRemeaningToStart = 0;
+            timeRemeaningToEnd = calculateUntilEventEnd(now, moment(events[0].departureDate), ADE);
+            this.props.setEvent(events[0])
+          }
         }
       }
       else {
-        //Case: Show is needed
-        if (events.length === 1 && title !== undefined) {
-          // Case: Only 1 ADE
-          const endTime = moment(events[0].departureDate).diff(now);
-          timeRemeaningToEnd = endTime;
-          timeRemeaningToStart = 0;
-        }
-        else {
-          // Case: Multiple events with ADE
-          timeRemeaningToStart = calculateUntilEventStart(now, moment(events[index].entryDate), title);
-          timeRemeaningToEnd = calculateUntilEventEnd(now, moment(events[index].departureDate), title);
+          // Case: Show event
+          timeRemeaningToStart = calculateUntilEventStart(now, moment(events[index].entryDate), ADE);
+          timeRemeaningToEnd = calculateUntilEventEnd(now, moment(events[index].departureDate), ADE);
         }
       }
+   
 
-      if (index < events.length && events.length  !== 0) {
-        this.props.setActionTime(timeRemeaningToEnd);
-        this.timer = setTimeout(() => {
-          this.navigate('Event');
-        }, timeRemeaningToStart);
-      }
+
+    if ((index < events.length && events.length  !== 0) || (ADE !== undefined)) {
+      this.props.setActionTime(timeRemeaningToEnd);
+      this.timer = setTimeout(() => {
+        this.navigate('Event');
+      }, timeRemeaningToStart);
     }
-    //  Case: NO events, go Dash with DEFAULT message
 
 
-
-    /*
-    setear eventos timer y navegacion
-    */
-
-
-    // this.props.setEvent(this.props.allDayEvent);
 
 
 
   }
 
   componentDidMount = () => {
-    // this.props.setEvents(dailyInfo.events);
     const bearerToken = `Bearer ${this.props.bearerToken}`;
 
     const now = moment().format('YYYY-MM-DD');

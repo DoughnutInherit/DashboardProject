@@ -19,16 +19,19 @@
   ],
   "birthday": [
     {
-      "name":"Marc Carbu",
-      "imageUrl":"https://www.abqsa.com/wp-content/uploads/2013/05/anonimo.png"
+      "imgPath":"http://bms.pasiona.com/pg/pasionad.nsf/WSPics/AAH/$File/AAH.jpg",
+      "name":"Pau Barbolla",
+      "birthDate":"21/09/1994"
     },
     {
-      "name":"Pepe Valls",
-      "imageUrl":"https://www.abqsa.com/wp-content/uploads/2013/05/anonimo.png"
+      "imgPath":"http://bms.pasiona.com/pg/pasionad.nsf/WSPics/XMT/$File/XMT.jpg",
+      "name":"Xavi Maltas",
+      "birthDate":"20/05/1995"
     },
     {
-      "name":"Jan Vidal",
-      "imageUrl":"https://www.abqsa.com/wp-content/uploads/2013/05/anonimo.png"
+      "imgPath":"http://bms.pasiona.com/pg/pasionad.nsf/WSPics/ARF/$File/ARF.jpg",
+      "name":"Toni Recio",
+      "birthDate":"20/05/1980"
     }
   ]
 }

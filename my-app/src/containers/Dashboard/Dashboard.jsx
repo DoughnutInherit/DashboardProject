@@ -7,6 +7,8 @@ import Birthday from '../../components/Birthday/Birthday';
 import Weather from '../../components/Weather/Weather';
 
 
+
+import "../../../node_modules/video-react/dist/video-react.css";
 import './Dashboard.css';
 
 class Dashboard extends Component {

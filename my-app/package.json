@@ -16,7 +16,8 @@
     "reactstrap": "7.0.2",
     "redux": "4.0.1",
     "redux-form": "8.1.0",
-    "superagent": "4.1.0"
+    "superagent": "4.1.0",
+    "video-react": "0.13.9"
   },
   "scripts": {
     "start": "react-scripts start",

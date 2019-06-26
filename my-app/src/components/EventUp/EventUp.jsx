@@ -30,7 +30,7 @@ class EventUp extends Component {
     const {
       index, events, event, allDayEvent,
     } = this.props;
-    if (index < events.length && event.description !== allDayEvent.description) {
+    if ((index < events.length && event.title  !== allDayEvent.title)  || (event.title  === allDayEvent.title && index === 0)) {
       this.props.setIndex(this.props.index + 1);
     }
     clearTimeout(this.timer);

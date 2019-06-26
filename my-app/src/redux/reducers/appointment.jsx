@@ -53,25 +53,27 @@ const checkAllDayEvent = (events) => {
   return eventSelected;
 };
 
-const setDefaultEvent = (array, index) => {
+const setDefaultEvent = (array, index, allDayEvent) => {
   let object = {
     title: 'Sin eventos para el dia de hoy',
     description: 'Sin eventos para el dia de hoy. ¡Que tengas un buen dia!',
   };
 
-  if(initialState.allDayEvent !== undefined && array.length  !== 0){
-    object = array[0];
-  }
-
-  debugger;
-  if (index < array.length) {
+  if (index < array.length && array.length > 0) {
     object = array[index];
   }
-  else{
-    object = {
-      title: 'Sin eventos para el dia de hoy',
-      description: 'Sin eventos para el dia de hoy. ¡Que tengas un buen dia!',
-    };
+
+  else {
+    if (allDayEvent.description !== undefined && array.length > 0) {
+      object = array[0];
+    }
+    else {
+      object = {
+        title: 'Sin eventos para el dia de hoy',
+        description: 'Sin eventos para el dia de hoy. ¡Que tengas un buen dia!',
+      };
+    }
+
   }
   return object;
 };
@@ -90,7 +92,7 @@ const appointmentReducer = (state = initialState, action) => {
       return {
         ...state,
         events: myEvents,
-        event: setDefaultEvent(myEvents, state.eventIndex),
+        event: setDefaultEvent(myEvents, state.eventIndex, state.allDayEvent),
         allDayEvent: checkAllDayEvent(myEvents),
       };
     case actionAppointment.SET_INDEX:

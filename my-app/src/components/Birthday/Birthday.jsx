@@ -22,28 +22,32 @@ class Birthday extends Component {
 
   render() {
     const { birthdayList } = this.props;
-    return (
 
-      birthdayList === undefined ? <p> Undefined </p>
-        : (
-          <Carousel className="carousel shadow" autoPlay={true} showArrows={false} infiniteLoop emulateTouch showStatus={false} showThumbs={false}>
-            {this.props.birthdayList.map(Person => (
-              <div>
-                <img className="image" src={Person.imageUrl} alt="" />
-                <h3 className="text">
-                  !
-                  {' '}
-                  Feliz cumpleaños
-                  {' '}
-                  {Person.name}
-                  {' '}
-                  !
-                </h3>
-              </div>
-            ))}
-          </Carousel>
-        )
-    );
+    if(birthdayList !== undefined){
+      return (
+        <Carousel className="carousel shadow" autoPlay={true} showArrows={false} infiniteLoop emulateTouch showStatus={false} showThumbs={false}>
+          {this.props.birthdayList.map(Person => (
+            <div>
+              <img className="image" src={Person.imgPath} alt="" />
+              <h3 className="text">
+                ! Feliz Cumpleaños {' '  + Person.name}! 
+              </h3>
+            </div>
+          ))}
+        </Carousel>
+      );
+    }
+    else{
+      return (
+        <div>
+          <img className="image center" src="https://image.flaticon.com/icons/svg/214/214305.svg" alt="" />
+        <h3 className="text" align="center">
+          Sin Cumpleaños
+        </h3>
+      </div>
+      );
+    }
+
   }
 }
 
