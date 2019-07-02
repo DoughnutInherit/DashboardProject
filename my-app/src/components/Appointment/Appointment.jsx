@@ -7,7 +7,7 @@ import {
 } from '../../actions/actionAppointment';
 import './Appointment.css';
 import {
-  getDailyEvents,
+  getApiData,
   calculateUntilEventStart,
   calculateUntilEventEnd,
   checkIfShowNewEvent,
@@ -96,7 +96,7 @@ class Appointment extends Component {
     const bearerToken = `Bearer ${this.props.bearerToken}`;
 
     const now = moment().format('YYYY-MM-DD');
-    getDailyEvents(`https://localhost:5001/api/event/${now}`, bearerToken)
+    getApiData(`https://localhost:5001/api/event/${now}`, bearerToken)
       .then(response => { this.props.setEvents(response); })
       .catch((err) => {
         alert('Your validation is expired!');

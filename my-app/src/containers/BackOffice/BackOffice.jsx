@@ -5,7 +5,7 @@ import FormBackOffice from '../../components/BackOffice/FormBackOffice';
 import SelectedDayEventsList from '../../components/SelectedDayEventsList/SelectedDayEventsList';
 import { postBackOffice } from '../../services/serviceWorker';
 import '../../components/SelectedDayEventsList/SelectedDayEventsList.css';
-import { getDailyEvents } from '../../services/serviceWorker';
+import { getApiData } from '../../services/serviceWorker';
 import moment from 'moment';
 import { setEvents } from '../../actions/actionAppointment';
 
@@ -25,7 +25,7 @@ class BackOffice extends Component {
     const bearerToken = `Bearer ${this.props.bearerToken}`;
 
     const now = moment().format('YYYY-MM-DD');
-    getDailyEvents(`https://localhost:5001/api/event/${now}`, bearerToken)
+    getApiData(`https://localhost:5001/api/event/${now}`, bearerToken)
       .then(response => { this.props.setEvents(response); })
       .catch((err) => {
         alert('Your validation is expired!');

@@ -11,7 +11,7 @@ export const getWeatherFromUrl = (url) => new Promise(((resolve, reject) => {
     });
 }));
 
-export const getDailyEvents = (url, token) => new Promise(((resolve, reject) => {
+export const getApiData = (url, token) => new Promise(((resolve, reject) => {
   Request('GET', url)
     .set('authorization', token)
     .end((err, res) => {
@@ -19,6 +19,9 @@ export const getDailyEvents = (url, token) => new Promise(((resolve, reject) => 
       else resolve(res.body);
     });
 }));
+
+
+
 
 export const postBackOffice = (url, info, token, httpMethod = 'POST') => new Promise(((resolve, reject) => {
   Request(httpMethod, url)

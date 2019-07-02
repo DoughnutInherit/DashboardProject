@@ -7,7 +7,7 @@ import SelectedDayEvent from '../SelectedDayEvent/SelectedDayEvent';
 import '../../containers/Dashboard/Dashboard.css';
 // import dailyInfo from '../../services/dailyInfo.json';
 import './SelectedDayEventsList.css';
-import { getDailyEvents } from '../../services/serviceWorker';
+import { getApiData } from '../../services/serviceWorker';
 
 class SelectedDayEventsList extends Component {
   static propTypes = {
@@ -18,7 +18,7 @@ class SelectedDayEventsList extends Component {
 
 
   componentDidMount = () => {
-    getDailyEvents(`https://localhost:5001/api/event/${moment().format('YYYY-MM-DD')}`, `Bearer ${this.props.token}`)
+    getApiData(`https://localhost:5001/api/event/${moment().format('YYYY-MM-DD')}`, `Bearer ${this.props.token}`)
       .then(x => { this.props.setEvents(x); });
   };
 
