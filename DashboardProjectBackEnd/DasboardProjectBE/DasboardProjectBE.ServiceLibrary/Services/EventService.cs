@@ -63,6 +63,7 @@ namespace DasboardProjectBE.ServiceLibrary.Services
             originalEvent.EntryDate = eventDto.EntryDate;
             originalEvent.DepartureDate = eventDto.DepartureDate;
             originalEvent.TypeId = eventDto.TypeId;
+            originalEvent.Title = eventDto.Title;
 
             return originalEvent;
         }

@@ -17,38 +17,19 @@ class SelectedDayEvent extends Component {
     setEventForEdition: PropTypes.func,
     token: PropTypes.string,
     removeEvent: PropTypes.func,
+    onClickEditButton: PropTypes.func,
+    isEditMode: PropTypes.bool,
   };
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedCSSClass: '',
-    };
-  }
-
-  setForEdition = () => {
-    let { event } = this.props;
-    const eventStartDate = moment(event.entryDate).format('YYYY-MM-DD');
-    const eventStartHour = moment(event.entryDate).format('HH:mm');
-    const eventEndHour = moment(event.departureDate).format('HH:mm');
-    const allday = eventStartHour === '08:00' && eventEndHour === '20:00';
-    event = {
-      ...event, date: eventStartDate, iniHour: eventStartHour, endHour: eventEndHour, allday,
-    };
-    this.setState({ selectedCSSClass: 'selectedRow' });
-    this.props.setEventForEdition(event, true);
-  }
 
   deleteEvent = () => {
     deleteEvent(`https://localhost:5001/api/event/${this.props.event.id}`, `Bearer ${this.props.token}`);
     this.props.removeEvent(this.props.event);
-    this.props.setEventForEdition({}, false);
   };
 
   render() {
-    const { event } = this.props;
+    const { event, isEditMode } = this.props;
     return (
-      <tr className={`eventRow ${this.state.selectedCSSClass}`}>
+      <tr className={`eventRow ${isEditMode ? 'selectedRow' : ''}`}>
         <td className="hourCol">{moment(event.entryDate).format('HH:mm')}</td>
         <td className="hourCol">{moment(event.departureDate).format('HH:mm')}</td>
         <td className="titleCol">{event.title}</td>
@@ -56,7 +37,7 @@ class SelectedDayEvent extends Component {
           <button
             type="button"
             className="selectedEventEditButton"
-            onClick={this.setForEdition}
+            onClick={() => this.props.onClickEditButton(event.id)}
           >
             <img src={editIcon} alt="EditButton" className="imageButton" />
           </button>

@@ -30,7 +30,8 @@ class EventUp extends Component {
     const {
       index, events, event, allDayEvent,
     } = this.props;
-    if ((index < events.length && event.title  !== allDayEvent.title)  || (event.title  === allDayEvent.title && index === 0)) {
+    if ((index < events.length && event.title !== allDayEvent.title)
+      || (event.title === allDayEvent.title && index === 0)) {
       this.props.setIndex(this.props.index + 1);
     }
     clearTimeout(this.timer);
@@ -43,7 +44,7 @@ class EventUp extends Component {
         <div class="col titleStyle">
           <h1>
             ¡
-          {event.title}
+            {event.title}
             !
           </h1>
         </div>

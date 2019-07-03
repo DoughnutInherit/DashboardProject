@@ -53,36 +53,22 @@ export function compare(a, b) {
 export function checkIfShowNewEvent(actualIndex, events, allDayEventTitle) {
   let showEvent = false;
   const now = moment();
-    if(actualIndex < events.length){
-      const eventStartTime = moment(events[actualIndex].entryDate);
-      const eventStopTime = moment(events[actualIndex].departureDate);
-  
-      if(eventStartTime.diff(now) < 0 && eventStopTime.diff(now) > 0){
-        if(allDayEventTitle  !== undefined && actualIndex !== 0){
-          showEvent = true;
-        }
+  if (actualIndex < events.length) {
+    const eventStartTime = moment(events[actualIndex].entryDate);
+    const eventStopTime = moment(events[actualIndex].departureDate);
+
+    if (eventStartTime.diff(now) < 0 && eventStopTime.diff(now) > 0) {
+      if (allDayEventTitle !== undefined && actualIndex !== 0) {
+        showEvent = true;
       }
     }
-  
+  }
+
 
   return showEvent;
-
 }
 
-export function calculateUntilEventStart(actualTime, startTime) {
-  let timeRemaindingToStart = startTime.diff(actualTime)
-  return timeRemaindingToStart;
-
-}
-
-export function calculateUntilEventEnd(actualTime, endTime) {
-  let  timeRemaindingToFinish =  endTime.diff(actualTime);
-  return timeRemaindingToFinish;
-
-
-}
-
-
+export const calculateTimeDiff = (startTime, endTime) => endTime.diff(startTime);
 
 export const getJwtBearer = (user, method, url) => new Promise(((resolve, reject) => {
   Request(method, url)

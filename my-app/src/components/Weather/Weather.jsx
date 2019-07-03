@@ -19,7 +19,7 @@ class Weather extends Component {
 
   weatherComponent = (url, today) => {
     today = new Date();
-    const date = months[today.getMonth()] + ' ' + (today.getDate()) + ', ' + today.getFullYear();
+    const date = `${months[today.getMonth()]} ${today.getDate()}, ${today.getFullYear()}`;
     this.props.setActualDate(date);
 
     getWeatherFromUrl(url)
@@ -32,9 +32,9 @@ class Weather extends Component {
 
   componentDidMount = () => {
     const url = weatherUrl();
-    var today = new Date();
+    const today = new Date();
     this.weatherComponent(url, today);
-    
+
     setInterval(() => {
       this.weatherComponent(url, today);
     },

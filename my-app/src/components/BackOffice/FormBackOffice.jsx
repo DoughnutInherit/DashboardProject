@@ -3,6 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import './BackOffice.css';
 
 class FormBackOffice extends Component {
   static propTypes = {
@@ -12,6 +13,15 @@ class FormBackOffice extends Component {
     history: PropTypes.object,
     change: PropTypes.func,
     bearerToken: PropTypes.object,
+    isEditMode: PropTypes.bool,
+    onCancelClick: PropTypes.func,
+  }
+
+  componentDidMount() {
+    if (this.props.bearerToken === 'aaa') {
+      alert('Your validation is expired!');
+      this.navigate('Login');
+    }
   }
 
   onClick = () => {
@@ -34,19 +44,10 @@ class FormBackOffice extends Component {
     }
   }
 
-  checkToday = (event) => {
+  checkToday = () => {
     const now = moment().format('YYYY-MM-DD');
     this.props.change('date', now);
   }
-
-  componentDidMount() {
-    if(this.props.bearerToken === "aaa"){
-      alert('Your validation is expired!');
-      this.navigate('Login');
-    }
-
-  }
-
 
   render() {
     const {
@@ -118,6 +119,16 @@ class FormBackOffice extends Component {
           <div>
             <button type="submit" className="btn btn-warning float-right" disabled={pristine && submitting}>Done</button>
             <button
+              type="button"
+              className="btn btn-warning cancelButton float-right"
+              hidden={!this.props.isEditMode}
+              onClick={this.props.onCancelClick}
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              className="btn btn-warning"
               onClick={this.onClick}
             >
               Go to dashboard
@@ -133,6 +144,7 @@ const mapStateToProps = (state) => ({
   initialValues: state.appointment.selectedEvent,
   enableReinitialize: true,
   bearerToken: state.loginReducer.bearerToken,
+  isEditMode: state.appointment.isEditionMode,
 });
 
 const Form = reduxForm({

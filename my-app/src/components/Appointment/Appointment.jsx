@@ -8,8 +8,7 @@ import {
 import './Appointment.css';
 import {
   getDailyEvents,
-  calculateUntilEventStart,
-  calculateUntilEventEnd,
+  calculateTimeDiff,
   checkIfShowNewEvent,
 } from '../../services/serviceWorker';
 
@@ -41,64 +40,54 @@ class Appointment extends Component {
     let timeRemeaningToEnd;
 
 
-    //Case hay eventos
+    // Case hay eventos
     if (events.length !== 0) {
       const checkShowNewEvent = checkIfShowNewEvent(index, events, ADE);
       if (!checkShowNewEvent) {
-        //Case: NO Show
+        // Case: NO Show
         if (index < events.length) {
-          if(ADE === undefined){
-            timeRemeaningToStart = calculateUntilEventStart(now, moment(events[index].entryDate), ADE);
-            timeRemeaningToEnd = calculateUntilEventEnd(now, moment(events[index].departureDate), ADE);
-          }
-          else{
-            if(events.length !== 1){
-              timeRemeaningToStart = 0;
-              timeRemeaningToEnd = calculateUntilEventStart(now, moment(events[index].entryDate), ADE);
-            }
-            else{
-              timeRemeaningToStart = 0;
-              timeRemeaningToEnd = calculateUntilEventEnd(now, moment(events[0].departureDate), ADE);
-            }
-          }
-        }
-        else{
-          if(ADE !== undefined){
+          if (ADE === undefined) {
+            timeRemeaningToStart = calculateTimeDiff(now, moment(events[index].entryDate));
+            timeRemeaningToEnd = calculateTimeDiff(now, moment(events[index].departureDate));
+          } else if (events.length !== 1) {
             timeRemeaningToStart = 0;
-            timeRemeaningToEnd = calculateUntilEventEnd(now, moment(events[0].departureDate), ADE);
-            this.props.setEvent(events[0])
+            timeRemeaningToEnd = calculateTimeDiff(now, moment(events[index].entryDate));
+          } else {
+            timeRemeaningToStart = 0;
+            timeRemeaningToEnd = calculateTimeDiff(now, moment(events[0].departureDate));
           }
+        } else if (ADE !== undefined) {
+          timeRemeaningToStart = 0;
+          timeRemeaningToEnd = calculateTimeDiff(now, moment(events[0].departureDate));
+          this.props.setEvent(events[0]);
         }
+      } else {
+        // Case: Show event
+        timeRemeaningToStart = calculateTimeDiff(now, moment(events[index].entryDate));
+        timeRemeaningToEnd = calculateTimeDiff(now, moment(events[index].departureDate));
       }
-      else {
-          // Case: Show event
-          timeRemeaningToStart = calculateUntilEventStart(now, moment(events[index].entryDate), ADE);
-          timeRemeaningToEnd = calculateUntilEventEnd(now, moment(events[index].departureDate), ADE);
-        }
-      }
-   
+    }
 
-
-    if ((index < events.length && events.length  !== 0) || (ADE !== undefined)) {
+    if ((index < events.length && events.length !== 0) || (ADE !== undefined)) {
       this.props.setActionTime(timeRemeaningToEnd);
       this.timer = setTimeout(() => {
         this.navigate('Event');
       }, timeRemeaningToStart);
     }
-
-
-
-
-
   }
 
   componentDidMount = () => {
     const bearerToken = `Bearer ${this.props.bearerToken}`;
-
     const now = moment().format('YYYY-MM-DD');
     getDailyEvents(`https://localhost:5001/api/event/${now}`, bearerToken)
-      .then(response => { this.props.setEvents(response); })
-      .catch((err) => {
+      .then(response => {
+        const events = response.filter(x => {
+          const timeRemeaning = calculateTimeDiff(moment(), moment(x.departureDate));
+          return timeRemeaning >= 0;
+        });
+        this.props.setEvents(events);
+      })
+      .catch(() => {
         alert('Your validation is expired!');
         this.navigate('Login');
       });

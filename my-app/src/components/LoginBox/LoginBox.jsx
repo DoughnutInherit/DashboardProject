@@ -5,7 +5,7 @@ import {
   Button, FormGroup, FormControl, FormLabel, Form,
 } from 'react-bootstrap';
 import emailRegex from 'email-regex';
-import passwordValidator from 'password-validator';
+import PasswordValidator from 'password-validator';
 import { setEmailValue, setPasswordValue, setAuthToken } from '../../actions/actionLogin';
 import { getJwtBearer } from '../../services/serviceWorker';
 import { getLoginControllerUrl } from '../../constants/constants';
@@ -29,7 +29,7 @@ class LoginBox extends Component {
   }
 
   validateForm = () => {
-    const schema = new passwordValidator();
+    const schema = new PasswordValidator();
     schema.is().min(8)
       .is().max(100)
       .has()
@@ -71,7 +71,7 @@ class LoginBox extends Component {
 
   getToken = (user, method, url) => getJwtBearer(user, method, url)
     .then(response => this.props.setAuthToken(response.text))
-    .then(x=>this.navigate())
+    .then(() => this.navigate())
     .catch(e => {
       const message = `${e.message} Invalid values. Retry it`;
       alert(message);

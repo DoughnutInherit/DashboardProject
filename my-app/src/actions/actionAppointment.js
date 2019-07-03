@@ -6,6 +6,8 @@ const SET_ALLDAY_EVENT = 'SET_ALLDAY_EVENT';
 const SET_ACTION_TIME = 'SET_ACTION_TIME';
 const SET_EDITIONEVENT = 'SET_EDITIONEVENT';
 const DELETE_EVENT = 'DELETE_EVENT';
+const REFRESHEVENTS = 'REFRESHEVENTS';
+const RESET_EDITIONMODE = 'RESET_EDITIONMODE';
 
 export default {
   SET_TIMER,
@@ -16,6 +18,8 @@ export default {
   SET_ACTION_TIME,
   SET_EDITIONEVENT,
   DELETE_EVENT,
+  REFRESHEVENTS,
+  RESET_EDITIONMODE,
 };
 
 export const setIndex = (index) => ({ type: SET_INDEX, index });
@@ -30,3 +34,5 @@ export const setEventForEdition = (event, isEditing) => ({
   isEditing,
 });
 export const removeEvent = (event) => ({ type: DELETE_EVENT, event });
+export const refreshEventsList = (eventsList) => ({ type: REFRESHEVENTS, eventsList });
+export const resetEditionMode = () => ({ type: RESET_EDITIONMODE });
