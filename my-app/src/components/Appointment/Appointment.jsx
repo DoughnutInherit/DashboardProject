@@ -7,15 +7,9 @@ import {
 } from '../../actions/actionAppointment';
 import './Appointment.css';
 import {
-<<<<<<< HEAD
-  getDailyEvents,
   calculateTimeDiff,
-=======
-  getApiData,
-  calculateUntilEventStart,
-  calculateUntilEventEnd,
->>>>>>> develop
   checkIfShowNewEvent,
+  getApiData,
 } from '../../services/serviceWorker';
 
 class Appointment extends Component {
@@ -85,7 +79,7 @@ class Appointment extends Component {
   componentDidMount = () => {
     const bearerToken = `Bearer ${this.props.bearerToken}`;
     const now = moment().format('YYYY-MM-DD');
-    getDailyEvents(`https://localhost:5001/api/event/${now}`, bearerToken)
+    getApiData(`https://localhost:5001/api/event/${now}`, bearerToken)
       .then(response => {
         const events = response.filter(x => {
           const timeRemeaning = calculateTimeDiff(moment(), moment(x.departureDate));

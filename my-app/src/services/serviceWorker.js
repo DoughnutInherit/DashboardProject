@@ -20,9 +20,6 @@ export const getApiData = (url, token) => new Promise(((resolve, reject) => {
     });
 }));
 
-
-
-
 export const postBackOffice = (url, info, token, httpMethod = 'POST') => new Promise(((resolve, reject) => {
   Request(httpMethod, url)
     .send(info)
