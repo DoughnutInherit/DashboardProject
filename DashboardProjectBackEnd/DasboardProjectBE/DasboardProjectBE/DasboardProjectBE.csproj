@@ -10,6 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="NullBirthdayPhoto.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
@@ -30,6 +34,27 @@
     <ProjectReference Include="..\DasboardProjectBE.Data\DasboardProjectBE.Data.csproj" />
     <ProjectReference Include="..\DasboardProjectBE.ServiceLibrary.IoC\DasboardProjectBE.ServiceLibrary.IoC.csproj" />
     <ProjectReference Include="..\DasboardProjectBE.ServiceLibrary\DasboardProjectBE.ServiceLibrary.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="NullBirthdayPhoto.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

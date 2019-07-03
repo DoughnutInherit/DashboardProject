@@ -15,6 +15,7 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Newtonsoft.Json.Linq;
+using System.Net;
 
 namespace DasboardProjectBE.Controllers
 {
@@ -38,6 +39,7 @@ namespace DasboardProjectBE.Controllers
 
 			ReadBlobDataAsync();
 			List<DailyBirthdaysViewModel> birthday = Newtonsoft.Json.JsonConvert.DeserializeObject<List<DailyBirthdaysViewModel>>(resultNames);
+			birthday = ConvertUrlToImage(birthday);
 			if (resultNames != null)
 			{
 				return Ok(birthday);
@@ -87,7 +89,7 @@ namespace DasboardProjectBE.Controllers
 
 
 
-		static public async void ReadBlobDataAsync()
+		private static async void ReadBlobDataAsync()
 		{
 			string accountName = "servicebuscontent";
 			string accountKey = "shipwFGrWch4v8DLXmKGnwI16X0FCaNcRGuSftGpd4eM2SIhjTsAQ3rJt1z5Zo3/KqGb+qBm/AyTlVHiRUh+qw==";
@@ -96,17 +98,52 @@ namespace DasboardProjectBE.Controllers
 			CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials(accountName, accountKey), true);
 			CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
 			CloudBlobContainer container = blobClient.GetContainerReference(containerName);
-			var blobItemList = container.ListBlobsSegmentedAsync(null).Result.Results;
-			var blobList = blobItemList.OfType<CloudBlockBlob>().ToList();
-			var firstBlob = blobList.FirstOrDefault();
-			using (var mStream = new MemoryStream())
-			{
-				await firstBlob.DownloadToStreamAsync(mStream).ConfigureAwait(false);
-				resultNames = Encoding.ASCII.GetString(mStream.ToArray());
+			IEnumerable<IListBlobItem> blobItemList = container.ListBlobsSegmentedAsync(null).Result.Results;
+			List<CloudBlockBlob> blobList = blobItemList.OfType<CloudBlockBlob>().ToList();
+			CloudBlockBlob firstBlob = blobList.FirstOrDefault();
 
-			}
+			MemoryStream mStream = new MemoryStream();
+			firstBlob.DownloadToStreamAsync(mStream).Wait();
+			resultNames = Encoding.ASCII.GetString(mStream.ToArray());
 
 
 		}
+
+
+		private List<DailyBirthdaysViewModel> ConvertUrlToImage(List<DailyBirthdaysViewModel> birthday)
+		{
+			for (int i = 0; i < birthday.Count; i++)
+			{
+				WebRequest req = WebRequest.Create(birthday[i].ImageUrl);
+				req.Method = "GET";
+				req.Headers["Authorization"] = "Basic " + Convert.ToBase64String(Encoding.Default.GetBytes("SSharepoint:sharepasiona"));
+					byte[] buf;
+				try
+				{
+					WebResponse resp = req.GetResponse();
+					Stream stream = resp.GetResponseStream();
+					using (BinaryReader br = new BinaryReader(stream))
+					{
+						int len = (int)(resp.ContentLength);
+						buf = br.ReadBytes(len);
+						br.Close();
+						stream.Close();
+						resp.Close();
+
+					}
+				}
+				catch
+				{
+					buf = Properties.Resources.NullBirthdayPhoto;
+				}
+				birthday[i].ImageUrl = Convert.ToBase64String(buf);
+
+			}
+
+			return birthday;
+
+		}
+
+
 	}
 }
