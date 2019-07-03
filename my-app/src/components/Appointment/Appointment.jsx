@@ -7,8 +7,14 @@ import {
 } from '../../actions/actionAppointment';
 import './Appointment.css';
 import {
+<<<<<<< HEAD
   getDailyEvents,
   calculateTimeDiff,
+=======
+  getApiData,
+  calculateUntilEventStart,
+  calculateUntilEventEnd,
+>>>>>>> develop
   checkIfShowNewEvent,
 } from '../../services/serviceWorker';
 
