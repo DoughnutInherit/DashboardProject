@@ -1,0 +1,44 @@
+.selectedEventDate {
+  float: left;
+  width: 20%;
+  border-right-style: solid;
+  border-right-color: coral;
+}
+
+.selectedEventDateText {
+  text-align: right;
+  margin: 6%
+}
+
+.eventTitleText {}
+
+.eventDescriptionText {
+  margin: auto;
+}
+
+.selectedEventData {
+  float: right;
+  width: 80%;
+}
+
+.selectedEventDataText {}
+
+.selectedEventTitle {
+  color: black;
+  height: 50%;
+}
+
+.selectedEventDescription {
+  color: black;
+  height: 50%;
+}
+
+.selectedEventEditButton {
+  background-color: rgba(0, 0, 0, .0);
+  border-width: 0px;
+  cursor: pointer;
+}
+
+.selectedRow{
+  background-color: rgba(234, 117, 0, 0.34);
+}
