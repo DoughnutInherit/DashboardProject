@@ -25,6 +25,10 @@
   padding-top: 2%;
 }
 
+.carousel{
+  height: 400px
+}
+
 .carousel .control-dots .dot.selected,
 .carousel .control-dots .dot:hover {
   background-color: orange;

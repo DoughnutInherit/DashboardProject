@@ -36,7 +36,7 @@ class Birthday extends Component {
             <div>
               <img className="image" src={`data:image/jpeg;base64,${Person.imageUrl}`} alt="" />
               <h3 className="text">
-                {`! Feliz Cumpleaños ${Person.completeName}!`}
+                {`! Feliz Cumpleaños ${Person.completeName} !`}
               </h3>
             </div>
           ))}
