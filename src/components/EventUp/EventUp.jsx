@@ -40,16 +40,16 @@ class EventUp extends Component {
   render() {
     const { event } = this.props;
     return (
-      <div class="row alertContainer">
-        <div class="col titleStyle">
+      <div className="row alertContainer">
+        <div className="col titleStyle">
           <h1>
             ¡
             {event.title}
             !
           </h1>
         </div>
-        <div class="w-100" />
-        <div class="col descriptionStyle">
+        <div className="w-100" />
+        <div className="col descriptionStyle">
           <p>{event.description}</p>
         </div>
       </div>

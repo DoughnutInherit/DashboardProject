@@ -11,6 +11,9 @@ import {
   checkIfShowNewEvent,
   getApiData,
 } from '../../services/serviceWorker';
+import * as signalR from '@aspnet/signalr';
+import { HubConnectionBuilder } from '@aspnet/signalr';
+import cookies from 'js-cookie';
 
 class Appointment extends Component {
   static propTypes = {
@@ -24,7 +27,14 @@ class Appointment extends Component {
     setAllDayEvent: PropTypes.object,
     setActionTime: PropTypes.func,
     setIndex: PropTypes.func,
-    bearerToken: PropTypes.object,
+    bearerToken: PropTypes.string,
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      hubConnection: {},
+    };
   }
 
   navigate = (url) => {
@@ -71,10 +81,12 @@ class Appointment extends Component {
     }
   }
 
-  componentDidMount = () => {
-    const bearerToken = `Bearer ${this.props.bearerToken}`;
+  updateEvents = () => {
+    const cacheToken = cookies.get('token')
+    const bearerToken = `Bearer ${cacheToken}`;
     const now = moment().format('YYYY-MM-DD');
-    getApiData(`https://localhost:5001/api/event/${now}`, bearerToken)
+
+   getApiData(`https://localhost:5001/api/event/${now}`, bearerToken)
       .then(response => {
         const events = response.filter(x => {
           const timeRemeaning = calculateTimeDiff(moment(), moment(x.departureDate));
@@ -82,11 +94,28 @@ class Appointment extends Component {
         });
         this.props.setEvents(events);
       })
-      .catch(() => {
-        alert('Your validation is expired!');
-        this.navigate('Login');
+      .catch((err) => {
+        alert("Error: " + err.message);
+        if (err.status === 401) {
+          cookies.remove('token');
+          this.navigate('Login');
+        }
       });
-  };
+  }
+
+  componentDidMount = () => {
+    const hubConnection = new HubConnectionBuilder().withUrl("http://localhost:5000/eventos")
+      .configureLogging(signalR.LogLevel.Information)
+      .build();
+
+    hubConnection.start();
+    this.updateEvents();
+    hubConnection.on("updateEvents", () => {
+      this.updateEvents();
+      window.location.reload();     
+    });
+    this.setState({ hubConnection });
+  }
 
   componentWillUnmount = () => {
     clearTimeout(this.timer);

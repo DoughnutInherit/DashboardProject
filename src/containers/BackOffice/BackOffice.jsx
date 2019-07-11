@@ -16,7 +16,7 @@ import {
 
 class BackOffice extends Component {
   static propTypes = {
-    bearerToken: PropTypes.object,
+    bearerToken: PropTypes.string,
     isEditMode: PropTypes.bool,
     setEvents: PropTypes.func,
     history: PropTypes.object,

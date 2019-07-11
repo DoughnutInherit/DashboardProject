@@ -39,6 +39,7 @@ class SelectedDayEventsList extends Component {
                 onClickEditButton={this.props.eventEditionEvent}
                 isEditMode={event.isEditMode}
                 event={event}
+                key={event.id}
               />
             ))
           }

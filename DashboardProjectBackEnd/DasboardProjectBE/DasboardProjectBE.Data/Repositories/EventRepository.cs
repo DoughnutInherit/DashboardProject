@@ -1,4 +1,4 @@
-﻿using DasboardProjectBE.ServiceLibrary.Common.Contracts;
+using DasboardProjectBE.ServiceLibrary.Common.Contracts;
 using DasboardProjectBE.ServiceLibrary.Entities;
 
 namespace DasboardProjectBE.Data.Repositories
