@@ -10,6 +10,7 @@
 
 # production
 /build
+/video.mp4
 
 # misc
 .DS_Store
