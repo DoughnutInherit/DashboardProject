@@ -48,7 +48,6 @@ class Appointment extends Component {
     const ADE = title;
     let timeRemeaningToStart;
     let timeRemeaningToEnd;
-    // Case hay eventos
     if (events.length !== 0) {
       const checkShowNewEvent = checkIfShowNewEvent(index, events, ADE);
       if (!checkShowNewEvent) {
