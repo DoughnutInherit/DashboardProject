@@ -56,14 +56,18 @@ class Appointment extends Component {
           if (ADE === undefined) {
             timeRemeaningToStart = calculateTimeDiff(now, moment(events[index].entryDate));
             timeRemeaningToEnd = calculateTimeDiff(now, moment(events[index].departureDate));
-          } else if (events.length !== 1) {
-            timeRemeaningToStart = 0;
-            timeRemeaningToEnd = calculateTimeDiff(now, moment(events[index].entryDate));
+          } else {
+            if (events.length !== 1) {
+              timeRemeaningToStart = 0;
+              timeRemeaningToEnd = calculateTimeDiff(now, moment(events[index].entryDate));
+            }
           }
-        } else if (ADE !== undefined) {
-          timeRemeaningToStart = 0;
-          timeRemeaningToEnd = calculateTimeDiff(now, moment(events[0].departureDate));
-          this.props.setEvent(events[0]);
+        } else {
+          if (ADE !== undefined) {
+            timeRemeaningToStart = 0;
+            timeRemeaningToEnd = calculateTimeDiff(now, moment(events[0].departureDate));
+            this.props.setEvent(events[0]);
+          }
         }
       } else {
         // Case: Show event
@@ -85,7 +89,7 @@ class Appointment extends Component {
     const bearerToken = `Bearer ${cacheToken}`;
     const now = moment().format('YYYY-MM-DD');
 
-   getApiData(`https://localhost:5001/api/event/${now}`, bearerToken)
+    getApiData(`https://localhost:5001/api/event/${now}`, bearerToken)
       .then(response => {
         const events = response.filter(x => {
           const timeRemeaning = calculateTimeDiff(moment(), moment(x.departureDate));
@@ -111,7 +115,7 @@ class Appointment extends Component {
     this.updateEvents();
     hubConnection.on("updateEvents", () => {
       this.updateEvents();
-      window.location.reload();     
+      window.location.reload();
     });
     this.setState({ hubConnection });
   }
