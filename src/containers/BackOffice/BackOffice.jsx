@@ -12,11 +12,11 @@ import {
   refreshEventsList,
   resetEditionMode,
 } from '../../actions/actionAppointment';
+import cookies from 'js-cookie';
 
 
 class BackOffice extends Component {
   static propTypes = {
-    bearerToken: PropTypes.string,
     isEditMode: PropTypes.bool,
     setEvents: PropTypes.func,
     history: PropTypes.object,
@@ -24,6 +24,7 @@ class BackOffice extends Component {
     refreshEventsList: PropTypes.func,
     resetEditionMode: PropTypes.func,
     events: PropTypes.array,
+    bearerToken: PropTypes.string,
   }
 
   navigate = () => {
@@ -31,13 +32,13 @@ class BackOffice extends Component {
   }
 
   updateEvents = () => {
-    const bearerToken = `Bearer ${this.props.bearerToken}`;
+    const cacheToken = cookies.get('token')
+    const bearerToken = `Bearer ${cacheToken}`;
     const now = moment().format('YYYY-MM-DD');
     getApiData(`https://localhost:5001/api/event/${now}`, bearerToken)
       .then(response => { this.props.setEvents(response); })
       .catch(() => {
-        alert('Your validation is expired!');
-        this.navigate('Login');
+
       });
   };
 
@@ -49,7 +50,7 @@ class BackOffice extends Component {
     const eventObject = {
       ...object, entryDate, departureDate, typeid: type,
     };
-    const eo = `Bearer ${this.props.bearerToken}`;
+    const eo = `Bearer ${cookies.get('token')}`;
     if (this.props.events.filter(x => x.isEditMode).length > 0) {
       postBackOffice('https://localhost:5001/api/event/', eventObject, eo, 'PUT')
         .then(() => { this.updateEvents(); });
@@ -113,8 +114,8 @@ class BackOffice extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  bearerToken: state.loginReducer.bearerToken,
   events: state.appointment.events,
+  bearerToken: state.loginReducer.bearerToken,
 });
 
 export default connect(mapStateToProps, {

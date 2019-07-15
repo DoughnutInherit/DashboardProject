@@ -20,7 +20,6 @@ class FormBackOffice extends Component {
     selectedEvent: PropTypes.object,
     history: PropTypes.object,
     change: PropTypes.func,
-    bearerToken: PropTypes.string,
     isEditMode: PropTypes.bool,
     onCancelClick: PropTypes.func,
   }
@@ -31,16 +30,20 @@ class FormBackOffice extends Component {
   };
 
   componentDidMount() {
-    if (this.props.bearerToken === 'aaa') {
-      alert('Your validation is expired!');
-      this.navigate('Login');
-    }
-    const hubConnection = new HubConnectionBuilder().withUrl("http://localhost:5000/eventos")
+    try {
+      const hubConnection = new HubConnectionBuilder()
+      .withUrl("http://localhost:5000/eventos")
       .configureLogging(signalR.LogLevel.Information)
       .build();
 
     hubConnection.start();
     this.setState({ hubConnection });
+      
+    } catch (error) {
+      console.log(error)
+      
+    }
+
   }
 
   onClick = () => {
@@ -49,6 +52,10 @@ class FormBackOffice extends Component {
 
   navigate = (url) => {
     this.props.history.push(url);
+  }
+
+  cleanFrom() {
+    document.getElementById("myForm").reset();
   }
 
   checkboxChecked = (event) => {
@@ -74,9 +81,10 @@ class FormBackOffice extends Component {
       allDayEvent,
       pristine,
       submitting,
+      reset
     } = this.props;
     return (
-      <form onSubmit={handleSubmit}>
+      <form id="myForm" onSubmit={handleSubmit}>
         <div className="form">
           <div>
             <label className="eventTitle">Title</label>
@@ -143,12 +151,19 @@ class FormBackOffice extends Component {
               hidden={!this.props.isEditMode}
               onClick={this.props.onCancelClick}
             >
-              Cancel
+              Cancel edit
+            </button>
+            <button
+              type="button"
+              className="btn btn-warning cancelButton float-right"
+              onClick={reset}
+            >
+              Clear form
             </button>
             <button
               type="button"
               className="btn btn-warning"
-              onClick={this.onClick}
+              onClick={this.cleanFrom}
             >
               Go to dashboard
             </button>
@@ -162,7 +177,6 @@ class FormBackOffice extends Component {
 const mapStateToProps = (state) => ({
   initialValues: state.appointment.selectedEvent,
   enableReinitialize: true,
-  bearerToken: state.loginReducer.bearerToken,
   isEditMode: state.appointment.isEditionMode,
 });
 

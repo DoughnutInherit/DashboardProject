@@ -9,6 +9,7 @@ import deleteIcon from '../../services/trash.png';
 import editIcon from '../../services/edit.png';
 import { setEventForEdition, removeEvent } from '../../actions/actionAppointment';
 import { deleteEvent } from '../../services/serviceWorker';
+import cookies from 'js-cookie';
 
 
 class SelectedDayEvent extends Component {
@@ -22,7 +23,8 @@ class SelectedDayEvent extends Component {
   };
 
   deleteEvent = () => {
-    deleteEvent(`https://localhost:5001/api/event/${this.props.event.id}`, `Bearer ${this.props.token}`);
+    const cacheToken = cookies.get('token')
+    deleteEvent(`https://localhost:5001/api/event/${this.props.event.id}`, `Bearer ${cacheToken}`);
     this.props.removeEvent(this.props.event);
   };
 
