@@ -13,6 +13,8 @@ import {
   resetEditionMode,
 } from '../../actions/actionAppointment';
 import cookies from 'js-cookie';
+import * as signalR from '@aspnet/signalr';
+import { HubConnectionBuilder } from '@aspnet/signalr';
 
 
 class BackOffice extends Component {
@@ -26,10 +28,37 @@ class BackOffice extends Component {
     events: PropTypes.array,
     bearerToken: PropTypes.string,
   }
+  constructor(props) {
+    super(props);
+    this.state = {
+      hubConnection: {}
+    };
+  }
 
   navigate = () => {
     this.props.history.push('Login');
   }
+
+  componentDidMount() {
+    try {
+      const hubConnection = new HubConnectionBuilder()
+        .withUrl("http://localhost:5000/eventos")
+        .configureLogging(signalR.LogLevel.Information)
+        .build();
+
+      hubConnection.start();
+      this.setState({ hubConnection });
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  updateDashboardEvents = () => {
+    this.state.hubConnection
+      .invoke('UpdateEvents')
+      .catch(err => console.error(err));
+  };
+
 
   updateEvents = () => {
     const cacheToken = cookies.get('token')
@@ -58,6 +87,7 @@ class BackOffice extends Component {
       postBackOffice('https://localhost:5001/api/event/', eventObject, eo)
         .then(() => { this.updateEvents(); });
     }
+    this.updateDashboardEvents();
   };
 
   setEventForEdition = (eventId) => {
@@ -89,6 +119,7 @@ class BackOffice extends Component {
     this.props.resetEditionMode();
   }
 
+
   render() {
     const { events } = this.props;
     return (
@@ -104,7 +135,12 @@ class BackOffice extends Component {
             </div>
             <div className="col selectedDayEventsBox">
               <h3>Selected Day:</h3>
-              <SelectedDayEventsList events={events} eventEditionEvent={this.setEventForEdition} />
+              <SelectedDayEventsList
+                events={events}
+                eventEditionEvent={this.setEventForEdition}
+                hubConnection={this.state.hubConnection}
+                onDelete={this.updateDashboardEvents}
+              />
             </div>
           </div>
         </Fragment>

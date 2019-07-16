@@ -20,12 +20,14 @@ class SelectedDayEvent extends Component {
     removeEvent: PropTypes.func,
     onClickEditButton: PropTypes.func,
     isEditMode: PropTypes.bool,
+    onDeleteEvent: PropTypes.func,
   };
 
   deleteEvent = () => {
-    const cacheToken = cookies.get('token')
+    const cacheToken = cookies.get('token');
     deleteEvent(`https://localhost:5001/api/event/${this.props.event.id}`, `Bearer ${cacheToken}`);
     this.props.removeEvent(this.props.event);
+    this.props.onDeleteEvent();
   };
 
   render() {

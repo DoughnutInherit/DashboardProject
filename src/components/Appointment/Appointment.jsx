@@ -48,34 +48,41 @@ class Appointment extends Component {
     const ADE = title;
     let timeRemeaningToStart;
     let timeRemeaningToEnd;
-    debugger;
+
     if (events.length !== 0) {
       const checkShowNewEvent = checkIfShowNewEvent(index, events, ADE);
       if (!checkShowNewEvent) {
-        // Case: NO Show
+        //Case: NO Show
         if (index < events.length) {
-          if (ADE === undefined) {
+          if(ADE === undefined){
             timeRemeaningToStart = calculateTimeDiff(now, moment(events[index].entryDate));
             timeRemeaningToEnd = calculateTimeDiff(now, moment(events[index].departureDate));
-          } else {
-            if (events.length !== 1) {
+          }
+          else{
+            if(events.length !== 1){
               timeRemeaningToStart = 0;
               timeRemeaningToEnd = calculateTimeDiff(now, moment(events[index].entryDate));
             }
-          }
-        } else {
-          if (ADE !== undefined) {
-            timeRemeaningToStart = 0;
-            timeRemeaningToEnd = calculateTimeDiff(now, moment(events[0].departureDate));
-            this.props.setEvent(events[0]);
+            else{
+              timeRemeaningToStart = 0;
+              timeRemeaningToEnd = calculateTimeDiff(now, moment(events[index].departureDate));
+            }
           }
         }
-      } else {
-        // Case: Show event
-        timeRemeaningToStart = calculateTimeDiff(now, moment(events[index].entryDate));
-        timeRemeaningToEnd = calculateTimeDiff(now, moment(events[index].departureDate));
+        else{
+          if(ADE !== undefined){
+            timeRemeaningToStart = 0;
+            timeRemeaningToEnd = calculateTimeDiff(now, moment(events[index].departureDate));
+            this.props.setEvent(events[0])
+          }
+        }
       }
-    }
+      else {
+          // Case: Show event
+          timeRemeaningToStart = calculateTimeDiff(now, moment(events[index].entryDate));
+          timeRemeaningToEnd = calculateTimeDiff(now, moment(events[index].departureDate));
+        }
+      }
 
     if ((index < events.length && events.length !== 0) || (ADE !== undefined)) {
       this.props.setActionTime(timeRemeaningToEnd);
@@ -115,7 +122,6 @@ class Appointment extends Component {
     hubConnection.start();
     this.updateEvents();
     hubConnection.on("updateEvents", () => {
-      this.updateEvents();
       window.location.reload();
     });
     this.setState({ hubConnection });

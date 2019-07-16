@@ -11,16 +11,7 @@ const initialState = {
   time: 0,
   eventIndex: 0,
   actionTime: 0,
-  events: [
-    {
-      title: '',
-      description: '',
-      entryDate: '',
-      departureDate: '',
-      typeId: 1,
-      id: 21,
-    },
-  ],
+  events: [],
   selectedEvent: {
     allday: false,
     date: '',

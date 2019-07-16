@@ -9,6 +9,7 @@ import { setBirthdayList } from '../../actions/actionBirthday';
 import './Birthday.css';
 import '../../containers/Dashboard/Dashboard.css';
 import { getApiData } from '../../services/serviceWorker';
+import cookies from 'js-cookie';
 
 class Birthday extends Component {
   static propTypes = {
@@ -18,7 +19,8 @@ class Birthday extends Component {
   }
 
   componentDidMount() {
-    const bearerToken = `Bearer ${this.props.bearerToken}`;
+    const cacheToken = cookies.get('token')
+    const bearerToken = `Bearer ${cacheToken}`;
 
     getApiData('https://localhost:5001/api/birthday', bearerToken)
       .then(response => { this.props.setBirthdayList(response); })
@@ -28,8 +30,7 @@ class Birthday extends Component {
 
   render() {
     const { birthdayList } = this.props;
-
-    if (birthdayList.lenght > 0) {
+    if (birthdayList.length > 0) {
       return (
         <Carousel className="carousel shadow" autoPlay showArrows={false} infiniteLoop emulateTouch showStatus={false} showThumbs={false}>
           {this.props.birthdayList.map((Person, i) => (

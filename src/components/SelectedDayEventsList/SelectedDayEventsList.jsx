@@ -15,6 +15,7 @@ class SelectedDayEventsList extends Component {
     setEvents: PropTypes.func,
     token: PropTypes.string,
     eventEditionEvent: PropTypes.func,
+    onDelete: PropTypes.func,
   }
 
 
@@ -41,6 +42,7 @@ class SelectedDayEventsList extends Component {
                 isEditMode={event.isEditMode}
                 event={event}
                 key={event.id}
+                onDeleteEvent={this.props.onDelete}
               />
             ))
           }

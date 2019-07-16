@@ -3,17 +3,11 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import * as signalR from '@aspnet/signalr';
-import { HubConnectionBuilder } from '@aspnet/signalr';
+
 import './BackOffice.css';
 
 class FormBackOffice extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      hubConnection: {}
-    };
-  }
+
   static propTypes = {
     handleSubmit: PropTypes.func,
     allDayEvent: PropTypes.object,
@@ -22,28 +16,6 @@ class FormBackOffice extends Component {
     change: PropTypes.func,
     isEditMode: PropTypes.bool,
     onCancelClick: PropTypes.func,
-  }
-  updateEventsToAll = () => {
-    this.state.hubConnection
-      .invoke('UpdateEvents')
-      .catch(err => console.error(err));
-  };
-
-  componentDidMount() {
-    try {
-      const hubConnection = new HubConnectionBuilder()
-      .withUrl("http://localhost:5000/eventos")
-      .configureLogging(signalR.LogLevel.Information)
-      .build();
-
-    hubConnection.start();
-    this.setState({ hubConnection });
-      
-    } catch (error) {
-      console.log(error)
-      
-    }
-
   }
 
   onClick = () => {
@@ -144,7 +116,9 @@ class FormBackOffice extends Component {
             />
           </div>
           <div>
-            <button onClick={this.updateEventsToAll} type="submit" className="btn btn-warning float-right" disabled={pristine && submitting}>Done</button>
+            <button type="submit" className="btn btn-warning float-right" disabled={pristine && submitting}>
+              Save
+            </button>
             <button
               type="button"
               className="btn btn-warning cancelButton float-right"
