@@ -50,25 +50,23 @@ export function compare(a, b) {
   return 0;
 }
 
-export function checkIfShowNewEvent(actualIndex, events, allDayEventTitle) {
+export function checkIfShowEvent(actualIndex, events, allDayEvent) {
   let showEvent = false;
   const now = moment();
+  
   if (actualIndex < events.length) {
     const eventStartTime = moment(events[actualIndex].entryDate);
     const eventStopTime = moment(events[actualIndex].departureDate);
 
     if (eventStartTime.diff(now) < 0 && eventStopTime.diff(now) > 0) {
-      if (allDayEventTitle !== undefined && actualIndex !== 0) {
+      if (allDayEvent !== undefined && actualIndex !== 0) {
         showEvent = true;
       }
     }
   }
 
-
   return showEvent;
 }
-
-export const calculateTimeDiff = (startTime, endTime) => endTime.diff(startTime);
 
 export const getJwtBearer = (user, method, url) => new Promise(((resolve, reject) => {
   Request(method, url)

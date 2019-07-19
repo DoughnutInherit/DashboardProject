@@ -93,6 +93,7 @@ class FormBackOffice extends Component {
               name="iniHour"
               component="input"
               type="time"
+              step="1"
               disabled={allDayEvent}
             />
           </div>
@@ -103,6 +104,7 @@ class FormBackOffice extends Component {
               name="endHour"
               component="input"
               type="time"
+              step="1"
               disabled={allDayEvent}
             />
           </div>
