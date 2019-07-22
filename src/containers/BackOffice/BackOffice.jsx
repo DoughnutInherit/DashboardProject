@@ -2,6 +2,9 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import cookies from 'js-cookie';
+import * as signalR from '@aspnet/signalr';
+import { HubConnectionBuilder } from '@aspnet/signalr';
 import FormBackOffice from '../../components/BackOffice/FormBackOffice';
 import SelectedDayEventsList from '../../components/SelectedDayEventsList/SelectedDayEventsList';
 import '../../components/SelectedDayEventsList/SelectedDayEventsList.css';
@@ -12,9 +15,9 @@ import {
   refreshEventsList,
   resetEditionMode,
 } from '../../actions/actionAppointment';
-import cookies from 'js-cookie';
-import * as signalR from '@aspnet/signalr';
-import { HubConnectionBuilder } from '@aspnet/signalr';
+import SelectedDayPicker from '../../components/SelectedDay/SelectedDay';
+import './BackOffice.css';
+import 'react-datepicker/dist/react-datepicker.css';
 
 
 class BackOffice extends Component {
@@ -28,29 +31,32 @@ class BackOffice extends Component {
     events: PropTypes.array,
     bearerToken: PropTypes.string,
   }
+
   constructor(props) {
     super(props);
     this.state = {
-      hubConnection: {}
+      hubConnection: {},
+      startDate: new Date(),
     };
   }
 
-  navigate = () => {
-    this.props.history.push('Login');
-  }
 
   componentDidMount() {
     try {
       const hubConnection = new HubConnectionBuilder()
-        .withUrl("http://localhost:5000/eventos")
+        .withUrl('http://localhost:5000/eventos')
         .configureLogging(signalR.LogLevel.Information)
         .build();
 
       hubConnection.start();
       this.setState({ hubConnection });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
+  }
+
+  navigate = () => {
+    this.props.history.push('Login');
   }
 
   updateDashboardEvents = () => {
@@ -60,11 +66,10 @@ class BackOffice extends Component {
   };
 
 
-  updateEvents = () => {
-    const cacheToken = cookies.get('token')
+  updateEvents = (date = moment().format('YYYY-MM-DD')) => {
+    const cacheToken = cookies.get('token');
     const bearerToken = `Bearer ${cacheToken}`;
-    const now = moment().format('YYYY-MM-DD');
-    getApiData(`https://localhost:5001/api/event/${now}`, bearerToken)
+    getApiData(`https://localhost:5001/api/event/${date}`, bearerToken)
       .then(response => { this.props.setEvents(response); })
       .catch(() => {
 
@@ -119,6 +124,18 @@ class BackOffice extends Component {
     this.props.resetEditionMode();
   }
 
+  handleChange = (date) => {
+    this.setState({
+      startDate: date,
+    });
+    this.updateEvents(moment(date, 'DD/MM/YYYY').format('YYYY-MM-DD'));
+  }
+
+  changeListDay = (dayDiff) => {
+    const newDate = moment(this.state.startDate).add(dayDiff, 'days').format('DD/MM/YYYY');
+    const date = moment(newDate, 'DD/MM/YYYY').toDate();
+    this.handleChange(date);
+  }
 
   render() {
     const { events } = this.props;
@@ -134,7 +151,16 @@ class BackOffice extends Component {
               />
             </div>
             <div className="col selectedDayEventsBox">
-              <h3>Selected Day:</h3>
+              <h3>
+                {'Selected Day:'}
+                <SelectedDayPicker
+                  className="dayPicker"
+                  startDate={this.state.startDate}
+                  handleChange={this.handleChange}
+                  goBack={() => this.changeListDay(-1)}
+                  goFront={() => this.changeListDay(1)}
+                />
+              </h3>
               <SelectedDayEventsList
                 events={events}
                 eventEditionEvent={this.setEventForEdition}
