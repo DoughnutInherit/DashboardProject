@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Net.Http.Headers;
 using System;
 using System.Collections.Generic;
@@ -10,14 +10,15 @@ namespace DasboardProjectBE.Configurations
     public static class CorsConfig
     {
         public static IServiceCollection AddCorsOptions(this IServiceCollection services)
-        {
+        {  
             services.AddCors(options => {
                 options.AddPolicy("AllowSpecificOrigins",
                 builder =>
                 {
-                    builder.WithOrigins("http://localhost:3000")
+                    builder.WithOrigins("*")
                             .WithMethods("* ")
                             .WithHeaders(HeaderNames.ContentType, "application/json")
+                            .SetIsOriginAllowed((host) => true)
                             .AllowAnyHeader();
                 });
             });

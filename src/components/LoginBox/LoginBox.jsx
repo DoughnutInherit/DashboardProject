@@ -9,6 +9,7 @@ import PasswordValidator from 'password-validator';
 import { setEmailValue, setPasswordValue, setAuthToken } from '../../actions/actionLogin';
 import { getJwtBearer } from '../../services/serviceWorker';
 import { getLoginControllerUrl } from '../../constants/constants';
+import cookies from 'js-cookie';
 
 
 class LoginBox extends Component {
@@ -71,6 +72,7 @@ class LoginBox extends Component {
 
   getToken = (user, method, url) => getJwtBearer(user, method, url)
     .then(response => this.props.setAuthToken(response.text))
+    .then(result => cookies.set('token', result.token))
     .then(() => this.navigate())
     .catch(e => {
       const message = `${e.message} Invalid values. Retry it`;
@@ -80,7 +82,7 @@ class LoginBox extends Component {
   render() {
     return (
       <Form onSubmit={this.handleSubmit}>
-        <FormGroup controlId="email" bsSize="large">
+        <FormGroup controlId="email" size="large">
           <FormLabel>Email</FormLabel>
           <FormControl
             autoFocus
@@ -89,7 +91,7 @@ class LoginBox extends Component {
             onChange={this.handleChange}
           />
         </FormGroup>
-        <FormGroup controlId="password" bsSize="large">
+        <FormGroup controlId="password" size="large">
           <FormLabel>Password</FormLabel>
           <FormControl
             value={this.props.password}
@@ -99,7 +101,7 @@ class LoginBox extends Component {
         </FormGroup>
         <Button
           block
-          bsSize="large"
+          size="large"
           type="submit"
           onClick={this.onClick}
         >

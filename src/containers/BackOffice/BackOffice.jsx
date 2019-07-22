@@ -2,6 +2,9 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import cookies from 'js-cookie';
+import * as signalR from '@aspnet/signalr';
+import { HubConnectionBuilder } from '@aspnet/signalr';
 import FormBackOffice from '../../components/BackOffice/FormBackOffice';
 import SelectedDayEventsList from '../../components/SelectedDayEventsList/SelectedDayEventsList';
 import '../../components/SelectedDayEventsList/SelectedDayEventsList.css';
@@ -16,9 +19,9 @@ import SelectedDayPicker from '../../components/SelectedDay/SelectedDay';
 import './BackOffice.css';
 import 'react-datepicker/dist/react-datepicker.css';
 
+
 class BackOffice extends Component {
   static propTypes = {
-    bearerToken: PropTypes.object,
     isEditMode: PropTypes.bool,
     setEvents: PropTypes.func,
     history: PropTypes.object,
@@ -26,26 +29,50 @@ class BackOffice extends Component {
     refreshEventsList: PropTypes.func,
     resetEditionMode: PropTypes.func,
     events: PropTypes.array,
+    bearerToken: PropTypes.string,
   }
 
   constructor(props) {
     super(props);
     this.state = {
+      hubConnection: {},
       startDate: new Date(),
     };
+  }
+
+
+  componentDidMount() {
+    try {
+      const hubConnection = new HubConnectionBuilder()
+        .withUrl('http://localhost:5000/eventos')
+        .configureLogging(signalR.LogLevel.Information)
+        .build();
+
+      hubConnection.start();
+      this.setState({ hubConnection });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   navigate = () => {
     this.props.history.push('Login');
   }
 
+  updateDashboardEvents = () => {
+    this.state.hubConnection
+      .invoke('UpdateEvents')
+      .catch(err => console.error(err));
+  };
+
+
   updateEvents = (date = moment().format('YYYY-MM-DD')) => {
-    const bearerToken = `Bearer ${this.props.bearerToken}`;
+    const cacheToken = cookies.get('token');
+    const bearerToken = `Bearer ${cacheToken}`;
     getApiData(`https://localhost:5001/api/event/${date}`, bearerToken)
       .then(response => { this.props.setEvents(response); })
       .catch(() => {
-        alert('Your validation is expired!');
-        this.navigate('Login');
+
       });
   };
 
@@ -57,7 +84,7 @@ class BackOffice extends Component {
     const eventObject = {
       ...object, entryDate, departureDate, typeid: type,
     };
-    const eo = `Bearer ${this.props.bearerToken}`;
+    const eo = `Bearer ${cookies.get('token')}`;
     if (this.props.events.filter(x => x.isEditMode).length > 0) {
       postBackOffice('https://localhost:5001/api/event/', eventObject, eo, 'PUT')
         .then(() => { this.updateEvents(); });
@@ -65,6 +92,7 @@ class BackOffice extends Component {
       postBackOffice('https://localhost:5001/api/event/', eventObject, eo)
         .then(() => { this.updateEvents(); });
     }
+    this.updateDashboardEvents();
   };
 
   setEventForEdition = (eventId) => {
@@ -133,7 +161,12 @@ class BackOffice extends Component {
                   goFront={() => this.changeListDay(1)}
                 />
               </h3>
-              <SelectedDayEventsList events={events} eventEditionEvent={this.setEventForEdition} />
+              <SelectedDayEventsList
+                events={events}
+                eventEditionEvent={this.setEventForEdition}
+                hubConnection={this.state.hubConnection}
+                onDelete={this.updateDashboardEvents}
+              />
             </div>
           </div>
         </Fragment>
@@ -143,8 +176,8 @@ class BackOffice extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  bearerToken: state.loginReducer.bearerToken,
   events: state.appointment.events,
+  bearerToken: state.loginReducer.bearerToken,
 });
 
 export default connect(mapStateToProps, {

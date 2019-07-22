@@ -11,16 +11,7 @@ const initialState = {
   time: 0,
   eventIndex: 0,
   actionTime: 0,
-  events: [
-    {
-      title: '',
-      description: '',
-      entryDate: '',
-      departureDate: '',
-      typeId: 1,
-      id: 21,
-    },
-  ],
+  events: [],
   selectedEvent: {
     allday: false,
     date: '',
@@ -65,25 +56,6 @@ const checkAllDayEvent = (events) => {
   return eventSelected;
 };
 
-const setDefaultEvent = (array, index, allDayEvent) => {
-  let object = {
-    title: 'Sin eventos para el dia de hoy',
-    description: 'Sin eventos para el dia de hoy. ¡Que tengas un buen dia!',
-  };
-
-  if (index < array.length && array.length > 0) {
-    object = array[index];
-  } else if (allDayEvent.description !== undefined && array.length > 0) {
-    object = array[0];
-  } else {
-    object = {
-      title: 'Sin eventos para el dia de hoy',
-      description: 'Sin eventos para el dia de hoy. ¡Que tengas un buen dia!',
-    };
-  }
-  return object;
-};
-
 const deleteEvent = (stateList, event) => stateList.filter(x => x.id !== event.id);
 
 const appointmentReducer = (state = initialState, action) => {
@@ -101,7 +73,6 @@ const appointmentReducer = (state = initialState, action) => {
       return {
         ...state,
         events: myEvents,
-        event: setDefaultEvent(myEvents, state.eventIndex, state.allDayEvent),
         allDayEvent: checkAllDayEvent(myEvents),
         selectedEvent: initialState.selectedEvent,
         isEditionMode: false,

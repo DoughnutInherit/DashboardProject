@@ -9,16 +9,18 @@ import { setBirthdayList } from '../../actions/actionBirthday';
 import './Birthday.css';
 import '../../containers/Dashboard/Dashboard.css';
 import { getApiData } from '../../services/serviceWorker';
+import cookies from 'js-cookie';
 
 class Birthday extends Component {
   static propTypes = {
     setBirthdayList: PropTypes.func,
     birthdayList: PropTypes.array,
-    bearerToken: PropTypes.object,
+    bearerToken: PropTypes.string,
   }
 
   componentDidMount() {
-    const bearerToken = `Bearer ${this.props.bearerToken}`;
+    const cacheToken = cookies.get('token')
+    const bearerToken = `Bearer ${cacheToken}`;
 
     getApiData('https://localhost:5001/api/birthday', bearerToken)
       .then(response => { this.props.setBirthdayList(response); })
@@ -28,12 +30,11 @@ class Birthday extends Component {
 
   render() {
     const { birthdayList } = this.props;
-
-    if (birthdayList !== undefined) {
+    if (birthdayList.length > 0) {
       return (
         <Carousel className="carousel shadow" autoPlay showArrows={false} infiniteLoop emulateTouch showStatus={false} showThumbs={false}>
-          {this.props.birthdayList.map(Person => (
-            <div>
+          {this.props.birthdayList.map((Person, i) => (
+            <div key={i}>
               <img className="image" src={`data:image/jpeg;base64,${Person.imageUrl}`} alt="" />
               <h3 className="text">
                 {`! Feliz Cumpleaños ${Person.completeName} !`}
@@ -46,7 +47,7 @@ class Birthday extends Component {
     return (
       <div>
         <img className="image center" src="https://image.flaticon.com/icons/svg/214/214305.svg" alt="" />
-        <h3 className="text" align="center">Sin Cumpleaños</h3>
+        <h4 className="text" align="center">Sin Cumpleaños en el dia de hoy</h4>
       </div>
     );
   }
