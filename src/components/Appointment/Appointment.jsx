@@ -5,7 +5,6 @@ import './Appointment.css';
 
 class Appointment extends Component {
   static propTypes = {
-    history: PropTypes.object,
     event: PropTypes.object,
   }
 
