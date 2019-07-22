@@ -12,7 +12,9 @@ import {
   refreshEventsList,
   resetEditionMode,
 } from '../../actions/actionAppointment';
-
+import SelectedDayPicker from '../../components/SelectedDay/SelectedDay';
+import './BackOffice.css';
+import 'react-datepicker/dist/react-datepicker.css';
 
 class BackOffice extends Component {
   static propTypes = {
@@ -26,14 +28,20 @@ class BackOffice extends Component {
     events: PropTypes.array,
   }
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      startDate: new Date(),
+    };
+  }
+
   navigate = () => {
     this.props.history.push('Login');
   }
 
-  updateEvents = () => {
+  updateEvents = (date = moment().format('YYYY-MM-DD')) => {
     const bearerToken = `Bearer ${this.props.bearerToken}`;
-    const now = moment().format('YYYY-MM-DD');
-    getApiData(`https://localhost:5001/api/event/${now}`, bearerToken)
+    getApiData(`https://localhost:5001/api/event/${date}`, bearerToken)
       .then(response => { this.props.setEvents(response); })
       .catch(() => {
         alert('Your validation is expired!');
@@ -88,6 +96,19 @@ class BackOffice extends Component {
     this.props.resetEditionMode();
   }
 
+  handleChange = (date) => {
+    this.setState({
+      startDate: date,
+    });
+    this.updateEvents(moment(date, 'DD/MM/YYYY').format('YYYY-MM-DD'));
+  }
+
+  changeListDay = (dayDiff) => {
+    const newDate = moment(this.state.startDate).add(dayDiff, 'days').format('DD/MM/YYYY');
+    const date = moment(newDate, 'DD/MM/YYYY').toDate();
+    this.handleChange(date);
+  }
+
   render() {
     const { events } = this.props;
     return (
@@ -102,7 +123,16 @@ class BackOffice extends Component {
               />
             </div>
             <div className="col selectedDayEventsBox">
-              <h3>Selected Day:</h3>
+              <h3>
+                {'Selected Day:'}
+                <SelectedDayPicker
+                  className="dayPicker"
+                  startDate={this.state.startDate}
+                  handleChange={this.handleChange}
+                  goBack={() => this.changeListDay(-1)}
+                  goFront={() => this.changeListDay(1)}
+                />
+              </h3>
               <SelectedDayEventsList events={events} eventEditionEvent={this.setEventForEdition} />
             </div>
           </div>
