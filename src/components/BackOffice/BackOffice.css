@@ -1,9 +1,44 @@
 .eventTitle{
-    font-size: 33px;
+    font-size: 20px;
     color: #EA7600;
     font-weight:600;
   }
 
   .cancelButton{
     margin-right: 10px;
+  }
+
+  .buttonStyle{
+    width: 100px;
+    margin-left: 10px;
+  }
+  .parent{
+    display: flex;
+  }
+
+  .wide{
+    flex: 1
+  }
+
+  .separation{
+    margin-left: 20px;
+  
+  }
+
+  .allDayCheck{
+    margin-top: 10px;
+    margin-right: 10px;
+    transform: scale(2);
+  }
+  
+  .checkContainer{
+    width: 20%;
+  }
+
+  .checkTitle{
+    margin-top: 15px;
+  }
+
+  .display{
+    display: unset;
   }
