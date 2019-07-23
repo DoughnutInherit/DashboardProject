@@ -1,6 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { HubConnectionBuilder, LogLevel } from '@aspnet/signalr';
+import cookies from 'js-cookie';
+import moment from 'moment';
 import Appointment from '../../components/Appointment/Appointment';
 import DynamicContent from '../../components/DynamicContent/DynamicContent';
 import Birthday from '../../components/Birthday/Birthday';
@@ -14,13 +17,10 @@ import {
   getApiData,
 } from '../../services/serviceWorker';
 
-import * as signalR from '@aspnet/signalr';
-import { HubConnectionBuilder } from '@aspnet/signalr';
-import cookies from 'js-cookie';
-import moment from 'moment';
 
 import '../../../node_modules/video-react/dist/video-react.css';
 import './Dashboard.css';
+import { error } from '../../services/toasters';
 
 class Dashboard extends Component {
   static propTypes = {
@@ -30,55 +30,45 @@ class Dashboard extends Component {
     setActionTime: PropTypes.func,
     setEvents: PropTypes.func,
     setEvent: PropTypes.func,
+    allDayEvent: PropTypes.object,
   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      hubConnection: {},
-    };
-  }
-
   componentDidMount = () => {
-    const hubConnection = new HubConnectionBuilder().withUrl("http://localhost:5000/eventos")
-      .configureLogging(signalR.LogLevel.Information)
+    const hubConnection = new HubConnectionBuilder().withUrl('http://localhost:5000/eventos')
+      .configureLogging(LogLevel.Information)
       .build();
 
     hubConnection.start();
     this.getEvents();
-    hubConnection.on("updateEvents", () => {
+    hubConnection.on('updateEvents', () => {
       window.location.reload();
     });
-    this.setState({ hubConnection });
   }
 
   componentWillReceiveProps = (nextProps) => {
-    const { events, setActionTime, setEvent } = nextProps;
-    const now = moment();
+    const { events } = nextProps;
     let timeRemeaningToStart;
     let timeRemeaningToEnd;
 
     if (events.length > 0 && events.length !== 0) {
-
       const eventStartTime = events[0].entryDate;
       const eventStopTime = events[0].departureDate;
 
+      const now = moment();
       timeRemeaningToStart = moment(eventStartTime).diff(now);
       timeRemeaningToEnd = moment(eventStopTime).diff(now);
 
-      setActionTime(timeRemeaningToEnd);
-      setEvent(events[0])
+      this.props.setActionTime(timeRemeaningToEnd);
+      this.props.setEvent(events[0]);
 
       this.timer = setTimeout(() => {
         this.navigate('Event');
       }, timeRemeaningToStart);
-
     } else {
-      setEvent({
-        description: "Sin eventos para el dia de hoy, que tengas un buen dia!"
-      })
+      this.props.setEvent({
+        description: 'Sin eventos para el dia de hoy, que tengas un buen dia!',
+      });
     }
-
   }
 
   componentWillUnmount = () => {
@@ -86,7 +76,7 @@ class Dashboard extends Component {
   }
 
   getEvents = () => {
-    const cacheToken = cookies.get('token')
+    const cacheToken = cookies.get('token');
     const bearerToken = `Bearer ${cacheToken}`;
     const now = moment().format('YYYY-MM-DD');
 
@@ -99,7 +89,7 @@ class Dashboard extends Component {
         this.props.setEvents(events);
       })
       .catch((err) => {
-        alert("Error: " + err.message);
+        error(`Error: ${err.message}`);
         if (err.status === 401) {
           cookies.remove('token');
           this.navigate('Login');
@@ -115,7 +105,7 @@ class Dashboard extends Component {
     const { allDayEvent } = this.props;
 
     if (allDayEvent === undefined) {
-      return false
+      return false;
     }
 
     return true;
@@ -153,5 +143,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  setEvents, setActionTime, setEvent
+  setEvents, setActionTime, setEvent,
 })(Dashboard);

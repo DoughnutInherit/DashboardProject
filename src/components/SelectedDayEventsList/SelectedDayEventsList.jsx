@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import cookies from 'js-cookie';
 import { setEvents } from '../../actions/actionAppointment';
 import SelectedDayEvent from '../SelectedDayEvent/SelectedDayEvent';
 import '../../containers/Dashboard/Dashboard.css';
 import './SelectedDayEventsList.css';
 import { getApiData } from '../../services/serviceWorker';
-import cookies from 'js-cookie';
 
 class SelectedDayEventsList extends Component {
   static propTypes = {

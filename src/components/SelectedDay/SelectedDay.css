@@ -1,3 +1,9 @@
-.selectedDay{
+.selectedDay {
   margin-left: 10px;
+}
+
+.selectedDayButton {
+  margin-left: 5px;
+  margin-bottom: 5px;
+  margin-right: 5px;
 }

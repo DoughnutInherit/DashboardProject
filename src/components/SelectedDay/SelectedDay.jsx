@@ -7,23 +7,29 @@ class SelectedDayPicker extends Component {
   static propTypes = {
     className: PropTypes.string,
     handleChange: PropTypes.func,
-    startDate: PropTypes.string,
+    startDate: PropTypes.object,
     goBack: PropTypes.func,
     goFront: PropTypes.func,
   };
 
   render() {
-    const { className, handleChange, startDate, goBack, goFront } = this.props;
+    const {
+      className,
+      handleChange,
+      startDate,
+      goBack,
+      goFront,
+    } = this.props;
     return (
       <span className="selectedDay">
-        <button type="button" className="btn btn-warning" onClick={goBack}>{'<'}</button>
+        <button type="button" className="btn btn-warning selectedDayButton" onClick={goBack}>{'<'}</button>
         <DatePicker
           className={className}
           selected={startDate}
           onChange={handleChange}
           dateFormat="dd/MM/yyyy"
         />
-        <button type="button" className="btn btn-warning" onClick={goFront}>{'>'}</button>
+        <button type="button" className="btn btn-warning selectedDayButton" onClick={goFront}>{'>'}</button>
       </span>
     );
   }

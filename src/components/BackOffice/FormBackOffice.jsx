@@ -7,7 +7,6 @@ import moment from 'moment';
 import './BackOffice.css';
 
 class FormBackOffice extends Component {
-
   static propTypes = {
     handleSubmit: PropTypes.func,
     allDayEvent: PropTypes.object,
@@ -16,18 +15,17 @@ class FormBackOffice extends Component {
     change: PropTypes.func,
     isEditMode: PropTypes.bool,
     onCancelClick: PropTypes.func,
+    pristine: PropTypes.bool,
+    submitting: PropTypes.bool,
+    reset: PropTypes.func,
   }
 
   onClick = () => {
-    this.props.history.push('Dashboard');
+    this.navigate('Dashboard');
   }
 
   navigate = (url) => {
     this.props.history.push(url);
-  }
-
-  cleanFrom() {
-    document.getElementById("myForm").reset();
   }
 
   checkboxChecked = (event) => {
@@ -47,13 +45,17 @@ class FormBackOffice extends Component {
     this.props.change('date', now);
   }
 
+  cleanFrom() {
+    document.getElementById('myForm').reset();
+  }
+
   render() {
     const {
       handleSubmit,
       allDayEvent,
       pristine,
       submitting,
-      reset
+      reset,
     } = this.props;
     return (
       <form id="myForm" onSubmit={handleSubmit}>
@@ -139,7 +141,7 @@ class FormBackOffice extends Component {
             <button
               type="button"
               className="btn btn-warning"
-              onClick={this.cleanFrom}
+              onClick={() => this.navigate('Dashboard')}
             >
               Go to dashboard
             </button>

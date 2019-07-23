@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import cookies from 'js-cookie';
 import {
   Button, FormGroup, FormControl, FormLabel, Form,
 } from 'react-bootstrap';
@@ -9,7 +10,7 @@ import PasswordValidator from 'password-validator';
 import { setEmailValue, setPasswordValue, setAuthToken } from '../../actions/actionLogin';
 import { getJwtBearer } from '../../services/serviceWorker';
 import { getLoginControllerUrl } from '../../constants/constants';
-import cookies from 'js-cookie';
+import { error } from '../../services/toasters';
 
 
 class LoginBox extends Component {
@@ -76,7 +77,7 @@ class LoginBox extends Component {
     .then(() => this.navigate())
     .catch(e => {
       const message = `${e.message} Invalid values. Retry it`;
-      alert(message);
+      error(message);
     })
 
   render() {

@@ -2,11 +2,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import EventUp from '../../components/EventUp/EventUp';
 import {
-  setEvent
+  setEvent,
 } from '../../actions/actionAppointment';
-import moment from 'moment';
 import './Event.css';
 
 class Event extends Component {
@@ -27,9 +27,10 @@ class Event extends Component {
 
     this.timer = setTimeout(() => {
       this.props.setEvent(event);
-      setTimeout(() => { this.props.setEvent(this.props.allDayEvent); }, moment(event.departureDate).diff(moment()))
+      setTimeout(() => {
+        this.props.setEvent(this.props.allDayEvent);
+      }, moment(event.departureDate).diff(moment()));
     }, moment(event.entryDate).diff(now));
-
   }
 
   componentWillUnmount = () => {
@@ -40,21 +41,17 @@ class Event extends Component {
     const { allDayEvent } = this.props;
 
     if (Object.entries(allDayEvent).length > 0) {
-
       this.props.events.shift();
       this.props.setEvent(this.props.allDayEvent);
 
-      for (let index = 0; index < this.props.events.length; index++) {
+      for (let index = 0; index < this.props.events.length; index += 1) {
         this.setTimeoutEvents(this.props.events[index]);
       }
-
     } else {
       this.timer = setTimeout(() => {
         this.navigate();
       }, this.props.actionTime);
-
     }
-
   }
 
 
@@ -78,5 +75,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  setEvent
+  setEvent,
 })(Event);

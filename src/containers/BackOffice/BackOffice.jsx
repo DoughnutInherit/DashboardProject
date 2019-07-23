@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import cookies from 'js-cookie';
-import * as signalR from '@aspnet/signalr';
-import { HubConnectionBuilder } from '@aspnet/signalr';
+import { HubConnectionBuilder, LogLevel } from '@aspnet/signalr';
 import FormBackOffice from '../../components/BackOffice/FormBackOffice';
 import SelectedDayEventsList from '../../components/SelectedDayEventsList/SelectedDayEventsList';
 import '../../components/SelectedDayEventsList/SelectedDayEventsList.css';
@@ -45,7 +44,7 @@ class BackOffice extends Component {
     try {
       const hubConnection = new HubConnectionBuilder()
         .withUrl('http://localhost:5000/eventos')
-        .configureLogging(signalR.LogLevel.Information)
+        .configureLogging(LogLevel.Information)
         .build();
 
       hubConnection.start();
