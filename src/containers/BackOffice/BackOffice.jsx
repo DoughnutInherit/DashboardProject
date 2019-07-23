@@ -143,7 +143,7 @@ class BackOffice extends Component {
       <div className="container-fluid backOffice">
         <Fragment>
           <div className="row">
-            <div className="col">
+            <div className="col container">
               <FormBackOffice
                 onSubmit={this.submitEvent}
                 history={this.props.history}

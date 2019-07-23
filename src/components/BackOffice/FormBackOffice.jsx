@@ -76,46 +76,51 @@ class FormBackOffice extends Component {
               type="text"
             />
           </div>
-          <div>
-            <label className="eventTitle">Date</label>
+          <label className="eventTitle">Date</label>
+          <div className="parent">
             <Field
-              className="form-control"
+              className="form-control dateForm wide"
               name="date"
               component="input"
               type="date"
             />
-            <button type="button" className="btn btn-warning float-right" onClick={this.checkToday}>Today</button>
+            <button type="button" className="btn btn-warning float-right buttonStyle" onClick={this.checkToday}>Today</button>
           </div>
-          <div>
-            <label className="eventTitle">Initial hour</label>
-            <Field
-              className="form-control"
-              name="iniHour"
-              component="input"
-              type="time"
-              step="1"
-              disabled={allDayEvent}
-            />
+          <div className="parent">
+
           </div>
-          <div>
-            <label className="eventTitle">End hour</label>
-            <Field
-              className="form-control"
-              name="endHour"
-              component="input"
-              type="time"
-              step="1"
-              disabled={allDayEvent}
-            />
+          <div className="parent">
+            <div>
+
+              <label className="eventTitle">Initial hour</label>
+              <Field
+                className="form-control wide display"
+                name="iniHour"
+                component="input"
+                type="time"
+                disabled={allDayEvent}
+              />
+            </div>
+            <div className="separation">
+              <label className="eventTitle">End hour</label>
+              <Field
+                className="form-control narrow display"
+                name="endHour"
+                component="input"
+                type="time"
+                disabled={allDayEvent}
+              />
+            </div>
           </div>
-          <div>
+          <div className="parent checkContainer">
             <Field
-              className="form-control"
+              className="form-control allDayCheck wide"
               name="allday"
               component="input"
               type="checkbox"
               onChange={this.checkboxChecked}
             />
+            <label className="checkTitle narrow">All day event</label>
           </div>
           <div>
             <button type="submit" className="btn btn-warning float-right" disabled={pristine && submitting}>
@@ -135,13 +140,6 @@ class FormBackOffice extends Component {
               onClick={reset}
             >
               Clear form
-            </button>
-            <button
-              type="button"
-              className="btn btn-warning"
-              onClick={this.cleanFrom}
-            >
-              Go to dashboard
             </button>
           </div>
         </div>
