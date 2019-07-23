@@ -89,11 +89,7 @@ class FormBackOffice extends Component {
             <button type="button" className="btn btn-warning float-right buttonStyle" onClick={this.checkToday}>Today</button>
           </div>
           <div className="parent">
-
-          </div>
-          <div className="parent">
             <div>
-
               <label className="eventTitle">Initial hour</label>
               <Field
                 className="form-control wide display"

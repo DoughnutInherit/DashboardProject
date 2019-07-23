@@ -22,15 +22,15 @@
 
   .separation{
     margin-left: 20px;
-  
+
   }
 
   .allDayCheck{
     margin-top: 10px;
     margin-right: 10px;
-    transform: scale(2);
+    /* transform: scale(2); */
   }
-  
+
   .checkContainer{
     width: 20%;
   }
