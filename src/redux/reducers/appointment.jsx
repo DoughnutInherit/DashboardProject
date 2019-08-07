@@ -24,6 +24,9 @@ const initialState = {
     isEditMode: false,
     title: '',
     typeId: 0,
+    clientName: '',
+    clientCompanyName: '',
+    clientPosition: '',
   },
   isEditionMode: false,
 };

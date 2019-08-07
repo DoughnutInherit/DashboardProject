@@ -4,14 +4,16 @@ using DasboardProjectBE.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DasboardProjectBE.Data.Migrations
 {
     [DbContext(typeof(DasboardDBContext))]
-    partial class DasboardDBContextModelSnapshot : ModelSnapshot
+    [Migration("20190805105432_Edit_Events_Companyes")]
+    partial class Edit_Events_Companyes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

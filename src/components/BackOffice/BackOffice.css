@@ -1,44 +1,42 @@
-.eventTitle{
-    font-size: 20px;
+  .form-control{
+    font-size: 15px
+  }
+
+  .orange{
+    background-color: #EA7600;
+    color: white;
+    border: none;
+  }
+
+  .btn:focus {
+    background-color: white;
     color: #EA7600;
-    font-weight:600;
-  }
-
-  .cancelButton{
-    margin-right: 10px;
-  }
-
-  .buttonStyle{
-    width: 100px;
-    margin-left: 10px;
-  }
-  .parent{
-    display: flex;
-  }
-
-  .wide{
-    flex: 1
   }
 
   .separation{
-    margin-left: 20px;
-
-  }
-
-  .allDayCheck{
     margin-top: 10px;
-    margin-right: 10px;
-    /* transform: scale(2); */
   }
 
-  .checkContainer{
-    width: 20%;
+  .botButtons{
+    text-align: right;
+  }
+  
+  .leftSeparation{
+    margin-left: 5px;
+  }
+  
+  .formTitle{
+    margin-bottom: 10px;
+  }
+  
+  .row{
+    margin-bottom: 5px;
   }
 
-  .checkTitle{
-    margin-top: 15px;
+  #adeCheck{
+    text-align: right;
   }
 
-  .display{
-    display: unset;
+  #adeInput{
+    margin-left: 5px;
   }

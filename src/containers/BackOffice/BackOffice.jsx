@@ -39,7 +39,6 @@ class BackOffice extends Component {
     };
   }
 
-
   componentDidMount() {
     try {
       const hubConnection = new HubConnectionBuilder()
@@ -142,13 +141,6 @@ class BackOffice extends Component {
       <div className="container-fluid backOffice">
         <Fragment>
           <div className="row">
-            <div className="col container">
-              <FormBackOffice
-                onSubmit={this.submitEvent}
-                history={this.props.history}
-                onCancelClick={this.onEditionCancel}
-              />
-            </div>
             <div className="col selectedDayEventsBox">
               <h3>
                 {'Selected Day:'}
@@ -165,6 +157,13 @@ class BackOffice extends Component {
                 eventEditionEvent={this.setEventForEdition}
                 hubConnection={this.state.hubConnection}
                 onDelete={this.updateDashboardEvents}
+              />
+            </div>
+            <div className="col container">
+              <FormBackOffice
+                onSubmit={this.submitEvent}
+                history={this.props.history}
+                onCancelClick={this.onEditionCancel}
               />
             </div>
           </div>

@@ -1,4 +1,4 @@
-﻿using DasboardProjectBE.ServiceLibrary.Common.Dto;
+using DasboardProjectBE.ServiceLibrary.Common.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,26 +6,32 @@ using System.Threading.Tasks;
 
 namespace DasboardProjectBE.ViewModels.Extensions
 {
-    public static class EventViewModelExtensions
+  public static class EventViewModelExtensions
+  {
+    public static EventViewModel ToViewModel(this EventDto self) => new EventViewModel
     {
-        public static EventViewModel ToViewModel(this EventDto self) => new EventViewModel
-        {
-            Id = self.Id,
-            Title = self.Title,
-            Description = self.Description,
-            EntryDate = self.EntryDate,
-            DepartureDate = self.DepartureDate,
-            TypeId = self.TypeId,
-        };
+      Id = self.Id,
+      Title = self.Title,
+      Description = self.Description,
+      EntryDate = self.EntryDate,
+      DepartureDate = self.DepartureDate,
+      TypeId = self.TypeId,
+      ClientName = self.ClientName,
+      ClientPosition = self.ClientPosition,
+      ClientCompanyName = self.ClientCompanyName,
+    };
 
-        public static EventDto ToDto(this EventViewModel self) => new EventDto
-        {
-            Id = self.Id,
-            Title = self.Title,
-            Description = self.Description,
-            EntryDate = self.EntryDate,
-            DepartureDate = self.DepartureDate,
-            TypeId = self.TypeId,
-        };
-    }
+    public static EventDto ToDto(this EventViewModel self) => new EventDto
+    {
+      Id = self.Id,
+      Title = self.Title,
+      Description = self.Description,
+      EntryDate = self.EntryDate,
+      DepartureDate = self.DepartureDate,
+      TypeId = self.TypeId,
+      ClientName = self.ClientName,
+      ClientPosition = self.ClientPosition,
+      ClientCompanyName = self.ClientCompanyName,
+    };
+  }
 }

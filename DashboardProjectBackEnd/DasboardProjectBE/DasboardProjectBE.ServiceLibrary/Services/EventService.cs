@@ -36,13 +36,22 @@ namespace DasboardProjectBE.ServiceLibrary.Services
         => (await eventRepository.GetAllAsync()).Select(x => x.ToDto()).ToList();
 
     public async Task<IEnumerable<EventDto>> GetAllAsync(DateTime dateTime)
-        => (await eventRepository.GetAllAsync(x => x.EntryDate.Day == dateTime.Day
-                        && x.EntryDate.Month == dateTime.Month && x.EntryDate.Year == dateTime.Year)).Select(x => x.ToDto());
+    => (await eventRepository.GetAllAsync(
+           x => x.EntryDate.Day == dateTime.Day
+        && x.EntryDate.Month == dateTime.Month
+        && x.EntryDate.Year == dateTime.Year)
+      ).Select(x => x.ToDto());
 
     public async Task<IEnumerable<EventDto>> GetAllDayEventsAsync(DateTime date)
-    => (await eventRepository.GetAllAsync(x => x.EntryDate.Day == date.Day
-                        && x.EntryDate.Month == date.Month && x.EntryDate.Year == date.Year &&
-                        x.EntryDate.Hour == 8 && x.EntryDate.Minute == 0 && x.DepartureDate.Hour == 20 && x.DepartureDate.Minute == 0)).Select(x => x.ToDto());
+    => (await eventRepository.GetAllAsync(
+                           x => x.EntryDate.Day == date.Day
+                        && x.EntryDate.Month == date.Month
+                        && x.EntryDate.Year == date.Year
+                        && x.EntryDate.Hour == 8
+                        && x.EntryDate.Minute == 0
+                        && x.DepartureDate.Hour == 20
+                        && x.DepartureDate.Minute == 0)
+      ).Select(x => x.ToDto());
 
     public async Task<EventDto> GetByIdAsync(int id)
         => (await eventRepository.GetByIdAsync(id)).ToDto();
@@ -64,6 +73,9 @@ namespace DasboardProjectBE.ServiceLibrary.Services
       originalEvent.DepartureDate = eventDto.DepartureDate;
       originalEvent.TypeId = eventDto.TypeId;
       originalEvent.Title = eventDto.Title;
+      originalEvent.ClientName = eventDto.ClientName;
+      originalEvent.ClientPosition = eventDto.ClientPosition;
+      originalEvent.ClientCompanyName = eventDto.ClientCompanyName;
 
       return originalEvent;
     }
