@@ -97,7 +97,7 @@ class Dashboard extends Component {
       });
   }
 
-  navigate = (url) => {
+  navigate = (url, urlTo) => {
     this.props.history.push(url);
   }
 

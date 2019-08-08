@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace DasboardProjectBE.ServiceLibrary.Common.Contracts.Repositories
 {
-    public interface IBirthdayRepository : IAsyncRepository<int, BirthdayEntity>
-    {
-        Task<IEnumerable<BirthdayEntity>> AddAllAsync(IEnumerable<BirthdayEntity> entities);
-        List<BirthdayEntity> GetAllDaily();
+  public interface IBirthdayRepository : IAsyncRepository<int, BirthdayEntity>
+  {
+    Task<IEnumerable<BirthdayEntity>> AddAllAsync(IEnumerable<BirthdayEntity> entities);
+    List<BirthdayEntity> GetAllDaily();
   }
 }

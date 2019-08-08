@@ -16,9 +16,7 @@ class EventUp extends Component {
       <div className="row alertContainer">
         <div className="col titleStyle">
           <h1>
-            ¡
             {event.title}
-            !
           </h1>
         </div>
         <div className="w-100" />
@@ -33,7 +31,6 @@ class EventUp extends Component {
 const mapStateToProps = (state) => ({
   event: state.appointment.event,
 });
-
 
 export default connect(mapStateToProps, {
 })(EventUp);

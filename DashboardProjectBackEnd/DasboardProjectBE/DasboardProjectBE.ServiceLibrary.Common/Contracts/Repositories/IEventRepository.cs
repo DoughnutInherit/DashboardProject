@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace DasboardProjectBE.ServiceLibrary.Common.Contracts
 {
-    public interface IEventRepository : IAsyncRepository<int,EventEntity>
-    {
-        //Task<IEnumerable<EventEntity>> GetAllAsync(DateTime date);
-    }
+  public interface IEventRepository : IAsyncRepository<int, EventEntity>
+  {
+  }
 }

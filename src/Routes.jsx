@@ -7,7 +7,7 @@ import Login from './containers/Login/Login';
 
 const getRoutes = () => (
   <Fragment>
-    <Route exact path="/" component={Dashboard} />
+    <Route exact path="/" component={Login} />
     <Route exact path="/Dashboard" component={Dashboard} />
     <Route exact path="/BackOffice" component={BackOffice} />
     <Route exact path="/Event" component={Event} />

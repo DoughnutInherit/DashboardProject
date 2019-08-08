@@ -72,8 +72,7 @@ namespace DasboardProjectBE.ServiceLibrary.IoC
     public static IServiceCollection AddRegisterContexts(this IServiceCollection services, IConfiguration configuration)
     {
       services.AddScoped<IUnitOfWork, UnitOfWork>(x => new UnitOfWork(configuration.GetConnectionString("DataBaseConnection")));
-      services.AddDbContext<DasboardDBContext>(
-          option => option.UseSqlServer(configuration.GetConnectionString("DataBaseConnection")));
+      services.AddDbContext<DasboardDBContext>(option => option.UseSqlServer(configuration.GetConnectionString("DataBaseConnection")));
 
       return services;
     }

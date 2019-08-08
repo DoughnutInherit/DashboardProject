@@ -74,11 +74,13 @@ class FormBackOffice extends Component {
     return (
       <form id="myForm" onSubmit={handleSubmit}>
         <div className="container">
+
           <div className="row">
             <div className="col formTitle">
               <h3>Complete the form:</h3>
             </div>
           </div>
+
           <div className="row">
             <div className="col-sm">
               <Field
@@ -86,10 +88,11 @@ class FormBackOffice extends Component {
                 name="title"
                 component={renderField}
                 type="text"
-                label="Event title"
+                label="Title"
               />
             </div>
           </div>
+
           <div className="row">
             <div className="col-sm">
               <Field
@@ -101,6 +104,7 @@ class FormBackOffice extends Component {
               />
             </div>
           </div>
+
           <div className="row">
             <div className="col-sm">
               <Field
@@ -121,6 +125,7 @@ class FormBackOffice extends Component {
               />
             </div>
           </div>
+
           <div className="row">
             <div className="col-6">
               <Field
@@ -203,7 +208,8 @@ class FormBackOffice extends Component {
                 Clear form
               </button>
             </div>
-            </div>
+          </div>
+          
         </div>
         {error && <strong>{error}</strong>}
       </form >

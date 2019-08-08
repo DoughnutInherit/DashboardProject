@@ -53,10 +53,6 @@ class BackOffice extends Component {
     }
   }
 
-  navigate = () => {
-    this.props.history.push('Login');
-  }
-
   updateDashboardEvents = () => {
     this.state.hubConnection
       .invoke('UpdateEvents')
@@ -70,7 +66,6 @@ class BackOffice extends Component {
     getApiData(`https://localhost:5001/api/event/${date}`, bearerToken)
       .then(response => { this.props.setEvents(response); })
       .catch(() => {
-
       });
   };
 
