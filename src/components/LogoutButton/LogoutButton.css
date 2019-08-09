@@ -1,0 +1,10 @@
+.logoutButton{
+    border: none;
+    background-color: transparent;
+    color: #EA7600;
+}
+
+.logoutButton:active {
+    color: #964d02;
+    border: none;
+}

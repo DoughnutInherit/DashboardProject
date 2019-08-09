@@ -16,12 +16,18 @@ class SelectedDayEventsList extends Component {
     token: PropTypes.string,
     eventEditionEvent: PropTypes.func,
     onDelete: PropTypes.func,
+    history: PropTypes.object,
   }
 
-
   componentDidMount = () => {
-    getApiData(`https://localhost:5001/api/event/${moment().format('YYYY-MM-DD')}`, `Bearer ${cookies.get('token')}`)
-      .then(x => { this.props.setEvents(x); });
+    const token = cookies.get('token');
+    getApiData(`https://localhost:5001/api/event/${moment().format('YYYY-MM-DD')}`, `Bearer ${token}`)
+      .then(x => { this.props.setEvents(x); })
+      .catch(() => {
+        alert("You have to sing in to edit events");
+        this.props.history.push('Login');
+    })
+
   };
 
   render() {

@@ -5,6 +5,7 @@ import createHistory from 'history/createBrowserHistory';
 import { Provider } from 'react-redux';
 import Root from './containers/Root/Root';
 import createStore from './redux/store';
+import '@fortawesome/fontawesome-free/css/all.css'
 
 
 const browserHistoryStore = createHistory();

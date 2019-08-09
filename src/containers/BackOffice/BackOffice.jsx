@@ -15,6 +15,7 @@ import {
   resetEditionMode,
 } from '../../actions/actionAppointment';
 import SelectedDayPicker from '../../components/SelectedDay/SelectedDay';
+import LogoutButton from '../../components/LogoutButton/LogoutButton';
 import './BackOffice.css';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -40,7 +41,7 @@ class BackOffice extends Component {
   }
 
   componentDidMount() {
-    try {
+      try {
       const hubConnection = new HubConnectionBuilder()
         .withUrl('http://localhost:5000/eventos')
         .configureLogging(LogLevel.Information)
@@ -49,7 +50,7 @@ class BackOffice extends Component {
       hubConnection.start();
       this.setState({ hubConnection });
     } catch (error) {
-      console.log(error);
+      console.log("aa");
     }
   }
 
@@ -66,6 +67,7 @@ class BackOffice extends Component {
     getApiData(`https://localhost:5001/api/event/${date}`, bearerToken)
       .then(response => { this.props.setEvents(response); })
       .catch(() => {
+        console.log("s")
       });
   };
 
@@ -78,6 +80,7 @@ class BackOffice extends Component {
       ...object, entryDate, departureDate, typeid: type,
     };
     const eo = `Bearer ${cookies.get('token')}`;
+
     if (this.props.events.filter(x => x.isEditMode).length > 0) {
       postBackOffice('https://localhost:5001/api/event/', eventObject, eo, 'PUT')
         .then(() => { this.updateEvents(); });
@@ -135,6 +138,9 @@ class BackOffice extends Component {
     return (
       <div className="container-fluid backOffice">
         <Fragment>
+          <div className="row logoutButton">
+            <LogoutButton history={this.props.history} />
+          </div>
           <div className="row">
             <div className="col selectedDayEventsBox">
               <h3>
@@ -148,6 +154,7 @@ class BackOffice extends Component {
                 />
               </h3>
               <SelectedDayEventsList
+                history={this.props.history}
                 events={events}
                 eventEditionEvent={this.setEventForEdition}
                 hubConnection={this.state.hubConnection}

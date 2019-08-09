@@ -20,7 +20,6 @@ import {
 
 import '../../../node_modules/video-react/dist/video-react.css';
 import './Dashboard.css';
-import { error } from '../../services/toasters';
 
 class Dashboard extends Component {
   static propTypes = {
@@ -79,7 +78,6 @@ class Dashboard extends Component {
     const cacheToken = cookies.get('token');
     const bearerToken = `Bearer ${cacheToken}`;
     const now = moment().format('YYYY-MM-DD');
-
     getApiData(`https://localhost:5001/api/event/${now}`, bearerToken)
       .then(response => {
         const events = response.filter(x => {
@@ -89,11 +87,6 @@ class Dashboard extends Component {
         this.props.setEvents(events);
       })
       .catch((err) => {
-        error(`Error: ${err.message}`);
-        if (err.status === 401) {
-          cookies.remove('token');
-          this.navigate('Login');
-        }
       });
   }
 
