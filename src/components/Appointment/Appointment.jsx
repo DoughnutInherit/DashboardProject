@@ -10,16 +10,25 @@ class Appointment extends Component {
 
   render() {
     const { event } = this.props;
-    let phrase = "";
+    let phrase = "Hoy nos visita ";
 
-    if (event.clientCompanyName !== "") {
-      if (event.clientPosition !== "") {
-        phrase = `${event.clientName}, ${event.clientPosition} de ${event.clientCompanyName}`
+    if(event.title !== undefined){
+      if (event.clientCompanyName !== "") {
+        if (event.clientPosition !== "") {
+          phrase = `${phrase} ${event.clientName}, ${event.clientPosition} de ${event.clientCompanyName}`
+        } else {
+          if (event.clientName !== "") {
+            phrase = `${phrase} ${event.clientName}, de ${event.clientCompanyName}`
+          } else {
+            phrase = `${phrase}n nuestros amigos de ${event.clientCompanyName}`
+          }
+        }
       } else {
-        phrase = `${event.clientName}, de ${event.clientCompanyName}`     
-      }  
-    } else {
-      phrase = event.clientName    
+        phrase =  `${phrase} ${event.clientName}`;
+      }
+    }
+    else{
+      phrase = event.description;
     }
 
     return (
@@ -32,7 +41,7 @@ class Appointment extends Component {
           {event === undefined
             ? <p className="eventDescription">Sin eventos</p>
             : <p className="eventDescription">
-              Hoy nos visita {phrase}
+              {phrase}
             </p>
           }
         </div>

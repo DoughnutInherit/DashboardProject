@@ -67,7 +67,6 @@ class BackOffice extends Component {
     getApiData(`https://localhost:5001/api/event/${date}`, bearerToken)
       .then(response => { this.props.setEvents(response); })
       .catch(() => {
-        console.log("s")
       });
   };
 

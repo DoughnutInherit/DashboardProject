@@ -87,10 +87,11 @@ class Dashboard extends Component {
         this.props.setEvents(events);
       })
       .catch((err) => {
+        this.navigate("login");
       });
   }
 
-  navigate = (url, urlTo) => {
+  navigate = (url) => {
     this.props.history.push(url);
   }
 
@@ -116,7 +117,7 @@ class Dashboard extends Component {
               <Weather />
             </div>
           </div>
-          <div className="row">
+          <div className="row seapration">
             <div className="col-lg-4">
               <Birthday />
             </div>

@@ -188,13 +188,8 @@ class FormBackOffice extends Component {
           <div className="row botButtons">
             <div className="col">
               <button
-                type="submit"
-                className="btn btn-warning orange">
-                Save
-              </button>
-              <button
                 type="button"
-                className="btn btn-warning leftSeparation orange"
+                className="btn btn-warning rightSeparation orange"
                 hidden={!this.props.isEditMode}
                 onClick={this.props.onCancelClick}
               >
@@ -203,9 +198,14 @@ class FormBackOffice extends Component {
               <button
                 type="button"
                 hidden={this.props.isEditMode}
-                className="btn btn-warning leftSeparation orange"
+                className="btn btn-warning rightSeparation orange"
                 onClick={reset}>
                 Clear form
+              </button>
+              <button
+                type="submit"
+                className="btn btn-warning orange">
+                Save
               </button>
             </div>
           </div>

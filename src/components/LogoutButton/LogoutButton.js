@@ -34,7 +34,7 @@ class LogoutButton extends Component {
     const { className } = this.props;
     return (
       <div className={className}>
-        <button className="logoutButton fas fa-sign-out-alt" onClick={this.handleClick} />
+        <button className="logoutButton fas fa-sign-out-alt" onClick={this.handleClick} title="Log Out" />
       </div>
     )
   }

@@ -6,8 +6,8 @@ import video from '../../constants/video.mp4';
 class Video extends Component {
   render() {
     return (
-      <Player autoPlay src={video} muted>
-        <ControlBar disableCompletely loop />
+      <Player autoPlay src={video} muted loop>
+        <ControlBar disableCompletely/>
       </Player>
     );
   }

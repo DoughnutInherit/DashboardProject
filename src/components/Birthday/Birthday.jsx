@@ -47,7 +47,7 @@ class Birthday extends Component {
     return (
       <div>
         <img className="image center" src="https://image.flaticon.com/icons/svg/214/214305.svg" alt="" />
-        <h4 className="text" align="center">Sin Cumpleaños en el dia de hoy</h4>
+        <h4 className="text" align="center">Sin cumpleaños en el dia de hoy</h4>
       </div>
     );
   }
